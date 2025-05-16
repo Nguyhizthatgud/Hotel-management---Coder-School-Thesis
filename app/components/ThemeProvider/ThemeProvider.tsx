@@ -11,24 +11,19 @@ const ThemeProvider = ({ children }: Props) => {
       ? JSON.parse(localStorage.getItem("Page-Theme")!)
       : false;
   const [darkTheme, setDarkTheme] = React.useState<boolean>(ThemefromStorage);
-  const handleThemeChange = (value: boolean) => {
-    setDarkTheme(value);
-    if (typeof localStorage !== "undefined") {
-      localStorage.setItem("Page-Theme", JSON.stringify(value));
-    }
-  };
+  const [darkThemeStorage, setDarkThemeStorage] = React.useState<boolean>(darkTheme);
+  const [renderComponent, setRenderComponent] = React.useState<boolean>(false);
   React.useEffect(() => {
-    if (darkTheme) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    setRenderComponent(true);
+  }, []);
+  React.useEffect(() => {
+    localStorage.setItem("Page-Theme", JSON.stringify(darkTheme));
   }, [darkTheme]);
 
   return (
     <ThemeContext.Provider value={{ darkTheme, setDarkTheme }}>
-      <div className={`${darkTheme ? "dark" : ""} bg-white dark:bg-[#1a1a1a] text-black dark:text-white`}>
-        {children}
+      <div className={`${darkTheme ? "dark" : ""}  min-h-screen`}>
+        <div className="dark:text-white dark:bg-[#1a1a1a] text-[#1E1E1E]">{children}</div>
       </div>
     </ThemeContext.Provider>
   );

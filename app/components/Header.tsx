@@ -6,11 +6,12 @@ import CustomButton from "./CustomButton";
 import { TbBrandAirbnb } from "react-icons/tb";
 import { LuCircleUserRound } from "react-icons/lu";
 import { Alfa_Slab_One } from "next/font/google";
-import { MdModeNight } from "react-icons/md";
+import { MdModeNight, MdLightMode } from "react-icons/md";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdCurrencyExchange } from "react-icons/md";
-import { Button, Modal, Tabs } from "antd";
+import { Modal, Tabs } from "antd";
 import ReactCountryFlag from "react-country-flag";
+import ThemeContext from "../Context/ThemeContext";
 const alfa = Alfa_Slab_One({
   weight: "400",
   subsets: ["latin"],
@@ -22,21 +23,10 @@ type Props = {
 };
 
 const Header = () => {
-  const [darkMode, setDarkMode] = React.useState(false);
   const [opencurrency, setOpencurrency] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const handleClick = () => {
-    setOpen(false);
-    setOpencurrency(true);
-  };
+  const { darkTheme, setDarkTheme } = React.useContext<any>(ThemeContext);
 
-  React.useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
   const countryNames: { [key: string]: string } = {
     VN: "Việt Nam",
     US: "United States",
@@ -130,24 +120,40 @@ const Header = () => {
             pache
           </Link>
           <LuCircleUserRound className="text-2xl pr-2" />
-
-          <MdModeNight className="text-2xl pr-2" />
-          <Button onClick={() => setDarkMode(!darkMode)}>Toggle Dark Mode</Button>
+          {darkTheme ? (
+            <MdLightMode
+              className="cursor-pointer"
+              onClick={() => {
+                setDarkTheme(false);
+                localStorage.removeItem("Page-Theme");
+              }}
+            />
+          ) : (
+            <MdModeNight
+              className="cursor-pointer"
+              onClick={() => {
+                setDarkTheme(true);
+                localStorage.setItem("Page-Theme", "true");
+              }}
+            />
+          )}
         </div>
         <div className="flex ml-auto gap-4 text-lg font-semibold">
-          <CustomButton
-            className="text-5xl"
-            onClick={() => {
-              setOpen(true);
-              console.log("open currency: ", open);
-            }}
-          >
-            <div className="flex flex-row gap-1 items-center">
-              <AiOutlineGlobal />/
-              <MdCurrencyExchange />
-            </div>
-          </CustomButton>
-          <Modal open={open} onOk={() => setOpen(false)} onCancel={() => setOpen(false)} footer={null} width={1200}>
+          {
+            <CustomButton
+              className="text-5xl"
+              onClick={() => {
+                setOpen(true);
+                console.log("open currency: ", open);
+              }}
+            >
+              <div className="currency flex flex-row gap-1 items-center">
+                <AiOutlineGlobal />/
+                <MdCurrencyExchange />
+              </div>
+            </CustomButton>
+          }
+          <Modal open={open} footer={null} width={1200}>
             <Tabs>
               <Tabs.TabPane tab="Tiền Tệ & Ngôn Ngữ" key="1">
                 <div className="text-sm font-bold">Chọn mệnh giá quy đổi và ngôn ngữ đề xuất</div>
@@ -156,7 +162,11 @@ const Header = () => {
                     <div
                       key={currency.code}
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
-                      onClick={() => console.log("Selected:", currency)}
+                      onClick={() => {
+                        console.log("Selected:", currency);
+                        setOpencurrency(false);
+                        setOpen(false);
+                      }}
                     >
                       <ReactCountryFlag
                         countryCode={currency.nation}
@@ -179,7 +189,11 @@ const Header = () => {
                     <div
                       key={currency.code}
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
-                      onClick={() => console.log("Selected:", currency)}
+                      onClick={() => {
+                        console.log("Selected:", currency);
+                        setOpencurrency(false);
+                        setOpen(false);
+                      }}
                     >
                       <ReactCountryFlag
                         countryCode={currency.nation}
