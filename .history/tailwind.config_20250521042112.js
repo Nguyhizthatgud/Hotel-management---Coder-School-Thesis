@@ -1,14 +1,9 @@
-const config = {
-  plugins: ["@tailwindcss/postcss"],
-};
-//setup dark mode
-
-const tailwindConfig = {
+module.exports = {
   darkMode: "class",
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html",
-    "./public/index.ejs",
+    "./app/**/*.{js,jsx,ts,tsx}",
+    "./pages/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
@@ -27,4 +22,3 @@ const tailwindConfig = {
   },
   plugins: [],
 };
-export default config;
