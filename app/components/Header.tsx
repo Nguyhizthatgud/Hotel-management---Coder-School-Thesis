@@ -12,11 +12,12 @@ import { AiOutlineGlobal } from "react-icons/ai";
 import { MdCurrencyExchange } from "react-icons/md";
 import { Modal, Tabs, Avatar } from "antd";
 import ReactCountryFlag from "react-country-flag";
+import LoginSignupPage from "./LoginSignupPage";
 
 const cherryBomb = Cherry_Bomb_One({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-alfa",
+  variable: "--font-alfa"
 });
 
 type Props = {
@@ -24,13 +25,15 @@ type Props = {
 };
 
 const Header = () => {
-  const [open, setOpen] = React.useState(false);
+  const [openCurrency, setOpenCurrency] = React.useState(false);
+  const [openSign, setOpenSign] = React.useState(false);
   const { theme, setTheme } = useTheme();
   const handleThemeChange = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
   const handleCancel = () => {
-    setOpen(false);
+    setOpenCurrency(false);
+    setOpenSign(false);
   };
 
   const countryNames: { [key: string]: string } = {
@@ -74,7 +77,7 @@ const Header = () => {
     UAH: "Ukraine",
     RO: "Romania",
     SAR: "Saudi Arabia",
-    QAR: "Qatar",
+    QAR: "Qatar"
 
     // add more country codes and names as needed
   };
@@ -112,7 +115,7 @@ const Header = () => {
     { code: "PKR", symbol: "₨", nation: "PK" },
     { code: "TWD", symbol: "$", nation: "TW" },
     { code: "HUF", symbol: "Ft", nation: "HU" },
-    { code: "CZK", symbol: "Kč", nation: "CZ" },
+    { code: "CZK", symbol: "Kč", nation: "CZ" }
 
     // add more currency objects as needed
   ];
@@ -121,43 +124,34 @@ const Header = () => {
       <div className="flex flex-row justify-around">
         <div className="flex gap-2 items-center w-full md:2/3">
           <TbBrandAirbnb className="text-4xl text-orange-600" />
-          <Link
-            className={`${cherryBomb.className} text-2xl pr-3 cursor-pointer`}
-            href=""
-          >
+          <Link className={`${cherryBomb.className} text-2xl pr-3 cursor-pointer`} href="">
             <span className="text-orange-600">A</span>
             <span>pache</span>
           </Link>
           <Avatar className="text-2xl pr-2" />
           <div className="cursor-pointer" onClick={handleThemeChange}>
-            {theme === "dark" ? (
-              <MdModeNight className="" />
-            ) : (
-              <MdLightMode className="" />
-            )}
+            {theme === "dark" ? <MdModeNight className="" /> : <MdLightMode className="" />}
           </div>
         </div>
         <div className="flex ml-auto gap-4 text-lg font-semibold">
           {
             <CustomButton
-              className="text-5xl"
+              className="text-5xl bg-gray-600"
               onClick={() => {
-                setOpen(true);
-                console.log("open currency: ", open);
+                setOpenCurrency(true);
+                console.log("open currency: ", openCurrency);
               }}
             >
               <div className="currency flex flex-row gap-1 items-center">
-                <AiOutlineGlobal />/
+                <AiOutlineGlobal />|
                 <MdCurrencyExchange />
               </div>
             </CustomButton>
           }
-          <Modal open={open} onCancel={handleCancel} footer={null} width={1200}>
+          <Modal open={openCurrency} onCancel={handleCancel} footer={null} width={1200}>
             <Tabs>
               <Tabs.TabPane tab="Tiền Tệ & Ngôn Ngữ" key="1">
-                <div className="text-sm font-bold">
-                  Chọn mệnh giá quy đổi và ngôn ngữ đề xuất
-                </div>
+                <div className="text-sm font-bold">Chọn mệnh giá quy đổi và ngôn ngữ đề xuất</div>
                 <div className="grid grid-cols-6 gap-4 p-4 overflow-y-auto max-h-96">
                   {currencies.slice(0, 6).map((currency) => (
                     <div
@@ -165,7 +159,7 @@ const Header = () => {
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
                       onClick={() => {
                         console.log("Selected:", currency);
-                        setOpen(false);
+                        setOpenCurrency(false);
                       }}
                     >
                       <ReactCountryFlag
@@ -174,8 +168,7 @@ const Header = () => {
                         style={{ width: "1.5em", height: "1.5em" }}
                         title={currency.nation}
                       />
-                      <span className="px-2">{currency.code}</span>/
-                      <span className="px-1">{currency.symbol}</span>
+                      <span className="px-2">{currency.code}</span>/<span className="px-1">{currency.symbol}</span>
                       <div>
                         <span className="text-gray-500 text-sm">
                           {countryNames[currency.nation] || currency.nation}
@@ -184,9 +177,7 @@ const Header = () => {
                     </div>
                   ))}
                 </div>
-                <div className="text-sm font-bold p-2">
-                  Tất cả mệnh giá và ngôn ngữ
-                </div>
+                <div className="text-sm font-bold p-2">Tất cả mệnh giá và ngôn ngữ</div>
                 <div className="grid grid-cols-6 gap-4 p-4 overflow-y-auto max-h-96">
                   {currencies.map((currency) => (
                     <div
@@ -194,7 +185,7 @@ const Header = () => {
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
                       onClick={() => {
                         console.log("Selected:", currency);
-                        setOpen(false);
+                        setOpenCurrency(false);
                       }}
                     >
                       <ReactCountryFlag
@@ -203,8 +194,7 @@ const Header = () => {
                         style={{ width: "1.5em", height: "1.5em" }}
                         title={currency.nation}
                       />
-                      <span className="px-2">{currency.code}</span>/
-                      <span className="px-1">{currency.symbol}</span>
+                      <span className="px-2">{currency.code}</span>/<span className="px-1">{currency.symbol}</span>
                       <div>
                         <span className="text-gray-500 text-sm">
                           {countryNames[currency.nation] || currency.nation}
@@ -216,8 +206,20 @@ const Header = () => {
               </Tabs.TabPane>
             </Tabs>
           </Modal>
-          <CustomButton>Đăng nhập</CustomButton>
-          <CustomButton>Đăng ký</CustomButton>
+          <CustomButton
+            onClick={() => {
+              setOpenSign(true);
+            }}
+          >
+            Đăng nhập/Đăng ký
+          </CustomButton>
+          <Modal open={openSign} onCancel={handleCancel} footer={null} width={800} className="login-modal">
+            <LoginSignupPage />
+            {/* <LoginSignupPage /> */
+            /* Uncomment this line if you want to use the LoginSignupPage component */}
+            {/* <Userfrontfield /> */
+            /* Uncomment this line if you want to use the Userfrontfield component */}
+          </Modal>
         </div>
       </div>
       <div className="mt-4">
