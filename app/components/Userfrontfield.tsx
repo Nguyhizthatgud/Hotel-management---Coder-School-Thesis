@@ -6,7 +6,9 @@ const Userfrontfield = (props: Props) => {
   return (
     <div className="container">
       <div className="">
-        <div className="flex flex-col items-center justify-center min-h-screen py-2"></div>
+        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+          <image></image>
+        </div>
       </div>
     </div>
   );

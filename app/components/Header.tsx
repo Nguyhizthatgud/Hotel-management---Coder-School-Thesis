@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import "@ant-design/v5-patch-for-react-19";
-import CustomButton from "./CustomButton";
+
 import { useTheme } from "next-themes";
 import { TbBrandAirbnb } from "react-icons/tb";
 
@@ -10,7 +10,7 @@ import { Cherry_Bomb_One } from "next/font/google";
 import { MdModeNight, MdLightMode } from "react-icons/md";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdCurrencyExchange } from "react-icons/md";
-import { Modal, Tabs, Avatar } from "antd";
+import { Modal, Tabs, Avatar, Button } from "antd";
 import ReactCountryFlag from "react-country-flag";
 import LoginSignupPage from "./LoginSignupPage";
 
@@ -31,6 +31,11 @@ const Header = () => {
   const handleThemeChange = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
+  const [selectedCurrency, setSelectedCurrency] = React.useState<{
+    code: string;
+    symbol: string;
+    nation: string;
+  } | null>(null);
   const handleCancel = () => {
     setOpenCurrency(false);
     setOpenSign(false);
@@ -123,9 +128,9 @@ const Header = () => {
     <div className="py-4 px-6 mx-auto container">
       <div className="flex flex-row justify-around">
         <div className="flex gap-2 items-center w-full md:2/3">
-          <TbBrandAirbnb className="text-4xl text-orange-600" />
+          <TbBrandAirbnb className="text-4xl text-orange-400" />
           <Link className={`${cherryBomb.className} text-2xl pr-3 cursor-pointer`} href="">
-            <span className="text-orange-600">A</span>
+            <span className="text-orange-400">A</span>
             <span>pache</span>
           </Link>
           <Avatar className="text-2xl pr-2" />
@@ -133,20 +138,27 @@ const Header = () => {
             {theme === "dark" ? <MdModeNight className="" /> : <MdLightMode className="" />}
           </div>
         </div>
-        <div className="flex ml-auto gap-4 text-lg font-semibold">
+        <div className="flex gap-4 text-lg font-semibold">
           {
-            <CustomButton
+            <Button
               className="text-5xl bg-gray-600"
               onClick={() => {
                 setOpenCurrency(true);
                 console.log("open currency: ", openCurrency);
               }}
             >
-              <div className="currency flex flex-row gap-1 items-center">
-                <AiOutlineGlobal />|
-                <MdCurrencyExchange />
-              </div>
-            </CustomButton>
+              {selectedCurrency ? (
+                <div className="flex flex-row gap-1">
+                  <ReactCountryFlag countryCode={selectedCurrency.nation} svg />|
+                  <span className="mr-2">{selectedCurrency.code}</span>
+                </div>
+              ) : (
+                <div className="currency flex flex-row gap-1 items-center">
+                  <AiOutlineGlobal />|
+                  <MdCurrencyExchange />
+                </div>
+              )}
+            </Button>
           }
           <Modal open={openCurrency} onCancel={handleCancel} footer={null} width={1200}>
             <Tabs>
@@ -159,6 +171,7 @@ const Header = () => {
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
                       onClick={() => {
                         console.log("Selected:", currency);
+                        setSelectedCurrency(currency);
                         setOpenCurrency(false);
                       }}
                     >
@@ -185,6 +198,7 @@ const Header = () => {
                       className="gap-2 items-center cursor-pointer hover:bg-gray-100 p-2 rounded-md "
                       onClick={() => {
                         console.log("Selected:", currency);
+                        setSelectedCurrency(currency);
                         setOpenCurrency(false);
                       }}
                     >
@@ -206,14 +220,14 @@ const Header = () => {
               </Tabs.TabPane>
             </Tabs>
           </Modal>
-          <CustomButton
+          <Button
             onClick={() => {
               setOpenSign(true);
             }}
           >
             Đăng nhập/Đăng ký
-          </CustomButton>
-          <Modal open={openSign} onCancel={handleCancel} footer={null} width={800} className="login-modal">
+          </Button>
+          <Modal open={openSign} onCancel={handleCancel} footer={null} className="login-modal">
             <LoginSignupPage />
             {/* <LoginSignupPage /> */
             /* Uncomment this line if you want to use the LoginSignupPage component */}

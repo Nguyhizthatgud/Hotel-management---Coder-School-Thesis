@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Divider } from "antd";
 type Props = {
   username?: string;
   password?: string;
@@ -9,45 +10,25 @@ type Props = {
 
 const LoginSignupPage = (props: Props) => {
   return (
-    <div>
-      <h1>Login or Signup</h1>
-      <p>Please enter your credentials to continue.</p>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true }}
-        autoComplete="off"
-      >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
-        >
-          <Input />
+    <div className="flex flex-col items-center justify-center py-2">
+      <h1 className="text-gray-600 text-3xl">Đăng Nhập / Đăng Ký</h1>
+      <span className="py-3 text-sm">Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.</span>
+      <Form name="user" initialValues={{ remember: true }} autoComplete="off">
+        <Form.Item rules={[{ required: true, message: "Please input your username!" }]}>
+          <Input
+            size="large"
+            className="google-input"
+            placeholder="vui lòng nhập địa chỉ e-mail"
+            prefix={<UserOutlined />}
+          />
         </Form.Item>
-
-        <Form.Item name="remember" valuePropName="checked" label={null}>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
         <Form.Item label={null}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-          <Button type="link" htmlType="button" style={{ marginLeft: "10px" }}>
-            Forgot password?
-          </Button>
+          <Button className="w-full">Tiếp Tục</Button>
         </Form.Item>
+        <Divider>Phương thức đăng nhập khác</Divider>
         <div>
-          Phương thức đăng nhập khác:
-          <Button type="link" htmlType="button" style={{ marginLeft: "10px" }}>
-            Sign in with Google
-          </Button>
-          <Button type="link" htmlType="button" style={{ marginLeft: "10px" }}>
-            Sign in with Facebook
-          </Button>
+          <Button type="link">Sign in with Google</Button>
+          <Button type="link">Sign in with Facebook</Button>
         </div>
       </Form>
     </div>
