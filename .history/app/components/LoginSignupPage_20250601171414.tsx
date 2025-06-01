@@ -40,20 +40,13 @@ const LoginSignupPage = (props: Props) => {
         <Form.Item>
           <Button className="w-full">Tiếp Tục</Button>
         </Form.Item>
-        <Divider size="large" className="">
+        <Divider size="large" className="text-lg py-4 my-6 font-semibold">
           Phương thức đăng nhập khác
         </Divider>
-        <div className="flex gap-2 flex-col">
-          <Button type="default" icon={<GoogleOutlined />} block>
-            Gmail
-          </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
-          <Button type="default" icon={<FacebookFilled />} block>
-            Facebook
-          </Button>
+        <div className="flex gap-2">
+          <Button type="default" block icon={<GithubOutlined />></Button>
+          <Button type="default" icon={<GoogleOutlined />} block></Button>
+          <Button type="default" icon={<FacebookFilled />} block></Button>
         </div>
       </Form>
     </div>

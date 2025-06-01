@@ -2,11 +2,7 @@
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Divider } from "antd";
-import {
-  GoogleOutlined,
-  FacebookFilled,
-  GithubOutlined,
-} from "@ant-design/icons";
+import { GoogleOutlined, FacebookFilled, AppleFilled } from "@ant-design/icons";
 type Props = {
   username?: string;
   password?: string;
@@ -20,40 +16,26 @@ const LoginSignupPage = (props: Props) => {
       <span className="py-3 text-sm">
         Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.
       </span>
-      <Form
-        className="w-full max-w-sm"
-        name="user"
-        initialValues={{ remember: true }}
-        autoComplete="off"
-      >
+      <Form name="user" initialValues={{ remember: true }} autoComplete="off">
         <Form.Item
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input
             size="small"
-            className="w-full"
+            className="gmail-input"
             autoFocus
             placeholder="vui lòng nhập địa chỉ e-mail"
             prefix={<UserOutlined />}
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item label={null}>
           <Button className="w-full">Tiếp Tục</Button>
         </Form.Item>
-        <Divider size="large" className="">
-          Phương thức đăng nhập khác
-        </Divider>
-        <div className="flex gap-2 flex-col">
-          <Button type="default" icon={<GoogleOutlined />} block>
-            Gmail
-          </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
-          <Button type="default" icon={<FacebookFilled />} block>
-            Facebook
-          </Button>
+        <Divider size="large">Phương thức đăng nhập khác</Divider>
+        <div className="flex gap-2">
+          <Button type="default" block icon={<AppleFilled />} block></Button>
+          <Button type="default" icon={<GoogleOutlined />} block></Button>
+          <Button type="default" icon={<FacebookFilled />} block></Button>
         </div>
       </Form>
     </div>

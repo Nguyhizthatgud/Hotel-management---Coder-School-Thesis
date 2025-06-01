@@ -44,13 +44,12 @@ const LoginSignupPage = (props: Props) => {
           Phương thức đăng nhập khác
         </Divider>
         <div className="flex gap-2 flex-col">
+          <Button type="default" block icon={<GithubOutlined />}>
+            GithubGithub
+          </Button>
           <Button type="default" icon={<GoogleOutlined />} block>
             Gmail
           </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
           <Button type="default" icon={<FacebookFilled />} block>
             Facebook
           </Button>

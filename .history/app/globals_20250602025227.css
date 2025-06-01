@@ -50,6 +50,3 @@ ant-input:focus {
   font-size: 1rem !important;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.ant-divider {
-  border-color: #a8a1a1 !important; /* Light divider color */
-}

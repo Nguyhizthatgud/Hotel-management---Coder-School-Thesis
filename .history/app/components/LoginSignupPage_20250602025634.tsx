@@ -47,12 +47,11 @@ const LoginSignupPage = (props: Props) => {
           <Button type="default" icon={<GoogleOutlined />} block>
             Gmail
           </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
           <Button type="default" icon={<FacebookFilled />} block>
             Facebook
+          </Button>
+          <Button type="default" block icon={<GithubOutlined />}>
+            Github
           </Button>
         </div>
       </Form>

@@ -1,12 +1,7 @@
 "use client";
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input, Divider } from "antd";
-import {
-  GoogleOutlined,
-  FacebookFilled,
-  GithubOutlined,
-} from "@ant-design/icons";
+import { Button, Checkbox, Form, Input, Divider } from "antd";
 type Props = {
   username?: string;
   password?: string;
@@ -20,40 +15,25 @@ const LoginSignupPage = (props: Props) => {
       <span className="py-3 text-sm">
         Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.
       </span>
-      <Form
-        className="w-full max-w-sm"
-        name="user"
-        initialValues={{ remember: true }}
-        autoComplete="off"
-      >
+      <Form name="user" initialValues={{ remember: true }} autoComplete="off">
         <Form.Item
           rules={[{ required: true, message: "Please input your username!" }]}
         >
           <Input
-            size="small"
-            className="w-full"
-            autoFocus
+            size="large"
+            className="google-input"
             placeholder="vui lòng nhập địa chỉ e-mail"
             prefix={<UserOutlined />}
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item label={null}>
           <Button className="w-full">Tiếp Tục</Button>
         </Form.Item>
-        <Divider size="large" className="">
-          Phương thức đăng nhập khác
-        </Divider>
-        <div className="flex gap-2 flex-col">
-          <Button type="default" icon={<GoogleOutlined />} block>
-            Gmail
-          </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
-          <Button type="default" icon={<FacebookFilled />} block>
-            Facebook
-          </Button>
+        <Divider>Phương thức đăng nhập khác</Divider>
+        <div>
+          <Button type="link">Sign in with Apple</Button>
+          <Button type="link">Sign in with Google</Button>
+          <Button type="link">Sign in with Facebook</Button>
         </div>
       </Form>
     </div>

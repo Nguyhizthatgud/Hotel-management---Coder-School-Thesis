@@ -2,11 +2,7 @@
 import React from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Divider } from "antd";
-import {
-  GoogleOutlined,
-  FacebookFilled,
-  GithubOutlined,
-} from "@ant-design/icons";
+import { GoogleOutlined, FacebookFilled, AppleFilled } from "@ant-design/icons";
 type Props = {
   username?: string;
   password?: string;
@@ -21,7 +17,7 @@ const LoginSignupPage = (props: Props) => {
         Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.
       </span>
       <Form
-        className="w-full max-w-sm"
+        className="w-ful"
         name="user"
         initialValues={{ remember: true }}
         autoComplete="off"
@@ -40,20 +36,11 @@ const LoginSignupPage = (props: Props) => {
         <Form.Item>
           <Button className="w-full">Tiếp Tục</Button>
         </Form.Item>
-        <Divider size="large" className="">
-          Phương thức đăng nhập khác
-        </Divider>
-        <div className="flex gap-2 flex-col">
-          <Button type="default" icon={<GoogleOutlined />} block>
-            Gmail
-          </Button>
-          <Button type="default" block icon={<GithubOutlined />}>
-            Github
-          </Button>
-
-          <Button type="default" icon={<FacebookFilled />} block>
-            Facebook
-          </Button>
+        <Divider size="large">Phương thức đăng nhập khác</Divider>
+        <div className="flex gap-2">
+          <Button type="default" block icon={<AppleFilled />} block></Button>
+          <Button type="default" icon={<GoogleOutlined />} block></Button>
+          <Button type="default" icon={<FacebookFilled />} block></Button>
         </div>
       </Form>
     </div>

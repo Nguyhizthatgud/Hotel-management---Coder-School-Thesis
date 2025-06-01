@@ -18,7 +18,9 @@ export default function RootLayout({
       <body className="min-h-screen">
         <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem>
           <ThemeProvider>
+            <header>...</header>
             <main>{children}</main>
+            <footer>...</footer>
           </ThemeProvider>
         </ThemeProvider>
       </body>
