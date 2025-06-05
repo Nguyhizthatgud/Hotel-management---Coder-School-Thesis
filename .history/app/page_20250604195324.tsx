@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
-import Userfrontfield from "./components/UserFrontPage/Userfrontfield";
+
 import Footer from "./components/Footer";
 export default function Home() {
   return (
@@ -8,9 +8,7 @@ export default function Home() {
       <header>
         <Header />
       </header>
-      <main>
-        <Userfrontfield />
-      </main>
+      <main></main>
       <footer>
         <Footer />
       </footer>
