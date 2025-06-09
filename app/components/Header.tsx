@@ -5,7 +5,12 @@ import "@ant-design/v5-patch-for-react-19";
 
 import { useTheme } from "next-themes";
 import { TbBrandAirbnb } from "react-icons/tb";
-
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem
+} from "@radix-ui/react-dropdown-menu";
 import { Cherry_Bomb_One } from "next/font/google";
 import { MdModeNight, MdLightMode } from "react-icons/md";
 import { AiOutlineGlobal } from "react-icons/ai";
@@ -13,11 +18,11 @@ import { MdCurrencyExchange } from "react-icons/md";
 import { Modal, Tabs, Avatar, Button } from "antd";
 import ReactCountryFlag from "react-country-flag";
 import LoginSignupPage from "./LoginSignupPage";
-
+import { CaretDownOutlined } from "@ant-design/icons";
 const cherryBomb = Cherry_Bomb_One({
   weight: "400",
   subsets: ["latin"],
-  variable: "--font-alfa",
+  variable: "--font-alfa"
 });
 
 type Props = {
@@ -82,7 +87,7 @@ const Header = () => {
     UAH: "Ukraine",
     RO: "Romania",
     SAR: "Saudi Arabia",
-    QAR: "Qatar",
+    QAR: "Qatar"
 
     // add more country codes and names as needed
   };
@@ -120,7 +125,7 @@ const Header = () => {
     { code: "PKR", symbol: "₨", nation: "PK" },
     { code: "TWD", symbol: "$", nation: "TW" },
     { code: "HUF", symbol: "Ft", nation: "HU" },
-    { code: "CZK", symbol: "Kč", nation: "CZ" },
+    { code: "CZK", symbol: "Kč", nation: "CZ" }
 
     // add more currency objects as needed
   ];
@@ -129,21 +134,40 @@ const Header = () => {
       <div className="flex flex-row justify-around">
         <div className="flex gap-2 items-center w-full md:2/3">
           <TbBrandAirbnb className="text-4xl text-orange-400" />
-          <Link
-            className={`${cherryBomb.className} text-2xl pr-3 cursor-pointer`}
-            href=""
-          >
+          <Link className={`${cherryBomb.className} text-4xl pr-1 cursor-pointer`} href="">
             <span className="text-orange-400">A</span>
             <span>pache</span>
           </Link>
           <Avatar className="text-2xl pr-2" />
           <div className="cursor-pointer" onClick={handleThemeChange}>
-            {theme === "dark" ? (
-              <MdModeNight className="" />
-            ) : (
-              <MdLightMode className="" />
-            )}
+            {theme === "dark" ? <MdModeNight className="" /> : <MdLightMode className="" />}
           </div>
+          <div className="relative">
+            <DropdownMenu modal={false}>
+              <DropdownMenuTrigger
+                asChild
+                className="flex items-center px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+              >
+                <span className="text-lg font-semibold">
+                  Loại hình
+                  <CaretDownOutlined />
+                </span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white shadow-lg rounded-md p-2">
+                <DropdownMenuItem className="px-2">Tất cả</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà ở</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Khách sạn</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà nghỉ B&B</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà khách</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Căn hộ</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà nghỉ</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Biệt thự</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà trên cây</DropdownMenuItem>
+                <DropdownMenuItem className="px-2">Nhà di động</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <div> Giá dịch vụ</div>
         </div>
         <div className="flex gap-4 text-lg font-semibold">
           {
@@ -156,8 +180,8 @@ const Header = () => {
             >
               {selectedCurrency ? (
                 <div className="flex flex-row gap-1">
-                  <ReactCountryFlag countryCode={selectedCurrency.nation} svg />
-                  |<span className="mr-2">{selectedCurrency.code}</span>
+                  <ReactCountryFlag countryCode={selectedCurrency.nation} svg />|
+                  <span className="mr-2">{selectedCurrency.code}</span>
                 </div>
               ) : (
                 <div className="currency flex flex-row gap-1 items-center">
@@ -167,17 +191,10 @@ const Header = () => {
               )}
             </Button>
           }
-          <Modal
-            open={openCurrency}
-            onCancel={handleCancel}
-            footer={null}
-            width={1200}
-          >
+          <Modal open={openCurrency} onCancel={handleCancel} footer={null} width={1200}>
             <Tabs>
               <Tabs.TabPane tab="Tiền Tệ & Ngôn Ngữ" key="1">
-                <div className="text-sm font-bold">
-                  Chọn mệnh giá quy đổi và ngôn ngữ đề xuất
-                </div>
+                <div className="text-sm font-bold">Chọn mệnh giá quy đổi và ngôn ngữ đề xuất</div>
                 <div className="grid grid-cols-6 gap-4 p-4 overflow-y-auto max-h-96">
                   {currencies.slice(0, 6).map((currency) => (
                     <div
@@ -195,8 +212,7 @@ const Header = () => {
                         style={{ width: "1.5em", height: "1.5em" }}
                         title={currency.nation}
                       />
-                      <span className="px-2">{currency.code}</span>/
-                      <span className="px-1">{currency.symbol}</span>
+                      <span className="px-2">{currency.code}</span>/<span className="px-1">{currency.symbol}</span>
                       <div>
                         <span className="text-gray-500 text-sm">
                           {countryNames[currency.nation] || currency.nation}
@@ -205,9 +221,7 @@ const Header = () => {
                     </div>
                   ))}
                 </div>
-                <div className="text-sm font-bold p-2">
-                  Tất cả mệnh giá và ngôn ngữ
-                </div>
+                <div className="text-sm font-bold p-2">Tất cả mệnh giá và ngôn ngữ</div>
                 <div className="grid grid-cols-6 gap-4 p-4 overflow-y-auto max-h-96">
                   {currencies.map((currency) => (
                     <div
@@ -225,8 +239,7 @@ const Header = () => {
                         style={{ width: "1.5em", height: "1.5em" }}
                         title={currency.nation}
                       />
-                      <span className="px-2">{currency.code}</span>/
-                      <span className="px-1">{currency.symbol}</span>
+                      <span className="px-2">{currency.code}</span>/<span className="px-1">{currency.symbol}</span>
                       <div>
                         <span className="text-gray-500 text-sm">
                           {countryNames[currency.nation] || currency.nation}
@@ -245,31 +258,10 @@ const Header = () => {
           >
             Đăng nhập/Đăng ký
           </Button>
-          <Modal
-            open={openSign}
-            onCancel={handleCancel}
-            footer={null}
-            className="login-modal"
-          >
+          <Modal open={openSign} onCancel={handleCancel} footer={null} className="login-modal">
             <LoginSignupPage />
-            {/* <LoginSignupPage /> */
-            /* Uncomment this line if you want to use the LoginSignupPage component */}
-            {/* <Userfrontfield /> */
-            /* Uncomment this line if you want to use the Userfrontfield component */}
           </Modal>
         </div>
-      </div>
-      <div className="mt-4">
-        <ul className="flex flex-row md:text-base sm:text-sm cursor-pointer">
-          <li className="px-2 ">Khách Sạn</li>
-          <li className="px-2">Nhà Nghỉ B&B</li>
-          <li className="px-2">Nhà Khách</li>
-          <li className="px-2">Căn Hộ</li>
-          <li className="px-2">Nhà Nghỉ</li>
-          <li className="px-2">Biệt Thự</li>
-          <li className="px-2">Nhà Trên Cây</li>
-          <li className="px-2">Nhà Di Động</li>
-        </ul>
       </div>
     </section>
   );

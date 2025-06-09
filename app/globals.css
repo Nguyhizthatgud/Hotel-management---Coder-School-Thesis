@@ -7,7 +7,7 @@
 }
 .dark {
   --bg-color: hsl(37, 4%, 36%); /* Dark mode background */
-  --text-color: #eeeeee; /* Dark mode text */
+  --text-color: hsl(37, 4%, 96%); /* Dark mode text */
 }
 
 body {
@@ -25,7 +25,7 @@ body {
   border-color: #ffffff !important; /* amber-600 */
   color: #d97706 !important; /* amber-600 */
 }
-ant-form {
+.ant-form {
   border-color: aliceblue !important; /* Light border for forms */
 }
 .ant-input {
@@ -35,7 +35,7 @@ ant-form {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .ant-input:hover,
-ant-input:focus {
+.ant-input:focus {
   border-color: #f0eaea !important; /* amber-400 */
 }
 .ant-input-affix-wrapper:hover,
@@ -52,4 +52,10 @@ ant-input:focus {
 }
 .ant-divider {
   border-color: #a8a1a1 !important; /* Light divider color */
+}
+.headingpad__scale-animation {
+  @apply hover:scale-105 transition-all;
+}
+.headingpad__introduce-text {
+  @apply text-cyan-400; /* Cyan text for introduction */
 }
