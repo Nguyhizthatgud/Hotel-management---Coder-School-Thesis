@@ -54,7 +54,7 @@ const Headingpad = (props: Props) => {
               className="object-cover w-full h-full headingpad__scale-animation"
             />
           </div>
-          <div className="rounded-2xl overflow-hidden">
+          <div className="rounded w-full h-64 overflow-hidden">
             <Image
               src="/assets/Poster/Poster1.png"
               alt="Poster Image 1"

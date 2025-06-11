@@ -35,35 +35,7 @@ const Headingpad = (props: Props) => {
           <br />* Tất cả các tính năng đều miễn phí trong 30 ngày đầu tiên.
         </p>
         {/* Images of poster */}
-        <div className="md:grid hidden gap-8 grid-cols-1">
-          <div className="rounded w-full h-64 overflow-hidden">
-            <Image
-              src="/assets/Poster/Poster1.png"
-              alt="Poster Image 1"
-              width={500} // or your preferred width
-              height={400} // or your preferred height
-              className="object-cover w-full h-full headingpad__scale-animation"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-8">
-            <Image
-              src="/assets/Poster/Poster1.png"
-              alt="Poster Image 1"
-              width={500} // or your preferred width
-              height={400} // or your preferred height
-              className="object-cover w-full h-full headingpad__scale-animation"
-            />
-          </div>
-          <div className="rounded-2xl overflow-hidden">
-            <Image
-              src="/assets/Poster/Poster1.png"
-              alt="Poster Image 1"
-              width={500} // or your preferred width
-              height={400} // or your preferred height
-              className="object-cover w-full h-full headingpad__scale-animation"
-            />
-          </div>
-        </div>
+
         {/* Logos of partners */}
         <p className="flex items-center text-lg font-semibold mt-8 text-green-400 ">
           <span className="mr-2 text-3xl">
