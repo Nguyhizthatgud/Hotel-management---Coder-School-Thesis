@@ -1,6 +1,9 @@
 "use client";
 import React from "react";
 import Headingpad from "./Headingpad";
+import Service from "./Service";
+import { Spin } from "antd";
+
 type Props = {
   roomId?: string;
   roomName?: string;
@@ -8,9 +11,10 @@ type Props = {
 
 const Userfrontfield = (props: Props) => {
   return (
-    <section className="container mx-auto lg:px-0">
+    <section>
       {/* heading */}
       <Headingpad />
+      <Service />
       {/* image hotel room showcase */}
     </section>
   );
