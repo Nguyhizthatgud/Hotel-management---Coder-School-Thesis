@@ -57,6 +57,10 @@ body {
 html {
   scroll-padding-top: 0;
 }
+.page-content {
+  font-family: var(--font-cherry-bomb), cursive;
+  font-weight: 400;
+}
 
 /* Ensure content starts at top */
 body {
@@ -139,10 +143,14 @@ body {
 .ant-tabs-ink-bar-animated {
   background-color: hsl(39, 94%, 51%) !important; /* amber-400 */
 }
+.service-details {
+  @apply text-lg mt-10 mx-auto; /* Centered text with medium size */
+  font-family: "Lora", serif; /* Serif font for service details */
+}
 .service-content {
-  @apply text-5xl mt-20 mx-auto text-center; /* Centered text with large size */
+  @apply text-4xl mx-auto text-center; /* Centered text with large size */
   font-family: "Lora", serif; /* Serif font for service content */
-  color: #d97706; /* amber-600 */
+  /* amber-600 */
 }
 .contain {
   /* Centered content with padding */

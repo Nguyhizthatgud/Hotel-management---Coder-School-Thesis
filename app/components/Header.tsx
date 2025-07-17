@@ -229,9 +229,9 @@ const Header = () => {
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center md:w-2/3">
             <SiApachepulsar className="text-4xl text-orange-400" />
-            <Link className="text-3xl cursor-pointer mr-7" href="">
+            <Link className="page-content text-3xl cursor-pointer mr-7" href="">
               <span className="text-orange-400">A</span>
-              <span>pache</span>
+              <span className="">pache</span>
             </Link>
             <Avatar className="text-2xl p-2" />
             <div className="cursor-pointer text-2xl mx-5" onClick={handleThemeChange}>
