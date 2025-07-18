@@ -607,7 +607,7 @@ const Service = (props: Props) => {
       </div>
       {/* User rating */}
       <section className="user-rating">
-        <div className="container mx-auto py-25">
+        <div className="container mx-auto py-10">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-light service-content mb-6">
               Đánh giá của người dùng
@@ -623,15 +623,14 @@ const Service = (props: Props) => {
                 className="text-center p-5"
                 style={{ height: "100%" }}
               >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-capterra.svg"
-                    width="114"
-                    height="41"
-                    alt=""
-                  ></img>
+                <div className="mb-4">
+                  <Image
+                    src="/assets/logos/hotel-tech-report-logo.png"
+                    alt="Hotel Tech Report"
+                    width={120}
+                    height={40}
+                    className="mx-auto mb-3"
+                  />
                 </div>
                 <p className="text-xl font-semibold text-gray-800 mb-4">
                   &quot;Dịch vụ tuyệt vời!&quot;
@@ -649,15 +648,8 @@ const Service = (props: Props) => {
                 className="text-center p-5"
                 style={{ height: "100%" }}
               >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-software-advice.svg"
-                    width="148"
-                    height="41"
-                    alt=""
-                  ></img>
+                <div className="mb-4">
+                <img loading="lazy" decoding="async" src="https://resources.littlehotelier.com/images/credibility/logo-software-advice.svg" width="148" height="41" alt=""><img loading="lazy" decoding="async" src="https://resources.littlehotelier.com/images/credibility/logo-software-advice.svg" width="148" height="41" alt="">
                 </div>
                 <p className="text-xl font-semibold text-gray-800 mb-4">
                   "Rất hài lòng!"
@@ -675,15 +667,14 @@ const Service = (props: Props) => {
                 className="text-center p-5"
                 style={{ height: "100%" }}
               >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-trustpilot.svg"
-                    width="119"
-                    height="41"
-                    alt=""
-                  ></img>
+                <div className="mb-4">
+                  <Image
+                    src="/assets/logos/software-advice-logo.png"
+                    alt="Software Advice"
+                    width={120}
+                    height={40}
+                    className="mx-auto mb-3"
+                  />
                 </div>
                 <p className="text-xl font-semibold text-gray-800 mb-4">
                   "Đáng tin cậy!"

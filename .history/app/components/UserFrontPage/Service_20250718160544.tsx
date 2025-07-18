@@ -607,7 +607,7 @@ const Service = (props: Props) => {
       </div>
       {/* User rating */}
       <section className="user-rating">
-        <div className="container mx-auto py-25">
+        <div className="container mx-auto py-10">
           <div className="text-center mb-10">
             <h2 className="text-3xl font-light service-content mb-6">
               Đánh giá của người dùng
@@ -623,7 +623,7 @@ const Service = (props: Props) => {
                 className="text-center p-5"
                 style={{ height: "100%" }}
               >
-                <div className="flex justify-center mb-4">
+                <div className="mb-4">
                   <img
                     loading="lazy"
                     decoding="async"

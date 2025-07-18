@@ -19,7 +19,7 @@ type Props = {};
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-600 text-white py-12">
+    <footer className="bg-gray-600 text-white py-12 mt-20">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -139,6 +139,7 @@ const Footer = () => {
             </h4>
             <ul className="space-y-1 text-gray-300 text-sm">
               <li>• Multi-property management system</li>
+              <li>• Dark/Light theme toggle</li>
               <li>• Multi-currency support</li>
               <li>• Responsive design for all devices</li>
               <li>• Performance optimized</li>

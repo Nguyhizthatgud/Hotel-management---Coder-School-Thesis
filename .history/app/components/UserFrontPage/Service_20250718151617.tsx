@@ -10,24 +10,12 @@ import { CiUser } from "react-icons/ci";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaHouse } from "react-icons/fa6";
 import { MdMeetingRoom } from "react-icons/md";
-import { MdSendToMobile } from "react-icons/md";
-import { LuChartBar } from "react-icons/lu";
-import { FaChartLine } from "react-icons/fa";
 type Props = {
   roomId?: string;
   roomName?: string;
   username?: string;
   password?: string;
   remember?: string;
-};
-
-type FieldType = {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  companyName?: string;
-  room?: string;
-  acceptTerms?: boolean;
 };
 
 const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
@@ -406,34 +394,23 @@ const Service = (props: Props) => {
           <div className="grid grid-cols-2 gap-8">
             <div className="py-20 px-10 text-left">
               <div className="mb-10 bg-white rounded-lg shadow-lg p-10">
-                <h3 className="text-2xl font-serif mb-4">
+                <h3 className="text-2xl font-bold mb-4">
                   Đăng ký ngay hôm nay
-                  <span className="text-gray-700 font-light text-sm">
-                    {" "}
-                    - để trải nghiệm dịch vụ bằng cách điền form bên cạnh
-                  </span>
                 </h3>
-                <div className="pl-10">
+                <div>
                   <p className="text-gray-700 leading-8 mb-4 service-details">
-                    <span className="flex items-center font-semibold gap-2">
-                      <FaChartLine /> Tăng hiệu suất{" "}
-                    </span>
-                    Tăng lượt đặt chỗ của bạn lên tới 46% với phần mềm đơn giản
-                    của chúng tôi.
+                    Điền thông tin bên dưới để bắt đầu dùng thử miễn phí 30 ngày
+                    với hệ thống quản lý khách sạn Apache. Chúng tôi sẽ liên hệ
+                    với bạn để hướng dẫn cài đặt và sử dụng.
                   </p>
                   <p className="text-gray-700 leading-8 mb-4 service-details">
-                    <span className="flex items-center font-semibold gap-2  ">
-                      <LuChartBar /> Tối ưu hóa doanh thu{" "}
-                    </span>
-                    Kiểm soát lại tất cả các bài đăng, đặt phòng và hóa đơn của
-                    bạn ở một nơi.
+                    Sau khi đăng ký, bạn sẽ nhận được email xác nhận và hướng
+                    dẫn chi tiết để bắt đầu trải nghiệm hệ thống.
                   </p>
                   <p className="text-gray-700 leading-8 mb-4 service-details">
-                    <span className="flex items-center font-semibold gap-2">
-                      <MdSendToMobile /> Quản lý từ xa{" "}
-                    </span>
-                    Tận hưởng sự tự do hơn để quản lý tài sản của bạn mọi nơi
-                    với ứng dụng di động của chúng tôi.
+                    Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng
+                    tôi qua email hoặc số điện thoại hỗ trợ. Chúng tôi luôn sẵn
+                    sàng hỗ trợ bạn trong quá trình sử dụng hệ thống.
                   </p>
                 </div>
               </div>
@@ -606,124 +583,18 @@ const Service = (props: Props) => {
         </div>
       </div>
       {/* User rating */}
-      <section className="user-rating">
-        <div className="container mx-auto py-25">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-light service-content mb-6">
-              Đánh giá của người dùng
-            </h2>
-            <p className="text-gray-700 leading-8 service-details mb-6">
-              Hơn 1000 khách hàng đã tin tưởng và sử dụng dịch vụ của chúng tôi.
-            </p>
-          </div>
-          <Row gutter={16} justify="center">
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-capterra.svg"
-                    width="114"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  &quot;Dịch vụ tuyệt vời!&quot;
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Tôi đã sử dụng hệ thống này cho khách sạn của mình và thấy nó
-                  rất hiệu quả. Dễ sử dụng và hỗ trợ tốt."
-                </p>
-                <p className="text-gray-500">- Nguyễn Văn A</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-software-advice.svg"
-                    width="148"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Rất hài lòng!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Hệ thống giúp tôi quản lý khách sạn một cách dễ dàng và hiệu
-                  quả. Tôi rất hài lòng với dịch vụ này."
-                </p>
-                <p className="text-gray-500">- Trần Thị B</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-trustpilot.svg"
-                    width="119"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Đáng tin cậy!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Tôi đã sử dụng nhiều hệ thống quản lý khách sạn nhưng đây là
-                  hệ thống tốt nhất. Đáng tin cậy và dễ sử dụng."
-                </p>
-                <p className="text-gray-500">- Lê Văn C</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-hoteltechreport.svg"
-                    width="127"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Tuyệt vời!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Apache đã giúp chúng tôi tăng hiệu quả quản lý lên 40%. Rất
-                  khuyến khích các khách sạn khác sử dụng."
-                </p>
-                <p className="text-gray-500">- Phạm Thị D</p>
-              </Card>
-            </Col>
-          </Row>
+      <div>
+        <div className="container mx-auto py-10">
+          <h2 className="text-3xl font-bold text-center mb-6 service-content">
+            Đánh giá của người dùng
+          </h2>
+          <p className="text-gray-700 text-center mb-4">
+            Chúng tôi tự hào nhận được những đánh giá tích cực từ người dùng về
+            dịch vụ của mình.
+          </p>
+          <div className="flex justify-center"></div>
         </div>
-      </section>
+      </div>
     </section>
   );
 };

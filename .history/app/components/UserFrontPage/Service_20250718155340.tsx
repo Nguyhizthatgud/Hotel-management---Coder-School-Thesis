@@ -606,123 +606,118 @@ const Service = (props: Props) => {
         </div>
       </div>
       {/* User rating */}
-      <section className="user-rating">
-        <div className="container mx-auto py-25">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-light service-content mb-6">
-              Đánh giá của người dùng
-            </h2>
-            <p className="text-gray-700 leading-8 service-details mb-6">
-              Hơn 1000 khách hàng đã tin tưởng và sử dụng dịch vụ của chúng tôi.
-            </p>
-          </div>
-          <Row gutter={16} justify="center">
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-capterra.svg"
-                    width="114"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  &quot;Dịch vụ tuyệt vời!&quot;
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Tôi đã sử dụng hệ thống này cho khách sạn của mình và thấy nó
-                  rất hiệu quả. Dễ sử dụng và hỗ trợ tốt."
-                </p>
-                <p className="text-gray-500">- Nguyễn Văn A</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-software-advice.svg"
-                    width="148"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Rất hài lòng!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Hệ thống giúp tôi quản lý khách sạn một cách dễ dàng và hiệu
-                  quả. Tôi rất hài lòng với dịch vụ này."
-                </p>
-                <p className="text-gray-500">- Trần Thị B</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-trustpilot.svg"
-                    width="119"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Đáng tin cậy!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Tôi đã sử dụng nhiều hệ thống quản lý khách sạn nhưng đây là
-                  hệ thống tốt nhất. Đáng tin cậy và dễ sử dụng."
-                </p>
-                <p className="text-gray-500">- Lê Văn C</p>
-              </Card>
-            </Col>
-            <Col span={6}>
-              <Card
-                hoverable={true}
-                className="text-center p-5"
-                style={{ height: "100%" }}
-              >
-                <div className="flex justify-center mb-4">
-                  <img
-                    loading="lazy"
-                    decoding="async"
-                    src="https://resources.littlehotelier.com/images/credibility/logo-hoteltechreport.svg"
-                    width="127"
-                    height="41"
-                    alt=""
-                  ></img>
-                </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">
-                  "Tuyệt vời!"
-                </p>
-                <p className="text-gray-600 mb-4 text-left">
-                  "Apache đã giúp chúng tôi tăng hiệu quả quản lý lên 40%. Rất
-                  khuyến khích các khách sạn khác sử dụng."
-                </p>
-                <p className="text-gray-500">- Phạm Thị D</p>
-              </Card>
-            </Col>
-          </Row>
+      <section className="container mx-auto py-10">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-light service-content mb-6">
+            Đánh giá của người dùng
+          </h2>
+          <p className="text-gray-700 leading-8 service-details mb-6">
+            Hơn 1000 khách hàng đã tin tưởng và sử dụng dịch vụ của chúng tôi.
+          </p>
         </div>
+        <Row gutter={16} justify="center">
+          <Col span={6}>
+            <Card
+              hoverable={true}
+              className="text-center p-5"
+              style={{ height: "100%" }}
+            >
+              <div className="mb-4">
+                <Image
+                  src="/assets/logos/hotel-tech-report-logo.png"
+                  alt="Hotel Tech Report"
+                  width={120}
+                  height={40}
+                  className="mx-auto mb-3"
+                />
+              </div>
+              <p className="text-xl font-semibold text-gray-800 mb-4">
+                &quot;Dịch vụ tuyệt vời!&quot;
+              </p>
+              <p className="text-gray-600 mb-4 text-left">
+                "Tôi đã sử dụng hệ thống này cho khách sạn của mình và thấy nó
+                rất hiệu quả. Dễ sử dụng và hỗ trợ tốt."
+              </p>
+              <p className="text-gray-500">- Nguyễn Văn A</p>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card
+              hoverable={true}
+              className="text-center p-5"
+              style={{ height: "100%" }}
+            >
+              <div className="mb-4">
+                <Image
+                  src="/assets/logos/trustpilot-logo.png"
+                  alt="Trustpilot"
+                  width={120}
+                  height={40}
+                  className="mx-auto mb-3"
+                />
+              </div>
+              <p className="text-xl font-semibold text-gray-800 mb-4">
+                "Rất hài lòng!"
+              </p>
+              <p className="text-gray-600 mb-4 text-left">
+                "Hệ thống giúp tôi quản lý khách sạn một cách dễ dàng và hiệu
+                quả. Tôi rất hài lòng với dịch vụ này."
+              </p>
+              <p className="text-gray-500">- Trần Thị B</p>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card
+              hoverable={true}
+              className="text-center p-5"
+              style={{ height: "100%" }}
+            >
+              <div className="mb-4">
+                <Image
+                  src="/assets/logos/software-advice-logo.png"
+                  alt="Software Advice"
+                  width={120}
+                  height={40}
+                  className="mx-auto mb-3"
+                />
+              </div>
+              <p className="text-xl font-semibold text-gray-800 mb-4">
+                "Đáng tin cậy!"
+              </p>
+              <p className="text-gray-600 mb-4 text-left">
+                "Tôi đã sử dụng nhiều hệ thống quản lý khách sạn nhưng đây là hệ
+                thống tốt nhất. Đáng tin cậy và dễ sử dụng."
+              </p>
+              <p className="text-gray-500">- Lê Văn C</p>
+            </Card>
+          </Col>
+          <Col span={6}>
+            <Card
+              hoverable={true}
+              className="text-center p-5"
+              style={{ height: "100%" }}
+            >
+              <div className="mb-4 text-center">
+                <img
+                  loading="lazy"
+                  decoding="async"
+                  src="https://resources.littlehotelier.com/images/credibility/logo-hoteltechreport.svg"
+                  width="127"
+                  height="41"
+                  alt=""
+                ></img>
+              </div>
+              <p className="text-xl font-semibold text-gray-800 mb-4">
+                "Tuyệt vời!"
+              </p>
+              <p className="text-gray-600 mb-4 text-left">
+                "Apache đã giúp chúng tôi tăng hiệu quả quản lý lên 40%. Rất
+                khuyến khích các khách sạn khác sử dụng."
+              </p>
+              <p className="text-gray-500">- Phạm Thị D</p>
+            </Card>
+          </Col>
+        </Row>
       </section>
     </section>
   );
