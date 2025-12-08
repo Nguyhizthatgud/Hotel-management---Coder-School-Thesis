@@ -69,9 +69,6 @@ body {
 }
 /* end of global styles */
 /* Headingpad component styles */
-.header {
-  background-color: #fff5ee !important; /* amber-50 */
-}
 .poster-text {
   font-family: "Lora", serif;
 }
@@ -107,7 +104,7 @@ body {
 }
 .ant-input-password {
   background: #fff !important; /* White background */
-  padding: 0.75rem 0.75rem !important; /* Spacious padding */
+
   font-size: 1rem !important;
   transition: border-color 0.2s, box-shadow 0.2s;
 }

@@ -1,7 +1,9 @@
 import React from "react";
 import Header from "./components/Header";
-import Userfrontfield from "./components/UserFrontPage/Userfrontfield";
+import Userfrontfield from "./UserFrontPage/Userfrontfield";
+
 import Footer from "./components/Footer";
+
 export default function Home() {
   return (
     <div className="">

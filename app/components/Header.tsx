@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "@ant-design/v5-patch-for-react-19";
 
 import { useTheme } from "next-themes";
@@ -20,23 +20,29 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import { Button } from "@/components/ui/button";
 
-type Props = {
-  money: string;
-};
-
 const Header = () => {
   const [openCurrency, setOpenCurrency] = React.useState(false);
   const [openSign, setOpenSign] = React.useState(false);
   const [openDropdown, setOpenDropdown] = React.useState(false);
   const { theme, setTheme } = useTheme();
-  const handleThemeChange = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = React.useState<{
     code: string;
     symbol: string;
     nation: string;
   } | null>(null);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // trigger after 10px scroll
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  const handleThemeChange = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
+
   const handleCancel = () => {
     setOpenCurrency(false);
     setOpenSign(false);
@@ -54,7 +60,7 @@ const Header = () => {
               <ul className=" pl-5 text-semibold">
                 <li className="my-5 group flex items-center gap-2">
                   <Link
-                    href="/hotels"
+                    href="/hotel"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <FaHotel className="text-amber-500" />
@@ -65,7 +71,7 @@ const Header = () => {
                 </li>
                 <li className="my-5 flex items-center gap-2 group">
                   <Link
-                    href="/hotels"
+                    href="/BandBs"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <RiHotelLine className="text-amber-500" />
@@ -76,7 +82,7 @@ const Header = () => {
                 </li>
                 <li className="my-5 flex items-center gap-2 group">
                   <Link
-                    href="/hotels"
+                    href="/apartments"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <GiFamilyHouse className="text-amber-500" />
@@ -85,7 +91,7 @@ const Header = () => {
                 </li>
                 <li className="my-5 flex items-center gap-2 group">
                   <Link
-                    href="/hotels"
+                    href="/villas"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <GiTreehouse className="text-amber-500" />
@@ -96,7 +102,7 @@ const Header = () => {
                 </li>
                 <li className="my-5 flex items-center gap-2 group">
                   <Link
-                    href="/hotels"
+                    href="/guesthouse"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <PiWarehouseThin className="text-amber-500" />
@@ -107,7 +113,7 @@ const Header = () => {
                 </li>
                 <li className="my-5 flex items-center gap-2 group">
                   <Link
-                    href="/hotels"
+                    href="/homestay"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
                   >
                     <FaHotel className="text-amber-500 group-hover:text-amber-600" />
@@ -139,7 +145,6 @@ const Header = () => {
       )
     }
   ];
-
   const countryNames: { [key: string]: string } = {
     VN: "Việt Nam",
     US: "United States",
@@ -224,12 +229,16 @@ const Header = () => {
     // add more currency objects as needed
   ];
   return (
-    <section className="header w-full py-4 ">
+    <section
+      className={`header w-full py-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-md backdrop-blur-sm border-b border-gray-200" : "bg-transparent"
+      }`}
+    >
       <div className="container mx-auto">
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center md:w-2/3">
             <SiApachepulsar className="text-4xl text-orange-400" />
-            <Link className="page-content text-3xl cursor-pointer mr-7" href="">
+            <Link href="/" className="page-content text-3xl cursor-pointer mr-7">
               <span className="text-orange-400">A</span>
               <span className="">pache</span>
             </Link>
@@ -244,7 +253,7 @@ const Header = () => {
               onOpenChange={setOpenDropdown}
               overlayClassName="no-hover-dropdown"
             >
-              <Button variant="ghost" className="mx-1 text-lg font-semibold group flex items-center">
+              <Button variant="ghost" className="mx-1 text-lg font-semibold group items-center hidden md:flex">
                 Nền tảng số
                 <CaretDownOutlined
                   className={
@@ -253,7 +262,7 @@ const Header = () => {
                 />
               </Button>
             </Dropdown>
-            <Button variant="ghost" className="mx-3 text-lg font-semibold">
+            <Button variant="ghost" className="mx-3 text-lg font-semibold hidden md:flex">
               Giá dịch vụ
             </Button>
           </div>
