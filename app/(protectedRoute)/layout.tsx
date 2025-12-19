@@ -7,6 +7,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
+
+// Skip static prerendering for protected routes; render only on demand
+export const dynamic = "force-dynamic";
+
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, loading, init } = useAuthStore();
