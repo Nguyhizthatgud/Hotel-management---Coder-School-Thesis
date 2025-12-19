@@ -3,12 +3,7 @@ import React from "react";
 import Headingpad from "./Headingpad";
 import Service from "./Service";
 
-type Props = {
-  roomId?: string;
-  roomName?: string;
-};
-
-const Userfrontfield = (props: Props) => {
+const Userfrontfield = () => {
   return (
     <section>
       {/* heading */}

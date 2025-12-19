@@ -1,12 +1,6 @@
 import React from "react";
 
-type Props = {
-  // Define any props if needed
-  apartmentID?: string;
-  apartmentName?: string;
-};
-
-const Apartmentsite = (props: Props) => {
+const Apartmentsite = () => {
   return <div>Apartmentsite</div>;
 };
 

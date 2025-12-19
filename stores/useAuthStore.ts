@@ -90,6 +90,9 @@ export const useAuthStore = create<AuthState>()(
           await signOut(auth);
           set({ user: null, loading: false });
           toast.success("Đăng xuất thành công, hẹn gặp lại bạn!");
+          if (typeof window !== "undefined") {
+            window.location.href = "/";
+          }
         } catch (error: any) {
           set({ error: error.message, loading: false });
           throw error;

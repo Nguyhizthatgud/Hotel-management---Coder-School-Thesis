@@ -40,27 +40,27 @@ const data = {
     },
     {
       title: "Khách Hàng",
-      url: "/customers",
+      url: "/hotelreception/customers",
       icon: UsersIcon
     },
     {
       title: "Phòng Ở",
-      url: "/rooms",
+      url: "/hotelreception/rooms",
       icon: DoorClosedIcon
     },
     {
       title: "Đặt Phòng",
-      url: "/bookings",
+      url: "/hotelreception/bookings",
       icon: BookmarkCheckIcon
     },
     {
       title: "Nhân Viên",
-      url: "/staff",
+      url: "/hotelreception/staff",
       icon: ContactIcon
     },
     {
       title: "Chi Tiết Giao Dịch",
-      url: "/transactions",
+      url: "/hotelreception/transactions",
       icon: CircleDollarSignIcon
     }
   ],

@@ -6,7 +6,6 @@ import { FaCode, FaGraduationCap } from "react-icons/fa6";
 import { SiApachepulsar } from "react-icons/si";
 
 import Image from "next/image";
-type Props = {};
 
 const Footer = () => {
   return (

@@ -2,13 +2,12 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import "@ant-design/v5-patch-for-react-19";
-
-import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 import { SiApachepulsar } from "react-icons/si";
-import { MdModeNight, MdLightMode } from "react-icons/md";
 import { AiOutlineGlobal } from "react-icons/ai";
 import { MdCurrencyExchange } from "react-icons/md";
-import { Modal, Tabs, Avatar, Button as Button1, Menu } from "antd";
+import { Modal, Tabs, Avatar } from "antd";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { FaHotel } from "react-icons/fa";
 import { RiHotelLine } from "react-icons/ri";
 import { GiFamilyHouse, GiTreehouse } from "react-icons/gi";
@@ -19,13 +18,21 @@ import LoginSignupPage from "./LoginSignupPage";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import { Button } from "@/components/ui/button";
+import { useAuthUIStore } from "@/stores/useAuthUIStore";
+import { useAuthStore } from "@/stores/useAuthStore";
+import AvatarDrpdw from "./AvatarDrpdw";
 
 const Header = () => {
   const [openCurrency, setOpenCurrency] = React.useState(false);
-  const [openSign, setOpenSign] = React.useState(false);
   const [openDropdown, setOpenDropdown] = React.useState(false);
-  const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isOpen } = useAuthUIStore();
+  const { t } = useTranslation();
+  const close = useAuthUIStore((state) => state.close) as () => void;
+  const open = useAuthUIStore((state) => state.open) as () => void;
+  const user = useAuthStore((state) => state.user);
+  const displayName = useAuthStore((state) => state.user?.displayName);
+
   const [selectedCurrency, setSelectedCurrency] = React.useState<{
     code: string;
     symbol: string;
@@ -39,14 +46,13 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  const handleThemeChange = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   const handleCancel = () => {
     setOpenCurrency(false);
-    setOpenSign(false);
+    close();
   };
+
+  // set language change
 
   const items: MenuProps["items"] = [
     {
@@ -242,9 +248,8 @@ const Header = () => {
               <span className="text-orange-400">A</span>
               <span className="">pache</span>
             </Link>
-            <Avatar className="text-2xl p-2" />
-            <div className="cursor-pointer text-2xl mx-5" onClick={handleThemeChange}>
-              {theme === "dark" ? <MdModeNight className="" /> : <MdLightMode className="" />}
+            <div className="ml-2 hidden md:block">
+              <LanguageSwitcher />
             </div>
             <Dropdown
               menu={{ items }}
@@ -253,8 +258,8 @@ const Header = () => {
               onOpenChange={setOpenDropdown}
               overlayClassName="no-hover-dropdown"
             >
-              <Button variant="ghost" className="mx-1 text-lg font-semibold group items-center hidden md:flex">
-                Nền tảng số
+              <Button variant="ghost" className="mx-1 text-sm font-medium group items-center hidden md:flex">
+                {t("navbar1")}
                 <CaretDownOutlined
                   className={
                     "transition-transform duration-200 group-hover:rotate-180" + (openDropdown ? " rotate-180" : "")
@@ -262,11 +267,11 @@ const Header = () => {
                 />
               </Button>
             </Dropdown>
-            <Button variant="ghost" className="mx-3 text-lg font-semibold hidden md:flex">
-              Giá dịch vụ
+            <Button variant="ghost" className="mx-3 text-sm font-medium hidden md:flex">
+              {t("navbar2")}
             </Button>
           </div>
-          <div className="flex gap-4 text-lg font-semibold justify-end items-center w-full md:w-1/3">
+          <div className="flex gap-4 text-sm font-semibold justify-end items-center w-full md:w-1/3">
             {
               <Button
                 variant="secondary"
@@ -349,14 +354,23 @@ const Header = () => {
               </Tabs>
             </Modal>
             <Button
-              className="bg-orange-400 text-white hover:bg-orange-600 transition-colors px-4 py-2 rounded-md"
+              className={`bg-orange-400 text-white hover:bg-orange-600 transition-colors px-4 py-2 rounded-md ${
+                user ? "hidden" : "block"
+              }`}
               onClick={() => {
-                setOpenSign(true);
+                open();
               }}
             >
-              Đăng nhập/Đăng ký
+              Login/Sign Up
             </Button>
-            <Modal open={openSign} onCancel={handleCancel} footer={null} className="login-modal">
+            {user && (
+              <AvatarDrpdw
+                trigger={
+                  <Avatar className="text-2xl p-2 cursor-pointer">{displayName?.charAt(0).toUpperCase()}</Avatar>
+                }
+              />
+            )}
+            <Modal open={isOpen} onCancel={handleCancel} footer={null} className="login-modal">
               <LoginSignupPage />
             </Modal>
           </div>

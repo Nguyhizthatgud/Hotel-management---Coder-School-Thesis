@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Divider, Checkbox, Flex, Row, Col } from "antd";
 import { GoogleOutlined, FacebookFilled, GithubOutlined, LockOutlined } from "@ant-design/icons";
@@ -8,8 +8,8 @@ import { useForm, Controller } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, RegisterSchema, LoginFormData, RegisterFormData } from "@/types/user";
+import { useAuthUIStore } from "@/stores/useAuthUIStore";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { toast } from "sonner";
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -23,8 +23,8 @@ const itemVariants = {
 };
 
 const LoginSignupPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const { login, register } = useAuthStore();
+  const { isLogin } = useAuthUIStore();
   const loginForm = useForm<LoginFormData>({
     resolver: zodResolver(LoginSchema),
     mode: "onBlur",
@@ -45,24 +45,33 @@ const LoginSignupPage = () => {
       confirmedPassword: ""
     }
   });
-
+  const switchToLogin = useAuthUIStore((state) => state.switchToLogin) as () => void;
+  const switchToSignup = useAuthUIStore((state) => state.switchToSignup) as () => void;
+  const submittingSuccess = useAuthUIStore((state) => state.submittingSuccess) as (value: boolean) => void;
   const onLoginSubmit = async (data: LoginFormData) => {
-    await login(data.email, data.password);
+    try {
+      await login(data.email, data.password);
+      const token = await useAuthStore.getState().getToken(true);
+      console.log(token);
+      loginForm.reset();
+    } finally {
+      submittingSuccess(true);
+    }
     console.log("Login data:", data);
   };
 
   const onRegisterSubmit = async (data: RegisterFormData) => {
     const { email, firstname, lastname, password } = data;
     // call register API here
-    const registerSuccess = await register(email, password, lastname, firstname);
-    if (registerSuccess) {
-      toast.success("Đăng ký thành công! Apache xin chào bạn.");
-      registerForm.reset();
-      setIsLogin(true);
-      return;
+    try {
+      const registerSuccess = await register(email, password, lastname, firstname);
+      if (registerSuccess) {
+        registerForm.reset();
+        switchToLogin();
+      }
+    } catch (error: Error | unknown) {
+      console.log("Registration error:", error instanceof Error ? error.message : error);
     }
-    console.log("Register data:", data);
-    setIsLogin(true);
   };
 
   return (
@@ -185,7 +194,7 @@ const LoginSignupPage = () => {
                 <Form.Item className="!mt-6 text-center">
                   <span className="text-sm">
                     Chưa có tài khoản?{" "}
-                    <a onClick={() => setIsLogin(false)} className="!text-orange-500 hover:!underline cursor-pointer">
+                    <a onClick={() => switchToSignup()} className="!text-orange-500 hover:!underline cursor-pointer">
                       Đăng ký
                     </a>
                   </span>
@@ -340,7 +349,7 @@ const LoginSignupPage = () => {
                 <Form.Item className="text-center">
                   <span className="text-sm">
                     Đã có tài khoản?{" "}
-                    <a onClick={() => setIsLogin(true)} className="cursor-pointer !text-orange-500 hover:!underline">
+                    <a onClick={() => switchToLogin()} className="cursor-pointer !text-orange-500 hover:!underline">
                       Đăng nhập tại đây
                     </a>
                   </span>

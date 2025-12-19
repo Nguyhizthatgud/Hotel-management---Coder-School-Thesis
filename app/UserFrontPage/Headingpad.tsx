@@ -3,12 +3,17 @@ import React from "react";
 import Image from "next/image";
 import Typed from "typed.js";
 import { IoCheckmarkDone } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 const Headingpad = () => {
+  const { t, i18n } = useTranslation();
   const el = React.useRef(null);
   React.useEffect(() => {
+    // Get typed strings from i18n based on current language
+    const typedStrings = [t("typedStrings_1"), t("typedStrings_2"), t("typedStrings_3")];
+
     const typed = new Typed(el.current, {
-      strings: [" điều khiển", "quản lý", "giám sát"],
+      strings: typedStrings,
       typeSpeed: 50,
       backSpeed: 50,
       loop: true,
@@ -18,7 +23,8 @@ const Headingpad = () => {
     return () => {
       typed.destroy();
     };
-  }, []);
+  }, [i18n.language, t]); // Re-run when language changes
+
   return (
     <section className="hero-section flex items-center w-screen" style={{ backgroundColor: "#fff5ee" }}>
       <div className="container mx-auto py-20 mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -33,15 +39,16 @@ const Headingpad = () => {
               priority
               unoptimized
             />
-            <p className="text-sm text-gray-500 mt-2">Công cụ hỗ trợ #1 cho các chủ sở hữu khách sạn và nhà nghỉ</p>
+            <p className="text-sm text-gray-500">{t("headingPad_line1")}</p>
           </div>
-          <h1 className="poster-text text-4xl font-bold my-25">
-            Tạo giao diện quản lý tài sản miễn phí và <br /> hỗ trợ <span className="text-amber-600" ref={el}></span>{" "}
-            trực tiếp
+          <h1 className="poster-text text-3xl font-bold my-25">
+            {t("posterText_line1")} <br /> {t("posterText_line2")} <span className="text-amber-600" ref={el}></span>{" "}
+            {t("posterText_line3")}
           </h1>
           <p className="text-xs text-gray-500 mt-10">
-            * Không cần thẻ tín dụng. Không có phí ẩn. Hủy bất cứ lúc nào.
-            <br />* Tất cả các tính năng đều miễn phí trong 30 ngày đầu tiên.
+            {t("posterText_disclaimer1")}
+            <br />
+            {t("posterText_disclaimer2")}
           </p>
           {/* Logos of partners */}
           <div>

@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SiteHeader } from "@/components/site-header";
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, loading, init } = useAuthStore();
@@ -29,5 +32,17 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     );
   if (!user) return null; // Prevent flash before redirect
 
-  return <>{children}</>;
+  return (
+    <SidebarProvider className="p-6 bg-gray-50 min-h-screen">
+      <AppSidebar />
+      <SidebarInset className="w-full">
+        <SiteHeader />
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">{children}</div>
+          </div>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }
