@@ -387,7 +387,7 @@ const StaffManagement = () => {
                           <span className={`text-xs px-2 py-1 rounded ${getRoleBadgeColor(member.role)}`}>
                             {member.department}
                           </span>
-                          <Badge variant={statusColors[member.status]}>{member.status}</Badge>
+                          {/* <Badge variant={statusColors[member.status]}>{member.status}</Badge> */}
                         </div>
 
                         <div className="space-y-2 text-xs text-muted-foreground">
@@ -713,7 +713,7 @@ const StaffManagement = () => {
                   <h3 className="font-medium">{selectedStaff.name}</h3>
                   <p className="text-sm text-muted-foreground">{selectedStaff.department}</p>
                   <div className="flex gap-2 mt-2">
-                    <Badge variant={statusColors[selectedStaff.status]}>{selectedStaff.status}</Badge>
+                    {/* <Badge variant={statusColors[selectedStaff.status]}>{selectedStaff.status}</Badge> */}
                     <Badge variant="outline">{selectedStaff.id}</Badge>
                   </div>
                 </div>
