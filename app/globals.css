@@ -42,6 +42,7 @@ html,
 body {
   scroll-behavior: smooth;
   overscroll-behavior-y: none; /* Prevent bounce/overscroll */
+  scrollbar-gutter: stable; /* Prevent layout shift left due to scrollbar */
 }
 
 body {

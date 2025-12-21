@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import HoldingPage from "./HoldingPage";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -96,6 +97,118 @@ const BookingManagement = () => {
       status: "checked-out",
       totalAmount: 3600000,
       paymentStatus: "paid"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
+    },
+    {
+      id: "BK005",
+      guestName: "Võ Đình Khôi",
+      email: "khoi.vo@email.com",
+      phone: "0945678901",
+      roomNumber: "506",
+      roomType: "Presidential",
+      checkIn: "2024-01-18",
+      checkOut: "2024-01-22",
+      status: "cancelled",
+      totalAmount: 8000000,
+      paymentStatus: "failed",
+      notes: "Khách hủy do có việc đột xuất"
     },
     {
       id: "BK005",

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Typed from "typed.js";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
-
 const Headingpad = () => {
   const { t, i18n } = useTranslation();
   const el = React.useRef(null);

@@ -20,6 +20,7 @@ import { Dropdown } from "antd";
 import { Button } from "@/components/ui/button";
 import { useAuthUIStore } from "@/stores/useAuthUIStore";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useUISlice } from "@/stores/UI/useUIStore";
 import AvatarDrpdw from "./AvatarDrpdw";
 
 const Header = () => {
@@ -30,6 +31,7 @@ const Header = () => {
   const { t } = useTranslation();
   const close = useAuthUIStore((state) => state.close) as () => void;
   const open = useAuthUIStore((state) => state.open) as () => void;
+  const setPropSelection = useUISlice((s) => s.setPropSelection);
   const user = useAuthStore((state) => state.user);
   const displayName = useAuthStore((state) => state.user?.displayName);
 
@@ -68,6 +70,7 @@ const Header = () => {
                   <Link
                     href="/hotel"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => setPropSelection("Khách Sạn")}
                   >
                     <FaHotel className="text-amber-500" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">
@@ -79,6 +82,7 @@ const Header = () => {
                   <Link
                     href="/BandBs"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => setPropSelection("Nhà Nghỉ B&B")}
                   >
                     <RiHotelLine className="text-amber-500" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">
@@ -90,6 +94,7 @@ const Header = () => {
                   <Link
                     href="/apartments"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => setPropSelection("Căn Hộ")}
                   >
                     <GiFamilyHouse className="text-amber-500" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">Căn Hộ</span>
@@ -99,6 +104,7 @@ const Header = () => {
                   <Link
                     href="/villas"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => setPropSelection("Biệt Thự")}
                   >
                     <GiTreehouse className="text-amber-500" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">
@@ -110,6 +116,7 @@ const Header = () => {
                   <Link
                     href="/guesthouse"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => setPropSelection("Nhà Nguyên Căn")}
                   >
                     <PiWarehouseThin className="text-amber-500" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">
@@ -121,6 +128,7 @@ const Header = () => {
                   <Link
                     href="/homestay"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
+                    onClick={() => choseProperties("Homestay")}
                   >
                     <FaHotel className="text-amber-500 group-hover:text-amber-600" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">

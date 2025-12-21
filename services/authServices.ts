@@ -47,12 +47,19 @@ const authService = {
   // sign out usr
   async logout() {
     await signOut(auth);
+    
   },
   // Get current user token
   async getIdToken() {
     const user = auth.currentUser;
     if (!user) return null;
     return await user.getIdToken();
+  },
+  // Force refresh ID token
+  async refreshIdToken(forceRefresh = true) {
+    const user = auth.currentUser;
+    if (!user) return null;
+    return await user.getIdToken(forceRefresh);
   },
   // Listen to auth state changes
   onAuthStateChange(callback: (user: User | null) => void) {

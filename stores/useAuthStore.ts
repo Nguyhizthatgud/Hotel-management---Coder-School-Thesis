@@ -33,9 +33,20 @@ export const useAuthStore = create<AuthState>()(
       // initial auth state listener
       init: () => {
         set({ loading: true });
-        onAuthStateChanged(auth, (user) => {
-          set({ user, loading: false });
-        });
+        onAuthStateChanged(
+          auth,
+          (user) => {
+            set({ user, loading: false });
+          },
+          (error: any) => {
+            // logout on auth errors (expired refresh token)
+            if (error.code === "auth/user-token-expired" || error.code === "auth/network-request-failed") {
+              get().logout();
+              toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            }
+            set({ loading: false, error: error.message });
+          }
+        );
       },
       // login method
       login: async (email: string, password: string) => {
@@ -106,6 +117,12 @@ export const useAuthStore = create<AuthState>()(
           const token = await user.getIdToken(forceRefresh);
           return token;
         } catch (error: any) {
+          // Auto-logout on token refresh failure
+          if (error.code === "auth/user-token-expired" || error.code === "auth/network-request-failed") {
+            await get().logout();
+            set({ user: null, loading: false });
+            toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+          }
           set({ error: error.message });
           return null;
         }

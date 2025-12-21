@@ -1,39 +1,14 @@
-import { useAuthStore } from "@/stores/useAuthStore";
+import axiosInstance from "./config/axios.js";
 
 const ROOM_SERVICE_URL = process.env.NEXT_PUBLIC_ROOM_SERVICE_URL || "http://localhost:4004";
 
-// call room-service with automatic token injection
-export async function callRoomService(path: string, init?: RequestInit) {
-  // Get token from auth store
-  const token = await useAuthStore.getState().getToken();
+// Rely on axios interceptors for token injection and 401 handling
 
-  if (!token) {
-    throw new Error("No authentication token available");
-  }
-
-  const headers = {
-    ...(init?.headers || {}),
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json"
-  };
-
-  const response = await fetch(`${ROOM_SERVICE_URL}${path}`, {
-    ...init,
-    headers
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Room service error: ${response.status} ${errorText}`);
-  }
-
-  return response.json();
-}
-
-// room service API methods
-export const roomService = { 
+// Room service API methods using axios directly
+export const roomService = {
   // Create a new room
   createRoom: async (roomData: {
+    roomName: string;
     roomNumber: string;
     type: string;
     floor?: number;
@@ -42,45 +17,26 @@ export const roomService = {
     capacity?: number;
     amenities?: string[];
     description?: string;
-  }) => {
-    return callRoomService("/api/rooms", {
-      method: "POST",
-      body: JSON.stringify(roomData)
-    });
-  },
+  }) => axiosInstance.post(`${ROOM_SERVICE_URL}/api/rooms`, roomData).then((r) => r.data),
 
   // List all rooms for the authenticated user
-  listRooms: async (filters?: { status?: string; floor?: number }) => {
-    const params = new URLSearchParams();
-    if (filters?.status) params.append("status", filters.status);
-    if (filters?.floor) params.append("floor", filters.floor.toString());
-
-    const query = params.toString() ? `?${params.toString()}` : "";
-    return callRoomService(`/api/rooms${query}`);
-  },
+  listRooms: async (filters?: { status?: string; floor?: number }) =>
+    axiosInstance.get(`${ROOM_SERVICE_URL}/api/rooms`, { params: filters }).then((r) => r.data),
 
   // Get a specific room by ID
-  getRoom: async (roomId: string) => {
-    return callRoomService(`/api/rooms/${roomId}`);
-  },
+  getRoom: async (roomId: string) => axiosInstance.get(`${ROOM_SERVICE_URL}/api/rooms/${roomId}`).then((r) => r.data),
 
   // Update room status
-  updateRoomStatus: async (roomId: string, status: string) => {
-    return callRoomService(`/api/rooms/${roomId}/status`, {
-      method: "PATCH",
-      body: JSON.stringify({ status })
-    });
-  },
+  updateRoomStatus: async (roomId: string, status: string) =>
+    axiosInstance.patch(`${ROOM_SERVICE_URL}/api/rooms/${roomId}/status`, { status }).then((r) => r.data),
+
+  // Delete a room by ID
+  deleteRoom: async (roomId: string) =>
+    axiosInstance.delete(`${ROOM_SERVICE_URL}/api/rooms/${roomId}`).then((r) => r.data),
 
   // Get room summary (statistics)
-  getSummary: async () => {
-    return callRoomService("/api/rooms/summary");
-  },
+  getSummary: async () => axiosInstance.get(`${ROOM_SERVICE_URL}/api/rooms/summary`).then((r) => r.data),
 
-  // Health check
-  healthCheck: async () => {
-    return fetch(`${ROOM_SERVICE_URL}/health`).then((r) => r.json());
-  }
+  // Health check (no auth required)
+  healthCheck: async () => axiosInstance.get(`${ROOM_SERVICE_URL}/health`).then((r) => r.data)
 };
-
-export default roomService;

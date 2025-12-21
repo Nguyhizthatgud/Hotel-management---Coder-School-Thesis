@@ -1,5 +1,6 @@
 import axios from "axios";
 import authService from "../authServices.ts";
+import { useAuthStore } from "../../stores/useAuthStore.ts";
 
 const baseURL = process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:4001/api"
@@ -34,33 +35,38 @@ axiosInstance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-// responze interceptor - handle errors 
+// response interceptor - handle errors (auto logout on expired token)
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     async (error) => {
-        const originalRequest = error.config;
+        const originalRequest = error.config || {};
 
-        // Handle 401 Unauthorized - token expired
+        // Handle 401 Unauthorized - try refresh once
         if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                //tryna refresh token
                 const newToken = await authService.refreshIdToken(true); // force refresh
                 if (newToken) {
+                    originalRequest.headers = originalRequest.headers || {};
                     originalRequest.headers.Authorization = `Bearer ${newToken}`;
-                    return axiosInstance(originalRequest); // retry original request    
+                    return axiosInstance(originalRequest); // retry with new token
                 }
-            } catch (refreshError) {
-                // refresh failed, turn back login
-                if (typeof window !== 'undefined') {
-                    console.log('[axios] Using backend baseURL:', baseURL);
-                }
-                return Promise.reject(refreshError);
+            } finally {
+                // if refresh fails, will proceed to logout below
             }
         }
 
+        // If refresh failed or still 401, logout
+        if (error.response?.status === 401) {
+            try {
+                // call Zustand logout to clear both persisted state and Firebase auth
+                await useAuthStore.getState().logout();
+            } catch (e) {
+                console.error("Logout after token failure failed", e);
+            }
+        }
+
+        return Promise.reject(error);
     }
 );
 
