@@ -1,18 +1,17 @@
 import { z } from "zod";
 
 export const RoomSchema = z.object({
-  id: z.string().optional(),
-  ownerId: z.string().optional(),
-  roomName: z.string().min(1, "Room name is required"),
-  roomType: z.string().min(1, "Room type is required"),
-  floor: z.number().min(1, "Room floor must be at least 1"),
-  status: z.enum(["available", "occupied", "cleaning", "maintenance"]).default("available"),
-  price: z.number().min(0, "Price must be non-negative"),
-  capacity: z.number().min(1, "Capacity must be at least 1"),
-  amenities: z.array(z.string()).optional(),
-  description: z.string().max(500, "Description must be at most 500 characters").optional(),
-  isActive: z.boolean().default(true),
-  createdAt: z.string().optional(),
+  _id: z.string(),
+  roomNumber: z.string().min(1, "Hãy nhập số phòng"),
+  roomName: z.string().min(1, "Hãy nhập tên phòng"),
+  roomType: z.string().min(1, "Hãy nhập loại phòng"),
+  floor: z.number().min(1, "Tầng phòng phải lớn hơn hoặc bằng 1"),
+  status: z.enum(["còn trống", "đã đặt trước", "đang sử dụng", "bảo trì", "đang dọn dẹp"]).default("còn trống"),
+  price: z.number().min(0, "Giá phòng phải lớn hơn hoặc bằng 0"),
+  capacity: z.number().min(1, "Sức chứa phải lớn hơn hoặc bằng 1"),
+  amenities: z.array(z.string()),
+  description: z.string().max(500, "Mô tả phải có tối đa 500 ký tự").optional(),
+  createAt: z.string().optional(),
   updatedAt: z.string().optional(),
   __v: z.number().optional()
 });

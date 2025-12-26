@@ -8,9 +8,10 @@ const ROOM_SERVICE_URL = process.env.NEXT_PUBLIC_ROOM_SERVICE_URL || "http://loc
 export const roomService = {
   // Create a new room
   createRoom: async (roomData: {
+    _id?: string;
     roomName: string;
     roomNumber: string;
-    type: string;
+    roomType: string;
     floor?: number;
     price: number;
     status?: string;
@@ -26,9 +27,21 @@ export const roomService = {
   // Get a specific room by ID
   getRoom: async (roomId: string) => axiosInstance.get(`${ROOM_SERVICE_URL}/api/rooms/${roomId}`).then((r) => r.data),
 
-  // Update room status
-  updateRoomStatus: async (roomId: string, status: string) =>
-    axiosInstance.patch(`${ROOM_SERVICE_URL}/api/rooms/${roomId}/status`, { status }).then((r) => r.data),
+  // Update room (status and other fields)
+  updateRoomStatus: async (
+    roomId: string,
+    updateData: Partial<{
+      roomName: string;
+      roomNumber: string;
+      roomType: string;
+      floor: number;
+      price: number;
+      status: string;
+      capacity: number;
+      amenities: string[];
+      description: string;
+    }>
+  ) => axiosInstance.patch(`${ROOM_SERVICE_URL}/api/rooms/${roomId}/status`, updateData).then((r) => r.data),
 
   // Delete a room by ID
   deleteRoom: async (roomId: string) =>

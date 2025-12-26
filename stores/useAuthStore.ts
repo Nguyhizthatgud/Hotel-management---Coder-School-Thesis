@@ -100,6 +100,12 @@ export const useAuthStore = create<AuthState>()(
         try {
           await signOut(auth);
           set({ user: null, loading: false });
+
+          // manually clear persisted storage to ensure immediate cleanup
+          if (typeof window !== "undefined") {
+            localStorage.removeItem("auth-storage");
+          }
+
           toast.success("Đăng xuất thành công, hẹn gặp lại bạn!");
           if (typeof window !== "undefined") {
             window.location.href = "/";

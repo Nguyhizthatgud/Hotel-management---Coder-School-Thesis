@@ -9,10 +9,7 @@ const nextConfig: NextConfig = {
     tsconfigPath: "./tsconfig.json"
   },
   // Skip static prerendering for protected routes that require runtime auth
-  staticPageGenerationTimeout: 120,
-  experimental: {
-    isrMemoryCacheSize: 0 // Disable ISR caching if needed
-  }
+  staticPageGenerationTimeout: 120
 };
 
 export default nextConfig;

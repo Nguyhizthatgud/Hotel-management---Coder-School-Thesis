@@ -2,18 +2,26 @@ import { create } from "zustand";
 
 type UIState = {
   isSidebarOpen: boolean;
-  propSelection: string;
-  setPropSelection: (selection: string) => void;
-  toggleSidebar: () => void;
-  openSidebar: () => void;
-  closeSidebar: () => void;
+
+  propSelection: string; //---> selection for Header dropdown properties
+  setPropSelection: (selection: string) => void; //---> set property selection for Header dropdown properties
+
+  isCreateRoom: boolean; // ----> open rooms add dialog
+  setIsCreateRoom: (open: boolean) => void; // ---->open set rooms add dialog
+
+  isEditingRoom: boolean; // ----> whether editing an existing room or adding a new one
+  setIsEditingRoom: (editing: boolean) => void; // ----> set editing room state
 };
 
 export const useUISlice = create<UIState>((set) => ({
   isSidebarOpen: false,
-  propSelection: "tất cả cơ sở lưu trú",
-  setPropSelection: (selection: string) => set({ propSelection: selection }),
-  openSidebar: () => set({ isSidebarOpen: true }),
-  closeSidebar: () => set({ isSidebarOpen: false }),
-  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen }))
+
+  propSelection: "tất cả cơ sở lưu trú", //---> selection for Header dropdown properties
+  setPropSelection: (selection: string) => set({ propSelection: selection }), //---> set property selection for Header dropdown properties
+
+  isCreateRoom: false, // ----> open rooms add dialog
+  setIsCreateRoom: (open: boolean) => set({ isCreateRoom: open }), // ---->open set rooms add dialog
+
+  isEditingRoom: false, // ----> whether editing an existing room (true) or adding a new one (false)
+  setIsEditingRoom: (editing: boolean) => set({ isEditingRoom: editing }) // ----> set editing room state
 }));

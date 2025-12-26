@@ -15,7 +15,7 @@ export function SiteHeader() {
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         <SidebarTrigger className="-ml-1" />
         <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
-        <div className="font-medium italic ">Mô hình quản lý cho {propSelection} </div>
+        <div className="hidden md:font-medium italic md:block">Mô hình quản lý cho {propSelection} </div>
         <div className="ml-auto flex w-full max-w-sm items-center gap-2">
           <Controller
             name="email"
@@ -25,7 +25,9 @@ export function SiteHeader() {
           <Input type="email" placeholder="Email" />
         </div>
         <Avatar className="rounded-lg h-8 w-8">
-          <AvatarFallback className="text-sm p-2 cursor-pointer">{displayName?.charAt(0).toUpperCase()} </AvatarFallback>
+          <AvatarFallback className="text-sm p-2 cursor-pointer">
+            {displayName?.charAt(0).toUpperCase()}{" "}
+          </AvatarFallback>
         </Avatar>
       </div>
     </header>

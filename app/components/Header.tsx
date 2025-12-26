@@ -128,7 +128,7 @@ const Header = () => {
                   <Link
                     href="/homestay"
                     className="flex items-center gap-2 hover:scale-105 transition-transform duration-200 ease-in-out group"
-                    onClick={() => choseProperties("Homestay")}
+                    onClick={() => setPropSelection("Homestay")}
                   >
                     <FaHotel className="text-amber-500 group-hover:text-amber-600" />
                     <span className="text-gray-600 group-hover:text-amber-600 group group-hover:font-bold">
