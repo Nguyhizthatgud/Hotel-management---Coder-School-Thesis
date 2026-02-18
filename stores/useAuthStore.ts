@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import axiosInstance from "../services/config/axios.js";
 import { toast } from "sonner";
-
+import i18n from "../utils/i18n.js";
 type AuthState = {
   user: User | null;
   loading: boolean;
@@ -42,7 +42,7 @@ export const useAuthStore = create<AuthState>()(
             // logout on auth errors (expired refresh token)
             if (error.code === "auth/user-token-expired" || error.code === "auth/network-request-failed") {
               get().logout();
-              toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+              toast.error(i18n.t("login_auth_state_listener_error"));
             }
             set({ loading: false, error: error.message });
           }
@@ -53,12 +53,14 @@ export const useAuthStore = create<AuthState>()(
         set({ loading: true, error: null });
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const token = await userCredential.user.getIdToken();
+          console.log("Access Token (Login):", token);
           set({ user: userCredential.user, loading: false });
-          toast.success("Đăng nhập thành công, Apache chào mừng bạn!");
+          toast.success(i18n.t("login_form_success_toast"));
           return userCredential.user;
         } catch (error: any) {
           set({ error: error.message, loading: false });
-          toast.error(`Lỗi ${error.message}: Đăng nhập thất bại! Vui lòng thử lại`);
+          toast.error(i18n.t("login_form_failure_toast"));
           throw error;
         }
       },
@@ -82,16 +84,19 @@ export const useAuthStore = create<AuthState>()(
               { headers: { Authorization: `Bearer ${idToken}` } }
             );
           } catch (error) {
-            console.error("Lỗi trong quá trình đăng ký người dùng:", error);
             throw error;
           }
           set({ user: userCredential.user, loading: false });
-          toast.success("Đăng ký thành công, Apache chào mừng bạn!");
           return userCredential.user;
         } catch (error: any) {
-          set({ error: error.message, loading: false });
-          toast.error(`Lỗi ${error.message}: Đăng ký thất bại! Vui lòng thử lại`);
-          throw error;
+          const code = error?.code;
+          const message =
+            code === "auth/email-already-in-use"
+              ? "Email đã được đăng ký. Hãy đăng nhập hoặc dùng email khác."
+              : `Lỗi ${error?.message || "không xác định"}: Đăng ký thất bại! Vui lòng thử lại`;
+          set({ error: message, loading: false });
+          toast.error(i18n.t("signup_error_toast"));
+          throw new Error(message);
         }
       },
       // logout method
@@ -106,7 +111,7 @@ export const useAuthStore = create<AuthState>()(
             localStorage.removeItem("auth-storage");
           }
 
-          toast.success("Đăng xuất thành công, hẹn gặp lại bạn!");
+          toast.success(i18n.t("logout_success_toast"));
           if (typeof window !== "undefined") {
             window.location.href = "/";
           }
@@ -121,13 +126,14 @@ export const useAuthStore = create<AuthState>()(
         if (!user) return null;
         try {
           const token = await user.getIdToken(forceRefresh);
+          console.log("Access Token (getToken):", token);
           return token;
         } catch (error: any) {
           // Auto-logout on token refresh failure
           if (error.code === "auth/user-token-expired" || error.code === "auth/network-request-failed") {
             await get().logout();
             set({ user: null, loading: false });
-            toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+            toast.error(i18n.t("login_timeout"));
           }
           set({ error: error.message });
           return null;

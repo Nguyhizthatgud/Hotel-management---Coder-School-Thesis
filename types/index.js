@@ -3,3 +3,4 @@ export * from "./booking";
 export * from "./room";
 export * from "./customer";
 export * from "./authUI";
+export * from "./transaction";

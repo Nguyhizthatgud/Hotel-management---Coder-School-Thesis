@@ -1,31 +1,31 @@
 import { z } from "zod";
 export const LoginSchema = z.object({
-  email: z.string().min(1, "Vui lòng nhập email"),
-  password: z.string().min(1, "Vui lòng nhập mật khẩu")
+  email: z.string().min(1, "login_form_email_error"),
+  password: z.string().min(1, "login_form_password_error")
 });
 
 export type LoginFormData = z.infer<typeof LoginSchema>;
 
 export const RegisterSchema = z
   .object({
-    email: z.string().min(1, "Vui lòng nhập email").email("Email không hợp lệ"),
+    email: z.string().min(1, "signup_form_email_error").email("Email không hợp lệ"),
 
-    firstname: z.string().min(1, "Vui lòng nhập tên"),
+    firstname: z.string().min(1, "signup_form_name_error"),
 
-    lastname: z.string().min(1, "Vui lòng nhập họ"),
+    lastname: z.string().min(1, "signup_form_lastname_error"),
 
     password: z
       .string()
-      .min(1, "Vui lòng nhập mật khẩu")
-      .min(6, "Mật khẩu phải có ít nhất 6 ký tự")
-      .regex(/[A-Z]/, "Mật khẩu phải có ít nhất 1 chữ hoa")
-      .regex(/[a-z]/, "Mật khẩu phải có ít nhất 1 chữ thường")
-      .regex(/[0-9]/, "Mật khẩu phải có ít nhất 1 số"),
+      .min(1, "signup_form_password_error")
+      .min(6, "signup_form_password_error_length")
+      .regex(/[A-Z]/, "signup_form_password_error_pattern")
+      .regex(/[a-z]/, "signup_form_password_error_pattern")
+      .regex(/[0-9]/, "signup_form_password_error_pattern"),
 
-    confirmedPassword: z.string().min(1, "Vui lòng xác nhận mật khẩu")
+    confirmedPassword: z.string().min(1, "signup_form_confirm_password_error")
   })
   .refine((data) => data.password === data.confirmedPassword, {
-    message: "Mật khẩu xác nhận không khớp",
+    message: "signup_form_confirm_password_error_match",
     path: ["confirmedPassword"]
   });
 

@@ -14,7 +14,7 @@ import React from "react";
 import getStatusColor from "./StatusBadge";
 import { useRoomStore } from "@/stores/useRoomService";
 import { toast } from "sonner";
-
+import { useTranslation } from "react-i18next";
 interface DeleteConfirmationProps {
   room: Room | null;
   onOpenChange: (open: boolean) => void;
@@ -22,7 +22,7 @@ interface DeleteConfirmationProps {
 
 const DeleteConfirmation = ({ room, onOpenChange }: DeleteConfirmationProps) => {
   const deleteRoom = useRoomStore((state) => state.deleteRoom);
-
+  const { t } = useTranslation();
   const confirmDelete = async () => {
     if (room) {
       try {
@@ -38,32 +38,30 @@ const DeleteConfirmation = ({ room, onOpenChange }: DeleteConfirmationProps) => 
     <AlertDialog open={!!room} onOpenChange={(open) => onOpenChange(open)}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Xác nhận xóa phòng</AlertDialogTitle>
-          <AlertDialogDescription>
-            Bạn có chắc chắn muốn xóa phòng này? Hành động này không thể hoàn tác.
-          </AlertDialogDescription>
+          <AlertDialogTitle>{t("rooms_delete_confirmation_title")}</AlertDialogTitle>
+          <AlertDialogDescription>{t("rooms_delete_confirmation_description")}</AlertDialogDescription>
         </AlertDialogHeader>
 
         {room && (
           <div className="my-4 p-4 bg-gray-50 rounded-lg space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Số phòng:</span>
+              <span className="text-sm text-gray-600">{t("rooms_room_number")}:</span>
               <span className="font-medium">{room.roomNumber}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Tên phòng:</span>
+              <span className="text-sm text-gray-600">{t("rooms_room_name")}:</span>
               <span className="font-medium">{room.roomName}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Loại phòng:</span>
+              <span className="text-sm text-gray-600">{t("rooms_type")}:</span>
               <span className="font-medium">{room.roomType}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Tầng:</span>
-              <span className="font-medium">Tầng {room.floor}</span>
+              <span className="text-sm text-gray-600">{t("rooms_floor")}:</span>
+              <span className="font-medium">{room.floor}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Giá:</span>
+              <span className="text-sm text-gray-600">{t("rooms_price")}:</span>
               <span className="font-medium text-blue-600">
                 {new Intl.NumberFormat("vi-VN", {
                   style: "currency",
@@ -73,16 +71,16 @@ const DeleteConfirmation = ({ room, onOpenChange }: DeleteConfirmationProps) => 
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Trạng thái:</span>
+              <span className="text-sm text-gray-600">{t("rooms_status")}:</span>
               {getStatusColor(room.status)}
             </div>
           </div>
         )}
 
         <AlertDialogFooter>
-          <AlertDialogCancel>Hủy</AlertDialogCancel>
+          <AlertDialogCancel>{t("rooms_cancel_button")}</AlertDialogCancel>
           <AlertDialogAction onClick={confirmDelete} className="bg-red-600 hover:bg-red-700">
-            Xóa phòng
+            {t("rooms_delete_button")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

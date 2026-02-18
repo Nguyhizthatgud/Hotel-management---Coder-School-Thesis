@@ -2,9 +2,14 @@ import axios from "axios";
 import authService from "../authServices.ts";
 import { useAuthStore } from "../../stores/useAuthStore.ts";
 
-const baseURL = process.env.NODE_ENV === "development"
+const rawBaseURL = process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:4001/api"
     : process.env.NEXT_PUBLIC_API_URL || "https://your-production-api-url.com/api";
+
+// Ensure the base URL always includes the '/api' prefix
+const baseURL = rawBaseURL.endsWith('/api')
+    ? rawBaseURL
+    : `${rawBaseURL.replace(/\/$/, '')}/api`;
 
 // create axios instance
 const axiosInstance = axios.create({
@@ -19,11 +24,13 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     async (config) => {
         try {
-            // Get Firebase ID token
-            const token = await authService.getIdToken();
+            // get token from Zustand store (persisted across page refreshes)
+            const token = await useAuthStore.getState().getToken();
 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
+            } else {
+                console.warn("No auth token available in interceptor");
             }
         } catch (error) {
             console.error("Error getting auth token:", error);
@@ -53,7 +60,7 @@ axiosInstance.interceptors.response.use(
                 }
             } finally {
                 // if refresh fails, will proceed to logout below
-                
+
             }
         }
 

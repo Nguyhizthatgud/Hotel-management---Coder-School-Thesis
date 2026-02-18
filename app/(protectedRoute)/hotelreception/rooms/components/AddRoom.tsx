@@ -21,6 +21,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRoomStore } from "@/stores/useRoomService";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface AddRoomProps {
   editRoom?: Room | null;
@@ -33,6 +35,7 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
   const setIsCreateRoom = useUISlice((state) => state.setIsCreateRoom);
   const addRoom = useRoomStore((state) => state.addRoom);
   const updateRoom = useRoomStore((state) => state.updateRoom);
+  const { t } = useTranslation();
 
   const formCreateRoomData = useForm<Room>({
     resolver: zodResolver(RoomSchema),
@@ -55,9 +58,9 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
   const roomType = [
     { value: "Phòng đơn", label: "Phòng đơn" },
     { value: "Phòng đôi", label: "Phòng đôi" },
-    { value: "Phòng tiêu chuẩn", label: "Phòng suite" },
-    { value: "Phòng đặc biệt", label: "Phòng deluxe" },
-    { value: "Phòng tổng thống", label: "Phòng presidential" }
+    { value: "Phòng tiêu chuẩn", label: "Phòng tiêu chuẩn" },
+    { value: "Phòng đặc biệt", label: "Phòng đặc biệt" },
+    { value: "Phòng tổng thống", label: "Phòng tổng thống" }
   ];
   const statusOptions = [
     { value: "còn trống", label: "Còn trống" },
@@ -131,7 +134,7 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
     const isValid = await formCreateRoomData.trigger();
 
     if (!isValid) {
-      toast.error("Vui lòng điền đầy đủ thông tin phòng đúng định dạng.");
+      toast.error(t("rooms_add_room_form_invalid_toast"));
       return;
     }
     if (editRoom) {
@@ -139,13 +142,13 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
       const existingRoom = formCreateRoomData.getValues();
       try {
         await updateRoom(existingRoom);
-        toast.success("Cập nhật phòng thành công!");
+        toast.success(t("rooms_update_room_success_toast"));
         setIsEditingRoom(false);
         setIsCreateRoom(false);
         onClearEditingRoom?.();
         formCreateRoomData.reset();
       } catch (error: any) {
-        toast.error("Lỗi cập nhật phòng, thử lại nhé!");
+        toast.error(t("rooms_update_room_error_toast"));
       }
       // Update existing room logic here
     } else {
@@ -154,12 +157,12 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
       const { _id, createAt, updatedAt, __v, ...roomData } = newRoom;
       try {
         await addRoom(roomData);
-        toast.success("Thêm phòng thành công!");
+        toast.success(t("rooms_add_room_success_toast"));
         setIsCreateRoom(false);
         onClearEditingRoom?.();
         formCreateRoomData.reset();
       } catch (error: any) {
-        toast.error("Lỗi thêm phòng mới, thử lại nhé!");
+        toast.error(t("rooms_add_room_error_toast"));
       }
     }
   };
@@ -173,58 +176,85 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
       <DialogTrigger asChild>
         <Button className="" onClick={() => handleOpenCreateRoom()}>
           <HousePlus className="w-4 h-4 mr-2" />
-          <span className="hidden md:inline">Thêm phòng mới</span>
+          <span className="hidden md:inline">{t("rooms_add_room_button_label")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{editRoom ? "Chỉnh sửa thông tin phòng" : "Thêm phòng mới"}</DialogTitle>
-          <DialogDescription>Điền đầy đủ thông tin phòng. Các trường đánh dấu (*) là bắt buộc.</DialogDescription>
+          <DialogTitle>{editRoom ? t("rooms_edit_room_title") : t("rooms_add_room_title")}</DialogTitle>
+          <DialogDescription>{t("rooms_add_room_description")}</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="grid grid-cols-2 gap-4"
+          >
             {/* Số phòng */}
-            <div className="space-y-2">
-              <Label htmlFor="number">
-                Số phòng <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="number" className="font-bold">
+                {t("rooms_add_room_number_label")}
+                {""}
+                <span className="text-red-500">*</span>
               </Label>
-              <Input
-                id="number"
-                value={formCreateRoomData.watch("roomNumber")}
-                onChange={(e) => formCreateRoomData.setValue("roomNumber", e.target.value)}
-                placeholder="Ví dụ: 101"
-                required
-              />
-            </div>
+              <Input id="number" placeholder="Ví dụ: 101" {...formCreateRoomData.register("roomNumber")} />
+              {formCreateRoomData.formState.errors.roomNumber && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.roomNumber.message}</p>
+              )}
+            </motion.div>
 
             {/* Tên phòng */}
-            <div className="space-y-2">
-              <Label htmlFor="name">
-                Tên phòng <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="name" className="font-bold">
+                {t("rooms_add_room_name_label")}
+                {""} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="name"
-                value={formCreateRoomData.watch("roomName")}
-                onChange={(e) => formCreateRoomData.setValue("roomName", e.target.value)}
-                placeholder="Ví dụ: Phòng Deluxe 101"
-                required
+                placeholder={t("rooms_add_room_name_placeholder")}
+                {...formCreateRoomData.register("roomName")}
               />
-            </div>
-          </div>
+              {formCreateRoomData.formState.errors.roomName && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.roomName.message}</p>
+              )}
+            </motion.div>
+          </motion.div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="grid grid-cols-2 gap-4"
+          >
             {/* Loại phòng */}
-            <div className="space-y-2">
-              <Label htmlFor="type">
-                Loại phòng <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="type" className="font-bold">
+                {t("rooms_add_room_type_label")}
+                {""} <span className="text-red-500">*</span>
               </Label>
               <Select
                 value={formCreateRoomData.watch("roomType")}
                 onValueChange={(value) => formCreateRoomData.setValue("roomType", value)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Chọn loại phòng" />
+                  <SelectValue placeholder={t("rooms_add_room_type_placeholder")} />
                 </SelectTrigger>
                 <SelectContent>
                   {roomType.map((type) => (
@@ -234,74 +264,107 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
+              {formCreateRoomData.formState.errors.roomType && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.roomType.message}</p>
+              )}
+            </motion.div>
 
             {/* Số lầu */}
-            <div className="space-y-2">
-              <Label htmlFor="floor">
-                Số lầu <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="floor" className="font-bold">
+                {t("rooms_add_room_floor_label")} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="floor"
                 type="number"
                 min="1"
-                value={formCreateRoomData.watch("floor") || 1}
-                onChange={(e) => formCreateRoomData.setValue("floor", parseInt(e.target.value) || 1)}
-                required
+                placeholder={t("rooms_add_room_floor_placeholder")}
+                {...formCreateRoomData.register("floor", { valueAsNumber: true })}
               />
-            </div>
-          </div>
+              {formCreateRoomData.formState.errors.floor && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.floor.message}</p>
+              )}
+            </motion.div>
+          </motion.div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="grid grid-cols-2 gap-4"
+          >
             {/* Giá phòng */}
-            <div className="space-y-2">
-              <Label htmlFor="price">
-                Giá phòng (VNĐ/đêm) <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="price" className="font-bold">
+                {t("rooms_add_room_price_label")} (VNĐ/đêm) <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="price"
                 type="number"
                 min="0"
                 step="10000"
-                value={formCreateRoomData.watch("price") || 0}
-                onChange={(e) => formCreateRoomData.setValue("price", parseFloat(e.target.value) || 0)}
-                placeholder="Ví dụ: 1200000"
-                required
+                placeholder={t("rooms_add_room_price_placeholder")}
+                {...formCreateRoomData.register("price", { valueAsNumber: true })}
               />
-            </div>
+              {formCreateRoomData.formState.errors.price && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.price.message}</p>
+              )}
+            </motion.div>
 
             {/* Sức chứa */}
-            <div className="space-y-2">
-              <Label htmlFor="capacity">
-                Sức chứa (người) <span className="text-red-500">*</span>
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="space-y-2"
+            >
+              <Label htmlFor="capacity" className="font-bold">
+                {t("rooms_add_room_capacity_label")} <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="capacity"
                 type="number"
                 min="1"
-                value={formCreateRoomData.watch("capacity") || 1}
-                onChange={(e) => formCreateRoomData.setValue("capacity", parseInt(e.target.value) || 1)}
-                required
+                placeholder={t("rooms_add_room_capacity_placeholder")}
+                {...formCreateRoomData.register("capacity", { valueAsNumber: true })}
               />
-            </div>
-          </div>
+              {formCreateRoomData.formState.errors.capacity && (
+                <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.capacity.message}</p>
+              )}
+            </motion.div>
+          </motion.div>
 
           {/* Tình trạng */}
-          <div className="space-y-2">
-            <Label htmlFor="status">
-              Tình trạng <span className="text-red-500">*</span>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="space-y-2"
+          >
+            <Label htmlFor="status" className="font-bold">
+              {t("rooms_add_room_status_label")} <span className="text-red-500">*</span>
             </Label>
             <Select
               value={formCreateRoomData.watch("status")}
               onValueChange={(value: string) =>
                 formCreateRoomData.setValue(
                   "status",
-                  value as "Có sẵn" | "đã đặt trước" | "đang sử dụng" | "đang dọn dẹp" | "bảo trì"
+                  value as "còn trống" | "đã đặt trước" | "đang sử dụng" | "bảo trì" | "đang dọn dẹp"
                 )
               }
             >
               <SelectTrigger>
-                <SelectValue placeholder="Chọn tình trạng" />
+                <SelectValue placeholder={t("rooms_add_room_status_placeholder")} />
               </SelectTrigger>
               <SelectContent>
                 {statusOptions.map((status) => (
@@ -311,21 +374,31 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
                 ))}
               </SelectContent>
             </Select>
-          </div>
+            {formCreateRoomData.formState.errors.status && (
+              <p className="text-sm text-red-500">{formCreateRoomData.formState.errors.status.message}</p>
+            )}
+          </motion.div>
 
           {/* Tiện ích */}
-          <div className="space-y-2">
-            <Label>Tiện ích</Label>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+            className="space-y-2"
+          >
+            <Label className="font-bold">Tiện ích</Label>
             <div className="grid grid-cols-2 gap-3 p-4 border rounded-lg">
               {amenitiesOptions.map((amenity) => {
                 const Icon = amenity.icon;
                 const isSelected = (formCreateRoomData.watch("amenities") || []).includes(amenity.value);
 
                 return (
-                  <button
+                  <motion.button
                     key={amenity.value}
                     type="button"
                     onClick={() => toggleAmenity(amenity.value)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={`flex items-center gap-2 p-2 rounded-md border transition-colors ${
                       isSelected
                         ? "bg-blue-50 border-blue-500 text-blue-700"
@@ -334,39 +407,48 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
                   >
                     <Icon />
                     <span className="text-sm">{amenity.label}</span>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
 
           {/* Ghi chú */}
-          <div className="space-y-2">
-            <Label htmlFor="notes">Ghi chú phòng</Label>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+            className="space-y-2"
+          >
+            <Label htmlFor="notes" className="font-bold">
+              {t("rooms_add_room_description_label")}
+            </Label>
             <Textarea
               id="description"
               value={formCreateRoomData.watch("description")}
               onChange={(e) => formCreateRoomData.setValue("description", e.target.value)}
-              placeholder="Thêm ghi chú về phòng (tùy chọn)..."
+              placeholder={t("rooms_add_room_description_placeholder")}
               rows={3}
             />
-          </div>
+          </motion.div>
 
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => {
-                setIsCreateRoom(false);
-                setIsEditingRoom(false);
-                onClearEditingRoom?.();
-                formCreateRoomData.reset();
-              }}
-            >
-              Hủy
-            </Button>
-            <Button type="submit">{editRoom ? "Cập nhật" : "Thêm phòng"}</Button>
-          </DialogFooter>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
+            <DialogFooter>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => {
+                  setIsCreateRoom(false);
+                  setIsEditingRoom(false);
+                  onClearEditingRoom?.();
+                  formCreateRoomData.reset();
+                }}
+              >
+                Hủy
+              </Button>
+              <Button type="submit">{editRoom ? "Cập nhật" : "Thêm phòng"}</Button>
+            </DialogFooter>
+          </motion.div>
         </form>
       </DialogContent>
     </Dialog>

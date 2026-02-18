@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-gray-700 to-gray-500 text-white py-12">
+    <footer className="bg-linear-to-b from-gray-700 to-gray-500 text-white py-12">
       <div className="container mx-auto px-4">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
@@ -17,10 +17,40 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-1 mb-5">
               {" "}
-              <SiApachepulsar className="text-6xl text-orange-400" />
-              <Link className="page-content text-4xl cursor-pointer mr-7" href="">
-                <span className="text-orange-400">A</span>
-                <span className="">pache</span>
+              <svg width={40} height={40} viewBox="0 0 48 48" fill="none">
+                <defs>
+                  <linearGradient id="apacheGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#DA7523" />
+                    <stop offset="100%" stopColor="#D1AE3C" />
+                  </linearGradient>
+                </defs>
+                {/* Feather shape */}
+                <path
+                  d="M24 4C24 4 18 8 16 14C14 20 14 28 14 32C14 36 16 42 24 44C32 42 34 36 34 32C34 28 34 20 32 14C30 8 24 4 24 4Z"
+                  fill="url(#apacheGradient1)"
+                />
+                {/* Feather details */}
+                <path
+                  d="M24 8L20 16M24 8L28 16M24 12L22 20M24 12L26 20M24 16L23 24M24 16L25 24"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  opacity="0.6"
+                />
+                {/* Building outline at bottom */}
+                <rect x="18" y="32" width="12" height="10" fill="white" opacity="0.3" rx="1" />
+                <rect x="20" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="23" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="26" y="34" width="2" height="3" fill="#DC2626" />
+              </svg>
+              <Link href="/" className="">
+                <div className=" flex flex-col text-xl md:text-2xl cursor-pointer mr-7">
+                  {" "}
+                  <div className="page-content leading-none">
+                    <span className="text-orange-400">A</span>pache
+                  </div>
+                  <span className="text-xs text-gray-500 tracking-wider font-mono">handyPMS4U</span>
+                </div>
               </Link>
             </div>
             <div className="space-y-4">

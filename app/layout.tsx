@@ -4,6 +4,8 @@ import { Inter, Cherry_Bomb_One } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import { LoadingProvider } from "./components/LoadingProvider";
+import { I18nextProvider } from "react-i18next";
+import i18n from "../utils/i18n";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,7 +16,8 @@ const cherryBombOne = Cherry_Bomb_One({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-cherry-bomb",
-  display: "swap"
+  display: "swap",
+  preload: false
 });
 
 export default function RootLayout({
@@ -23,15 +26,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html className={`${inter.variable} ${cherryBombOne.variable}`}>
-      <body className="min-h-screen">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <ThemeProvider>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${cherryBombOne.variable}`}>
+      <body className="min-h-screen" suppressHydrationWarning>
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <LoadingProvider>
               <main>{children}</main>
             </LoadingProvider>
           </ThemeProvider>
-        </ThemeProvider>
+        </I18nextProvider>
         <Toaster position="top-right" richColors />
       </body>
     </html>

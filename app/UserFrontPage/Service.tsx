@@ -13,7 +13,7 @@ import { MdMeetingRoom } from "react-icons/md";
 import { MdSendToMobile } from "react-icons/md";
 import { LuChartBar } from "react-icons/lu";
 import { FaChartLine } from "react-icons/fa";
-
+import { useTranslation } from "react-i18next";
 type FieldType = {
   firstName?: string;
   lastName?: string;
@@ -32,12 +32,13 @@ const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
   console.log("Form validation failed:", errorInfo);
 };
 const Service = () => {
+  const { t } = useTranslation();
   return (
     <section className="">
       {/* Service Section */}
       <div className="container mx-auto h-auto py-15">
         <div className="text-center my-5">
-          <p className="service-content text-4xl mt-10 mx-auto">Danh mục phục vụ quản lý tài sản rộng khắp.</p>
+          <p className="service-content text-4xl mt-10 mx-auto">{t("topText_service")}</p>
         </div>
         <Tabs
           defaultActiveKey="1"
@@ -45,7 +46,7 @@ const Service = () => {
           centered={true}
           items={[
             {
-              label: <span className="tab-label">Khách Sạn</span>,
+              label: <span className="tab-label">{t("slide_service1")}</span>,
               key: "1",
               children: (
                 <div className="flex justify-center items-center ">
@@ -54,23 +55,19 @@ const Service = () => {
                       <Image
                         className="object-cover rounded-2xl w-full h-auto"
                         src="/assets/img/roomImages/2-lg.png"
-                        alt="Khách sạn 2"
+                        alt="Khách sạn"
                         width={500}
                         height={300}
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý khách sạn chuyên nghiệp</h3>
-                      <p className="text-gray-700 leading-8 mb-4 service-details">
-                        Hệ thống quản lý khách sạn toàn diện với đầy đủ tính năng từ đặt phòng, check-in/out, quản lý
-                        dịch vụ đến báo cáo doanh thu chi tiết. Tích hợp công nghệ hiện đại giúp tối ưu hóa vận hành và
-                        nâng cao trải nghiệm khách hàng.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service1_heading")}</h3>
+                      <p className="text-gray-700 leading-8 mb-4 service-details">{t("slide_service1_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                        <li>• Quản lý đặt phòng trực tuyến</li>
-                        <li>• Tích hợp PMS và Channel Manager</li>
-                        <li>• Báo cáo doanh thu real-time</li>
-                        <li>• Hỗ trợ đa ngôn ngữ</li>
+                        <li>• {t("slide_service1_desc_point1")}</li>
+                        <li>• {t("slide_service1_desc_point2")}</li>
+                        <li>• {t("slide_service1_desc_point3")}</li>
+                        <li>• {t("slide_service1_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -78,7 +75,7 @@ const Service = () => {
               )
             },
             {
-              label: <span className="tab-label">Nhà Nghỉ B&B</span>,
+              label: <span className="tab-label">{t("slide_service2")}</span>,
               key: "2",
               children: (
                 <div className="flex justify-center items-center ">
@@ -93,16 +90,13 @@ const Service = () => {
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Giải pháp cho nhà nghỉ B&B</h3>
-                      <p className="text-gray-700 leading-8 mb-4 service-details">
-                        Phù hợp với các cơ sở lưu trú quy mô nhỏ. Giao diện đơn giản, dễ sử dụng với các tính năng cơ
-                        bản nhưng đầy đủ để quản lý hiệu quả việc kinh doanh nhà nghỉ và B&B.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service2_heading")}</h3>
+                      <p className="text-gray-700 leading-8 mb-4 service-details">{t("slide_service2_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                        <li>• Quản lý phòng đơn giản</li>
-                        <li>• Tính năng check-in nhanh</li>
-                        <li>• Theo dõi khách hàng thân thiết</li>
-                        <li>• Báo cáo tài chính cơ bản</li>
+                        <li>• {t("slide_service2_desc_point1")}</li>
+                        <li>• {t("slide_service2_desc_point2")}</li>
+                        <li>• {t("slide_service2_desc_point3")}</li>
+                        <li>• {t("slide_service2_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -110,7 +104,7 @@ const Service = () => {
               )
             },
             {
-              label: <span className="tab-label text-shadow-amber-50">Căn Hộ</span>,
+              label: <span className="tab-label text-shadow-amber-50">{t("slide_service3")}</span>,
               key: "3",
               children: (
                 <div className="flex justify-center items-center ">
@@ -125,17 +119,13 @@ const Service = () => {
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý căn hộ dịch vụ</h3>
-                      <p className="text-gray-700 mb-4 leading-8 service-details">
-                        Giải pháp tối ưu cho việc quản lý căn hộ dịch vụ và cho thuê ngắn hạn. Hệ thống hỗ trợ quản lý
-                        nhiều căn hộ cùng lúc, tự động hóa quy trình từ đặt phòng đến thanh toán, giúp tối đa hóa lợi
-                        nhuận và giảm thiểu công việc quản lý thủ công.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service3_heading")}</h3>
+                      <p className="text-gray-700 mb-4 leading-8 service-details">{t("slide_service3_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-8">
-                        <li>• Quản lý đa căn hộ trên một nền tảng</li>
-                        <li>• Tích hợp với Airbnb, Booking.com</li>
-                        <li>• Quản lý lịch trình dọn dẹp</li>
-                        <li>• Báo cáo thu chi theo từng căn hộ</li>
+                        <li>• {t("slide_service3_desc_point1")}</li>
+                        <li>• {t("slide_service3_desc_point2")}</li>
+                        <li>• {t("slide_service3_desc_point3")}</li>
+                        <li>• {t("slide_service3_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -143,7 +133,7 @@ const Service = () => {
               )
             },
             {
-              label: <span className="tab-label">Biệt Thự</span>,
+              label: <span className="tab-label">{t("slide_service4")}</span>,
               key: "4",
               children: (
                 <div className="flex justify-center items-center ">
@@ -158,17 +148,13 @@ const Service = () => {
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý biệt thự cao cấp</h3>
-                      <p className="text-gray-700 mb-4 leading-8 service-details">
-                        Giải pháp chuyên biệt cho các biệt thự nghỉ dưỡng và villa cho thuê. Hệ thống tích hợp các dịch
-                        vụ concierge, quản lý nhân viên, bảo trì tài sản và trải nghiệm khách hàng VIP. Phù hợp cho các
-                        biệt thự đơn lẻ đến chuỗi resort villa.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service4_heading")}</h3>
+                      <p className="text-gray-700 mb-4 leading-8 service-details">{t("slide_service4_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                        <li>• Dịch vụ concierge và butler</li>
-                        <li>• Quản lý bảo trì tài sản</li>
-                        <li>• Booking dài hạn và sự kiện</li>
-                        <li>• Báo cáo chi phí vận hành</li>
+                        <li>• {t("slide_service4_desc_point1")}</li>
+                        <li>• {t("slide_service4_desc_point2")}</li>
+                        <li>• {t("slide_service4_desc_point3")}</li>
+                        <li>• {t("slide_service4_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -176,7 +162,7 @@ const Service = () => {
               )
             },
             {
-              label: <span className="tab-label">Nhà Nguyên Căn</span>,
+              label: <span className="tab-label">{t("slide_service5")}</span>,
               key: "5",
               children: (
                 <div className="flex justify-center items-center ">
@@ -191,17 +177,13 @@ const Service = () => {
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý nhà nguyên căn</h3>
-                      <p className="text-gray-700 mb-4 leading-8 service-details">
-                        Tối ưu cho việc cho thuê nhà nguyên căn theo ngày, tuần hoặc tháng. Hệ thống hỗ trợ quản lý từ
-                        xa, theo dõi tình trạng nhà cửa, lập lịch dọn dẹp và bảo trì. Tích hợp với các nền tảng Airbnb,
-                        Booking.com để tối đa hóa tỷ lệ lấp đầy.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service5_heading")}</h3>
+                      <p className="text-gray-700 mb-4 leading-8 service-details">{t("slide_service5_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                        <li>• Quản lý từ xa qua mobile app</li>
-                        <li>• Lập lịch dọn dẹp tự động</li>
-                        <li>• Theo dõi tiện ích và hóa đơn</li>
-                        <li>• Hỗ trợ check-in self-service</li>
+                        <li>• {t("slide_service5_desc_point1")}</li>
+                        <li>• {t("slide_service5_desc_point2")}</li>
+                        <li>• {t("slide_service5_desc_point3")}</li>
+                        <li>• {t("slide_service5_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -209,7 +191,7 @@ const Service = () => {
               )
             },
             {
-              label: <span className="tab-label">Homestay</span>,
+              label: <span className="tab-label">{t("slide_service6")}</span>,
               key: "6",
               children: (
                 <div className="flex justify-center items-center ">
@@ -224,17 +206,13 @@ const Service = () => {
                       />
                     </div>
                     <div className="p-5 m-10 text-left">
-                      <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý homestay gia đình</h3>
-                      <p className="text-gray-700 leading-8 space-y-2 service-details">
-                        Dành riêng cho các homestay gia đình và du lịch cộng đồng. Tính năng đơn giản, dễ sử dụng với
-                        focus vào trải nghiệm khách hàng và văn hóa địa phương. Hỗ trợ quản lý tour, hoạt động và dịch
-                        vụ ăn uống tại chỗ.
-                      </p>
+                      <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("slide_service6_heading")}</h3>
+                      <p className="text-gray-700 leading-8 space-y-2 service-details">{t("slide_service6_desc")}</p>
                       <ul className="text-gray-600 space-y-2 leading-10 service-details">
-                        <li>• Quản lý tour và hoạt động</li>
-                        <li>• Menu ăn uống gia đình</li>
-                        <li>• Đánh giá trải nghiệm khách</li>
-                        <li>• Kết nối cộng đồng địa phương</li>
+                        <li>• {t("slide_service6_desc_point1")}</li>
+                        <li>• {t("slide_service6_desc_point2")}</li>
+                        <li>• {t("slide_service6_desc_point3")}</li>
+                        <li>• {t("slide_service6_desc_point4")}</li>
                       </ul>
                     </div>
                   </div>
@@ -247,7 +225,7 @@ const Service = () => {
       {/* showcase Section */}
       <div className="header">
         <div className="container mx-auto py-15 text-center">
-          <h2 className="service-content text-3xl font-light my-10 ">Dịch vụ của chúng tôi</h2>
+          <h2 className="service-content text-3xl font-light my-10 ">{t("showcase_service_heading")}</h2>
           <Row gutter={16}>
             <Col span={8}>
               <Card
@@ -256,9 +234,10 @@ const Service = () => {
                   <div className="flex items-center justify-center gap-2 text-3xl p-4">
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center justify-center text-amber-600 font-bold gap-2 py-4">
-                        <FaRegArrowAltCircleUp className="text-amber-600" /> 63x
+                        <FaRegArrowAltCircleUp className="text-amber-600" />
+                        {t("showcase_service1_title")}
                       </div>
-                      <span className="text-gray-600 text-xl font-light">Hiệu quả đầu tư</span>
+                      <span className="text-gray-600 text-xl font-light">{t("showcase_service1_title_detail")}</span>
                     </div>
                   </div>
                 }
@@ -267,12 +246,13 @@ const Service = () => {
               >
                 <div className="p-5">
                   <div>
-                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold">Đặt phòng dễ dàng</p>
+                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold">
+                      {t("showcase_service1_title_desc")}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-700 leading-8 mb-4 text-xl text-justify">
-                      Chúng tôi cung cấp giải pháp đặt phòng trực tuyến nhanh chóng và tiện lợi, giúp khách hàng dễ dàng
-                      tìm kiếm và đặt phòng chỉ với vài cú nhấp chuột.
+                      {t("showcase_service1_desc_detail")}
                     </p>
                   </div>
                 </div>
@@ -286,9 +266,9 @@ const Service = () => {
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center justify-center text-amber-600 font-bold gap-2 py-4">
                         <LuClockArrowUp className="text-amber-600 " />
-                        35 phút / lượt
+                        {t("showcase_service2_title")}
                       </div>
-                      <span className="text-gray-600 text-xl font-light">tiết kiệm thời gian trên lượt booking</span>
+                      <span className="text-gray-600 text-xl font-light">{t("showcase_service2_title_detail")}</span>
                     </div>
                   </div>
                 }
@@ -297,12 +277,13 @@ const Service = () => {
               >
                 <div className="p-5">
                   <div>
-                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold">Quản lý thời gian hiệu quả</p>
+                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold">
+                      {t("showcase_service2_title_desc")}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-700 leading-8 mb-4 text-xl text-justify">
-                      Hệ thống giúp bạn tiết kiệm thời gian trong việc quản lý đặt phòng, từ việc xác nhận đến xử lý yêu
-                      cầu của khách hàng, giúp bạn tập trung vào các công việc quan trọng khác.
+                      {t("showcase_service2_desc_detail")}
                     </p>
                   </div>
                 </div>
@@ -316,9 +297,9 @@ const Service = () => {
                     <div className="flex flex-col gap-2">
                       <div className="flex items-center justify-center text-amber-600 font-bold gap-2 py-4">
                         <TiStarOutline className="text-amber-600" />
-                        Nhiều tiện ích
+                        {t("showcase_service3_title")}
                       </div>
-                      <span className="text-gray-600 text-xl font-light">Đa dạng kênh đầu tư</span>
+                      <span className="text-gray-600 text-xl font-light">{t("showcase_service3_title_detail")}</span>
                     </div>
                   </div>
                 }
@@ -327,12 +308,13 @@ const Service = () => {
               >
                 <div className="p-5">
                   <div>
-                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold ">Tích hợp nhiều tiện ích</p>
+                    <p className="text-gray-700 leading-8 mb-4 text-2xl font-semibold ">
+                      {t("showcase_service3_title_desc")}
+                    </p>
                   </div>
                   <div>
                     <p className="text-gray-700 leading-8 mb-4 text-xl text-justify">
-                      Chúng tôi cung cấp nhiều tiện ích tích hợp như quản lý tài sản, báo cáo doanh thu và các công cụ
-                      marketing để giúp bạn tối ưu hóa hoạt động kinh doanh của mình.
+                      {t("showcase_service3_desc_detail")}
                     </p>
                   </div>
                 </div>
@@ -345,40 +327,34 @@ const Service = () => {
       <div className="contain">
         <div className="container mx-auto py-10">
           <div className="text-center">
-            <h2 className="text-3xl font-light service-content mt-6">Trải nghiệm hệ Apache - miễn phí 30 ngày</h2>
-            <p className="text-gray-700 leading-8 service-details mb-6">
-              Không hợp đồng, không ràng buộc. Dùng thử miễn phí 30 ngày để trải nghiệm đầy đủ tính năng của hệ thống
-              quản lý khách sạn Apache.
-            </p>
+            <h2 className="text-3xl font-light service-content mt-6">{t("users_trial_heading")}</h2>
+            <p className="text-gray-700 leading-8 service-details mb-6">{t("Users_trial_desc")}</p>
           </div>
           <div className="grid grid-cols-2 gap-8">
             <div className="py-20 px-10 text-left">
               <div className="mb-10 bg-white rounded-lg shadow-lg p-10">
                 <h3 className="text-2xl font-serif mb-4">
-                  Đăng ký ngay hôm nay
-                  <span className="text-gray-700 font-light text-sm">
-                    {" "}
-                    - để trải nghiệm dịch vụ bằng cách điền form bên cạnh
-                  </span>
+                  {t("Users_trial_thumbnail")}
+                  <span className="text-gray-700 font-light text-sm"> - {t("Users_trial_thumbnail_desc")}</span>
                 </h3>
                 <div className="pl-10">
                   <p className="text-gray-700 leading-8 mb-4 service-details">
                     <span className="flex items-center font-semibold gap-2">
-                      <FaChartLine /> Tăng hiệu suất{" "}
+                      <FaChartLine /> {t("User_trial_leftside_title1")}
                     </span>
-                    Tăng lượt đặt chỗ của bạn lên tới 46% với phần mềm đơn giản của chúng tôi.
+                    {t("User_trial_leftside_title1_detail")}
                   </p>
                   <p className="text-gray-700 leading-8 mb-4 service-details">
                     <span className="flex items-center font-semibold gap-2  ">
-                      <LuChartBar /> Tối ưu hóa doanh thu{" "}
+                      <LuChartBar /> {t("User_trial_leftside_title2")}
                     </span>
-                    Kiểm soát lại tất cả các bài đăng, đặt phòng và hóa đơn của bạn ở một nơi.
+                    {t("User_trial_leftside_title2_detail")}
                   </p>
                   <p className="text-gray-700 leading-8 mb-4 service-details">
                     <span className="flex items-center font-semibold gap-2">
-                      <MdSendToMobile /> Quản lý từ xa{" "}
+                      <MdSendToMobile /> {t("User_trial_leftside_title3")}
                     </span>
-                    Tận hưởng sự tự do hơn để quản lý tài sản của bạn mọi nơi với ứng dụng di động của chúng tôi.
+                    {t("User_trial_leftside_title3_detail")}
                   </p>
                 </div>
               </div>
@@ -400,24 +376,24 @@ const Service = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your first name!"
+                      message: t("User_trial_form_name_placeholder")
                     },
                     {
                       min: 2,
-                      message: "First name must be at least 2 characters!"
+                      message: t("User_trial_form_name_minlength")
                     },
                     {
                       max: 50,
-                      message: "First name cannot exceed 50 characters!"
+                      message: t("User_trial_form_name_maxlength")
                     },
                     {
                       pattern: /^[a-zA-Z\s]+$/,
-                      message: "First name can only contain letters and spaces!"
+                      message: t("User_trial_form_name_pattern")
                     }
                   ]}
                 >
                   <Input
-                    placeholder="Enter your first name"
+                    placeholder={t("User_trial_form_name_placeholder")}
                     className="rounded-lg"
                     prefix={<CiUser className="text-gray-400 text-xl" />}
                   />
@@ -426,23 +402,23 @@ const Service = () => {
                 <Form.Item<FieldType>
                   name="lastName"
                   rules={[
-                    { required: true, message: "Please input your last name!" },
+                    { required: true, message: t("User_trial_form_lastname_placeholder") },
                     {
                       min: 2,
-                      message: "Last name must be at least 2 characters!"
+                      message: t("User_trial_form_lastname_minlength")
                     },
                     {
                       max: 50,
-                      message: "Last name cannot exceed 50 characters!"
+                      message: t("User_trial_form_email_maxlength")
                     },
                     {
                       pattern: /^[a-zA-Z\s]+$/,
-                      message: "Last name can only contain letters and spaces!"
+                      message: t("User_trial_form_lastname_pattern")
                     }
                   ]}
                 >
                   <Input
-                    placeholder="Enter your last name"
+                    placeholder={t("User_trial_form_name_placeholder")}
                     className="rounded-lg"
                     prefix={<CiUser className="text-gray-400 text-xl" />}
                   />
@@ -451,20 +427,20 @@ const Service = () => {
                 <Form.Item<FieldType>
                   name="email"
                   rules={[
-                    { required: true, message: "Please input your email!" },
+                    { required: true, message: t("User_trial_form_email_placeholder") },
                     {
                       type: "email",
-                      message: "Please enter a valid email address!"
+                      message: t("User_trial_form_email_invalid")
                     },
                     {
                       max: 100,
-                      message: "Email cannot exceed 100 characters!"
+                      message: t("User_trial_form_email_maxlength")
                     }
                   ]}
                 >
                   <Input
                     type="email"
-                    placeholder="Enter your email address"
+                    placeholder={t("User_trial_form_email_placeholder")}
                     className="rounded-lg"
                     prefix={<MdOutlineEmail className="text-gray-400 text-xl" />}
                   />
@@ -474,17 +450,17 @@ const Service = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please input your company name!"
+                      message: t("User_trial_form_property_placeholder")
                     },
                     {
                       max: 30,
-                      message: "Company name cannot exceed 30 characters!"
+                      message: t("User_trial_form_property_maxlength")
                     }
                   ]}
                 >
                   <Input
                     type="email"
-                    placeholder="Enter your company name"
+                    placeholder={t("User_trial_form_property_placeholder")}
                     className="rounded-lg"
                     prefix={<FaHouse className="text-gray-400 text-xl" />}
                   />
@@ -495,17 +471,17 @@ const Service = () => {
                   rules={[
                     {
                       required: true,
-                      message: "Please enter the number of rooms (max 4-digits)!"
+                      message: t("User_trial_form_rooms_placeholder")
                     },
                     {
                       max: 4,
-                      message: "Number of room cannot exceed 4 characters!"
+                      message: t("User_trial_form_rooms_placeholder_maxlength")
                     }
                   ]}
                 >
                   <Input
                     type="number of room"
-                    placeholder="Enter the number of rooms"
+                    placeholder={t("User_trial_form_rooms_placeholder")}
                     className="rounded-lg"
                     prefix={<MdMeetingRoom className="text-gray-400 text-xl" />}
                   />
@@ -517,14 +493,14 @@ const Service = () => {
                   rules={[
                     {
                       required: true,
-                      message: "You must accept the Apache content terms to continue!"
+                      message: t("User_trial_form_accept_term_alert")
                     }
                   ]}
                 >
                   <Checkbox className="text-gray-700">
-                    I accept the{" "}
+                    {t("User_trial_accept_terms1")}{" "}
                     <span className="text-amber-600 hover:text-amber-700 cursor-pointer font-medium">
-                      Apache content terms and conditions
+                      {t("User_trial_accept_terms2")}
                     </span>
                   </Checkbox>
                 </Form.Item>
@@ -533,10 +509,10 @@ const Service = () => {
                   <Button
                     htmlType="submit"
                     size="large"
-                    className="w-full !bg-amber-400 hover:!bg-amber-600 hover:!border-amber-700 rounded-lg font-semibold !text-white"
+                    className="w-full bg-amber-400! hover:bg-amber-600! hover:border-amber-700! rounded-lg font-semibold text-white!"
                     style={{ height: "48px" }}
                   >
-                    Try Free for 30 Days
+                    {t("User_trial_form_submit")}
                   </Button>
                 </Form.Item>
               </Form>
@@ -548,10 +524,8 @@ const Service = () => {
       <section className="user-rating">
         <div className="container mx-auto py-25">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-light service-content mb-6">Đánh giá của người dùng</h2>
-            <p className="text-gray-700 leading-8 service-details mb-6">
-              Hơn 1000 khách hàng đã tin tưởng và sử dụng dịch vụ của chúng tôi.
-            </p>
+            <h2 className="text-3xl font-light service-content mb-6">{t("user_rating_heading")}</h2>
+            <p className="text-gray-700 leading-8 service-details mb-6">{t("user_rating_desc")}</p>
           </div>
           <Row gutter={16} justify="center">
             <Col span={6}>
@@ -564,11 +538,8 @@ const Service = () => {
                     alt="Capterra"
                   />
                 </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;Dịch vụ tuyệt vời!&quot;</p>
-                <p className="text-gray-600 mb-4 text-left">
-                  &quot;Tôi đã sử dụng hệ thống này cho khách sạn của mình và thấy nó rất hiệu quả. Dễ sử dụng và hỗ trợ
-                  tốt.&quot;
-                </p>
+                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;{t("user_rating_review1_title")}&quot;</p>
+                <p className="text-gray-600 mb-4 text-left">&quot;{t("user_rating_review1")}&quot;</p>
                 <p className="text-gray-500">- Nguyễn Văn A</p>
               </Card>
             </Col>
@@ -582,11 +553,8 @@ const Service = () => {
                     alt="Software Advice"
                   />
                 </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;Rất hài lòng!&quot;</p>
-                <p className="text-gray-600 mb-4 text-left">
-                  &quot;Hệ thống giúp tôi quản lý khách sạn một cách dễ dàng và hiệu quả. Tôi rất hài lòng với dịch vụ
-                  này.&quot;
-                </p>
+                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;{t("user_rating_review2_title")}&quot;</p>
+                <p className="text-gray-600 mb-4 text-left">&quot;{t("user_rating_review2")}&quot;</p>
                 <p className="text-gray-500">- Trần Thị B</p>
               </Card>
             </Col>
@@ -600,11 +568,8 @@ const Service = () => {
                     alt="Trustpilot"
                   />
                 </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;Đáng tin cậy!&quot;</p>
-                <p className="text-gray-600 mb-4 text-left">
-                  &quot;Tôi đã sử dụng nhiều hệ thống quản lý khách sạn nhưng đây là hệ thống tốt nhất. Đáng tin cậy và
-                  dễ sử dụng.&quot;
-                </p>
+                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;{t("user_rating_review3_title")}&quot;</p>
+                <p className="text-gray-600 mb-4 text-left">&quot;{t("user_rating_review3")}&quot;</p>
                 <p className="text-gray-500">- Lê Văn C</p>
               </Card>
             </Col>
@@ -618,11 +583,8 @@ const Service = () => {
                     alt="Hotel Tech Report"
                   />
                 </div>
-                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;Tuyệt vời!&quot;</p>
-                <p className="text-gray-600 mb-4 text-left">
-                  &quot;Apache đã giúp chúng tôi tăng hiệu quả quản lý lên 40%. Rất khuyến khích các khách sạn khác sử
-                  dụng.&quot;
-                </p>
+                <p className="text-xl font-semibold text-gray-800 mb-4">&quot;{t("user_rating_review4_title")}&quot;</p>
+                <p className="text-gray-600 mb-4 text-left">&quot;{t("user_rating_review4")}&quot;</p>
                 <p className="text-gray-500">- Phạm Thị D</p>
               </Card>
             </Col>

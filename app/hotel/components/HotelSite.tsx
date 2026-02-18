@@ -6,7 +6,10 @@ import { Tabs } from "antd";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { toast } from "sonner";
+
+import { useTranslation } from "react-i18next";
 const HotelSite = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const { user, loading } = useAuthStore();
   console.log("HotelSite render - user:", user, "loading:", loading);
@@ -14,7 +17,7 @@ const HotelSite = () => {
     if (user) {
       router.push("/hotelreception");
     } else {
-      toast.error("Vui lòng đăng nhập để tiếp tục.");
+      toast.error(t("hotel_site_toast_error"));
     }
   };
   return (
@@ -26,8 +29,8 @@ const HotelSite = () => {
         {/* super graphic layer */}
         <div className="absolute inset-0 pointer-events-none">
           {/* Large geometric shapes */}
-          <div className="absolute top-32 right-32 w-96 h-96 bg-gradient-to-br from-orange-300/20 to-amber-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-yellow-300/15 to-orange-300/15 rounded-full blur-2xl"></div>
+          <div className="absolute top-32 right-32 w-96 h-96 bg-linear-to-br from-orange-300/20 to-amber-400/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-linear-to-tr from-yellow-300/15 to-orange-300/15 rounded-full blur-2xl"></div>
 
           {/* Geometric patterns */}
           <div className="absolute top-10 left-10 w-10 h-10 bg-amber-400/30 rotate-45 transform"></div>
@@ -51,9 +54,9 @@ const HotelSite = () => {
           {/* describe of poster */}
           <div className="poster-text absolute right-50  top-50 items-start gap-6 z-10">
             <h1 className="poster-text text-4xl lg:text-7xl font-bold text-gray-800 leading-tight gap-7">
-              Nền Tảng <br />
-              Quản lý khách sạn <br />
-              <span className="poster-text text-amber-600">chuyên nghiệp</span>
+              {t("hotel_site_posterText_line1")} <br />
+              {t("hotel_site_posterText_line2")} <br />
+              <span className="poster-text text-amber-600">{t("hotel_site_posterText_line3")}</span>
             </h1>
           </div>
 
@@ -75,11 +78,11 @@ const HotelSite = () => {
                   <FaStar />
                   <FaStar />
                 </div>
-                <p className="text-sm text-gray-500">Công cụ hỗ trợ #1 cho các chủ sở hữu khách sạn và nhà nghỉ</p>
+                <p className="text-sm text-gray-500">{t("hotel_site_posterText_disclaimer2")}</p>
               </div>
               <div className="flex flex-col gap-4 p-4 mt-50">
                 <p className="poster-text text-xl text-gray-600 font-light">
-                  &quot;Cung cấp dịch vụ quản lý tất cả trong một cho khách sạn&quot;.
+                  &quot;{t("hotel_site_greatest_tool")}&quot;.
                 </p>
               </div>
 
@@ -89,10 +92,10 @@ const HotelSite = () => {
                   className="bg-amber-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-amber-700 transition-colors shadow-lg"
                   onClick={handleGetStarted}
                 >
-                  Bắt đầu miễn phí
+                  {t("hotel_site_posterText_tryout_button1")}
                 </button>
                 <button className="border-2 border-amber-600 text-amber-600 px-8 py-4 rounded-lg font-semibold hover:bg-amber-50 transition-colors">
-                  Xem demo
+                  {t("hotel_site_posterText_tryout_button2")}
                 </button>
               </div>
             </div>
@@ -103,9 +106,7 @@ const HotelSite = () => {
         {/* Service Section */}
         <div className="container mx-auto h-auto py-10">
           <div className="text-center my-5">
-            <p className="service-content text-4xl mt-10 mx-auto">
-              Chúng tôi là tất cả những điều bạn cần cho giải pháp quản lý khách sạn thông minh.
-            </p>
+            <p className="service-content text-4xl mt-10 mx-auto">{t("hotel_site_service_heading")}</p>
           </div>
           <Tabs
             defaultActiveKey="1"
@@ -113,7 +114,7 @@ const HotelSite = () => {
             centered={true}
             items={[
               {
-                label: <span className="tab-label">Quản lý đặt phòng</span>,
+                label: <span className="tab-label">{t("hotel_site_service_1_title")}</span>,
                 key: "1",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -128,17 +129,13 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý khách sạn chuyên nghiệp</h3>
-                        <p className="text-gray-700 leading-8 mb-4 service-details">
-                          Hệ thống quản lý khách sạn toàn diện với đầy đủ tính năng từ đặt phòng, check-in/out, quản lý
-                          dịch vụ đến báo cáo doanh thu chi tiết. Tích hợp công nghệ hiện đại giúp tối ưu hóa vận hành
-                          và nâng cao trải nghiệm khách hàng.
-                        </p>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_1_subtitle")}</h3>
+                        <p className="text-gray-700 leading-8 mb-4 service-details">{t("hotel_site_service_1_desc")}</p>
                         <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                          <li>• Quản lý đặt phòng trực tuyến</li>
-                          <li>• Tích hợp PMS và Channel Manager</li>
-                          <li>• Báo cáo doanh thu real-time</li>
-                          <li>• Hỗ trợ đa ngôn ngữ</li>
+                          <li>{t("hotel_site_service_1_list1")}</li>
+                          <li>{t("hotel_site_service_1_list2")}</li>
+                          <li>{t("hotel_site_service_1_list3")}</li>
+                          <li>{t("hotel_site_service_1_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -146,7 +143,7 @@ const HotelSite = () => {
                 )
               },
               {
-                label: <span className="tab-label">Tiếp tân</span>,
+                label: <span className="tab-label">{t("hotel_site_service_2_title")}</span>,
                 key: "2",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -161,16 +158,13 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Giải pháp cho nhà nghỉ B&B</h3>
-                        <p className="text-gray-700 leading-8 mb-4 service-details">
-                          Phù hợp với các cơ sở lưu trú quy mô nhỏ. Giao diện đơn giản, dễ sử dụng với các tính năng cơ
-                          bản nhưng đầy đủ để quản lý hiệu quả việc kinh doanh nhà nghỉ và B&B.
-                        </p>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_2_subtitle")}</h3>
+                        <p className="text-gray-700 leading-8 mb-4 service-details">{t("hotel_site_service_2_desc")}</p>
                         <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                          <li>• Quản lý phòng đơn giản</li>
-                          <li>• Tính năng check-in nhanh</li>
-                          <li>• Theo dõi khách hàng thân thiết</li>
-                          <li>• Báo cáo tài chính cơ bản</li>
+                          <li>{t("hotel_site_service_2_list1")}</li>
+                          <li>{t("hotel_site_service_2_list2")}</li>
+                          <li>{t("hotel_site_service_2_list3")}</li>
+                          <li>{t("hotel_site_service_2_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -178,7 +172,7 @@ const HotelSite = () => {
                 )
               },
               {
-                label: <span className="tab-label text-shadow-amber-50">Thông tin chi tiết</span>,
+                label: <span className="tab-label text-shadow-amber-50">{t("hotel_site_service_3_title")}</span>,
                 key: "3",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -193,17 +187,13 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý căn hộ dịch vụ</h3>
-                        <p className="text-gray-700 mb-4 leading-8 service-details">
-                          Giải pháp tối ưu cho việc quản lý căn hộ dịch vụ và cho thuê ngắn hạn. Hệ thống hỗ trợ quản lý
-                          nhiều căn hộ cùng lúc, tự động hóa quy trình từ đặt phòng đến thanh toán, giúp tối đa hóa lợi
-                          nhuận và giảm thiểu công việc quản lý thủ công.
-                        </p>
-                        <ul className="text-gray-600 space-y-2 leading-8">
-                          <li>• Quản lý đa căn hộ trên một nền tảng</li>
-                          <li>• Tích hợp với Airbnb, Booking.com</li>
-                          <li>• Quản lý lịch trình dọn dẹp</li>
-                          <li>• Báo cáo thu chi theo từng căn hộ</li>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_3_subtitle")}</h3>
+                        <p className="text-gray-700 mb-4 leading-8 service-details">{t("hotel_site_service_3_desc")}</p>
+                        <ul className="text-gray-600 space-y-2 leading-8 service-details">
+                          <li>{t("hotel_site_service_3_list1")}</li>
+                          <li>{t("hotel_site_service_3_list2")}</li>
+                          <li>{t("hotel_site_service_3_list3")}</li>
+                          <li>{t("hotel_site_service_3_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -211,7 +201,7 @@ const HotelSite = () => {
                 )
               },
               {
-                label: <span className="tab-label">Hoạt động khách hàng</span>,
+                label: <span className="tab-label">{t("hotel_site_service_4_title")}</span>,
                 key: "4",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -226,17 +216,13 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý biệt thự cao cấp</h3>
-                        <p className="text-gray-700 mb-4 leading-8 service-details">
-                          Giải pháp chuyên biệt cho các biệt thự nghỉ dưỡng và villa cho thuê. Hệ thống tích hợp các
-                          dịch vụ concierge, quản lý nhân viên, bảo trì tài sản và trải nghiệm khách hàng VIP. Phù hợp
-                          cho các biệt thự đơn lẻ đến chuỗi resort villa.
-                        </p>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_4_subtitle")}</h3>
+                        <p className="text-gray-700 mb-4 leading-8 service-details">{t("hotel_site_service_4_desc")}</p>
                         <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                          <li>• Dịch vụ concierge và butler</li>
-                          <li>• Quản lý bảo trì tài sản</li>
-                          <li>• Booking dài hạn và sự kiện</li>
-                          <li>• Báo cáo chi phí vận hành</li>
+                          <li>{t("hotel_site_service_4_list1")}</li>
+                          <li>{t("hotel_site_service_4_list2")}</li>
+                          <li>{t("hotel_site_service_4_list3")}</li>
+                          <li>{t("hotel_site_service_4_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -244,7 +230,7 @@ const HotelSite = () => {
                 )
               },
               {
-                label: <span className="tab-label">Thanh toán</span>,
+                label: <span className="tab-label">{t("hotel_site_service_5_title")}</span>,
                 key: "5",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -259,17 +245,13 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý nhà nguyên căn</h3>
-                        <p className="text-gray-700 mb-4 leading-8 service-details">
-                          Tối ưu cho việc cho thuê nhà nguyên căn theo ngày, tuần hoặc tháng. Hệ thống hỗ trợ quản lý từ
-                          xa, theo dõi tình trạng nhà cửa, lập lịch dọn dẹp và bảo trì. Tích hợp với các nền tảng
-                          Airbnb, Booking.com để tối đa hóa tỷ lệ lấp đầy.
-                        </p>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_5_subtitle")}</h3>
+                        <p className="text-gray-700 mb-4 leading-8 service-details">{t("hotel_site_service_5_desc")}</p>
                         <ul className="text-gray-600 space-y-2 leading-8 service-details">
-                          <li>• Quản lý từ xa qua mobile app</li>
-                          <li>• Lập lịch dọn dẹp tự động</li>
-                          <li>• Theo dõi tiện ích và hóa đơn</li>
-                          <li>• Hỗ trợ check-in self-service</li>
+                          <li>{t("hotel_site_service_5_list1")}</li>
+                          <li>{t("hotel_site_service_5_list2")}</li>
+                          <li>{t("hotel_site_service_5_list3")}</li>
+                          <li>{t("hotel_site_service_5_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -277,7 +259,7 @@ const HotelSite = () => {
                 )
               },
               {
-                label: <span className="tab-label">Metasearch </span>,
+                label: <span className="tab-label">{t("hotel_site_service_6_title")}</span>,
                 key: "6",
                 children: (
                   <div className="flex justify-center items-center ">
@@ -292,17 +274,15 @@ const HotelSite = () => {
                         />
                       </div>
                       <div className="p-5 m-10 text-left">
-                        <h3 className="text-2xl font-bold mb-4 text-amber-600">Quản lý homestay gia đình</h3>
+                        <h3 className="text-2xl font-bold mb-4 text-amber-600">{t("hotel_site_service_6_subtitle")}</h3>
                         <p className="text-gray-700 leading-8 space-y-2 service-details">
-                          Dành riêng cho các homestay gia đình và du lịch cộng đồng. Tính năng đơn giản, dễ sử dụng với
-                          focus vào trải nghiệm khách hàng và văn hóa địa phương. Hỗ trợ quản lý tour, hoạt động và dịch
-                          vụ ăn uống tại chỗ.
+                          {t("hotel_site_service_6_desc")}
                         </p>
                         <ul className="text-gray-600 space-y-2 leading-10 service-details">
-                          <li>• Quản lý tour và hoạt động</li>
-                          <li>• Menu ăn uống gia đình</li>
-                          <li>• Đánh giá trải nghiệm khách</li>
-                          <li>• Kết nối cộng đồng địa phương</li>
+                          <li>{t("hotel_site_service_6_list1")}</li>
+                          <li>{t("hotel_site_service_6_list2")}</li>
+                          <li>{t("hotel_site_service_6_list3")}</li>
+                          <li>{t("hotel_site_service_6_list4")}</li>
                         </ul>
                       </div>
                     </div>
@@ -311,6 +291,141 @@ const HotelSite = () => {
               }
             ]}
           />
+        </div>
+      </section>
+      <section className="bg-amber-50/50">
+        {/* application section */}
+        <div className="container mx-auto py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">{t("hotel_site_application_1")}</h2>
+              <p className="text-gray-600 leading-7">{t("hotel_site_application_1_ul")}</p>
+              <ul className="text-gray-600 space-y-2">
+                <li>{t("hotel_site_application_1_ul_li1")}</li>
+                <li>{t("hotel_site_application_1_ul_li2")}</li>
+                <li>{t("hotel_site_application_1_ul_li3")}</li>
+              </ul>
+            </div>
+            <Image
+              className="relative  object-cover h-100 md:h-120 lg:h-[600px]"
+              src="/assets/img/Application/resort-management-software-2.png"
+              alt="Hotel Management Dashboard"
+              width={700}
+              height={500}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="bg-amber-50/50">
+        {/* application section */}
+        <div className="container mx-auto py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <Image
+              className="relative  object-cover h-100 md:h-120 lg:h-[600px]"
+              src="/assets/img/Application/resort-management-software-3.png"
+              alt="Hotel Management Dashboard"
+              width={700}
+              height={500}
+            />
+            <div className="space-y-4 flex flex-col ">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">{t("hotel_site_application_2")}</h2>
+              <p className="text-gray-600 leading-7">{t("hotel_site_application_2_ul")}</p>
+              <ul className="text-gray-600 space-y-2 self-right">
+                <li>{t("hotel_site_application_2_ul_li1")}</li>
+                <li>{t("hotel_site_application_2_ul_li2")}</li>
+                <li>{t("hotel_site_application_2_ul_li3")}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="bg-amber-50/50">
+        {/* application section */}
+        <div className="container mx-auto py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <div className="space-y-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">{t("hotel_site_application_3")}</h2>
+              <p className="text-gray-600 leading-7">{t("hotel_site_application_3_ul")}</p>
+              <ul className="text-gray-600 space-y-2">
+                <li>{t("hotel_site_application_3_ul_li1")}</li>
+                <li>{t("hotel_site_application_3_ul_li2")}</li>
+                <li>{t("hotel_site_application_3_ul_li3")}</li>
+              </ul>
+            </div>
+            <Image
+              className="relative  object-cover h-100 md:h-120 lg:h-[600px]"
+              src="/assets/img/Application/resort-management-software-4.png"
+              alt="Hotel Management Dashboard"
+              width={600}
+              height={670}
+            />
+          </div>
+        </div>
+      </section>
+      <section className="bg-white">
+        {/* Demo section */}
+        <div className="container mx-auto py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+            <form className="bg-orange-50/50 border border-orange-100 rounded-2xl p-6 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm text-gray-600">Họ</label>
+                  <input
+                    type="text"
+                    placeholder="Nguyễn"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </div>
+                <div>
+                  <label className="text-sm text-gray-600">Tên</label>
+                  <input
+                    type="text"
+                    placeholder="Văn A"
+                    className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label className="text-sm text-gray-600">Email</label>
+                <input
+                  type="email"
+                  placeholder="email@company.com"
+                  className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="text-sm text-gray-600">Số điện thoại</label>
+                <input
+                  type="tel"
+                  placeholder="0909 000 000"
+                  className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="text-sm text-gray-600">Tên khách sạn</label>
+                <input
+                  type="text"
+                  placeholder="Khách sạn ABC"
+                  className="mt-1 w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                />
+              </div>
+              <button
+                type="submit"
+                className="mt-6 w-full bg-amber-600 text-white py-3 rounded-lg font-semibold hover:bg-amber-700 transition-colors"
+              >
+                Đặt lịch demo
+              </button>
+            </form>
+            <div className="space-y-4">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800">{t("hotel_site_signform_title")}</h2>
+              <p className="text-gray-600 leading-7">{t("hotel_site_signform_subtitle")}</p>
+              <ul className="text-gray-600 space-y-2">
+                <li>{t("hotel_site_signform_li1")}</li>
+                <li>{t("hotel_site_signform_li2")}</li>
+                <li>{t("hotel_site_signform_li3")}</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
     </>

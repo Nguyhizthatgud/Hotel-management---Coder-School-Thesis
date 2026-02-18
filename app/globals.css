@@ -91,7 +91,9 @@ body {
   background: #fff !important; /* White background */
   padding: 0.75rem 0.75rem !important; /* Spacious padding */
   font-size: 1rem !important;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 .ant-input:hover,
 .ant-input:focus {
@@ -107,7 +109,9 @@ body {
   background: #fff !important; /* White background */
 
   font-size: 1rem !important;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 .ant-divider {
   border-color: #a8a1a1 !important; /* Light divider color */
@@ -170,6 +174,7 @@ body {
 }
 
 @theme inline {
+  --font-price: "Lora", serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

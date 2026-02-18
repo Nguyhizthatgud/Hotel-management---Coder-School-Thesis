@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { UserCheck, Home, AlertCircle } from "lucide-react";
 
-const HoldingPage = () => {
+const SkeletonHoldingContent = () => {
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
       <Card className="max-w-md w-full">
@@ -47,4 +47,4 @@ const HoldingPage = () => {
   );
 };
 
-export default HoldingPage;
+export default SkeletonHoldingContent;

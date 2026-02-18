@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // ...existing colors
+
         "react-dark": "#23272f",
         primary: "#1DA1F2",
         secondary: "#14171A",

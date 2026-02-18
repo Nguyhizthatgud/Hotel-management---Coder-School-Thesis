@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { ArrowRightFromLine, ArrowRightToLine } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
 type AvatarDrpdwProps = {
   trigger?: React.ReactNode;
   align?: "start" | "center" | "end";
@@ -44,7 +46,7 @@ const AvatarDrpdw = ({
   // Keep menu open while hovering content to avoid flicker
   const handleEnter = () => setOpen(true);
   const handleLeave = () => setOpen(false);
-
+  const { t } = useTranslation();
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
@@ -66,19 +68,19 @@ const AvatarDrpdw = ({
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem className="group hover:font-bold" onClick={() => router.push("/hotelreception")}>
-            <span>Dashboard</span>
+            <span>{t("dashboard")}</span>
             <DropdownMenuShortcut className="opacity-0 group-hover:opacity-60 transition-opacity">
               <ArrowRightToLine />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem className="group hover:font-bold">
-            <span>Billing</span>
+            <span>{t("billing")}</span>
             <DropdownMenuShortcut className="opacity-0 group-hover:opacity-60 transition-opacity">
               <ArrowRightToLine />
             </DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem className="group hover:font-bold">
-            <span>Settings</span>
+            <span>{t("settings")}</span>
             <DropdownMenuShortcut className="opacity-0 group-hover:opacity-60 transition-opacity">
               <ArrowRightToLine />
             </DropdownMenuShortcut>
@@ -87,7 +89,7 @@ const AvatarDrpdw = ({
         <DropdownMenuSeparator />
         <DropdownMenuSeparator />
         <DropdownMenuItem className="group hover:font-bold" onClick={() => logout()}>
-          <span>Log out</span>
+          <span>{t("logout")}</span>
           <DropdownMenuShortcut className="opacity-0 group-hover:opacity-60 transition-opacity">
             <ArrowRightFromLine />{" "}
           </DropdownMenuShortcut>

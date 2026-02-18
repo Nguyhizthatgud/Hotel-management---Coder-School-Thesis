@@ -8,9 +8,11 @@ import { useForm, Controller } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, RegisterSchema, LoginFormData, RegisterFormData } from "@/types/user";
+import { toast } from "sonner";
 import { useAuthUIStore } from "@/stores/useAuthUIStore";
 import { useAuthStore } from "@/stores/useAuthStore";
-
+import { useTranslation } from "react-i18next";
+import { useRouter } from "next/navigation";
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.1 } },
@@ -23,6 +25,8 @@ const itemVariants = {
 };
 
 const LoginSignupPage = () => {
+  const { t } = useTranslation();
+  const router = useRouter();
   const { login, register } = useAuthStore();
   const { isLogin } = useAuthUIStore();
   const loginForm = useForm<LoginFormData>({
@@ -48,12 +52,16 @@ const LoginSignupPage = () => {
   const switchToLogin = useAuthUIStore((state) => state.switchToLogin) as () => void;
   const switchToSignup = useAuthUIStore((state) => state.switchToSignup) as () => void;
   const submittingSuccess = useAuthUIStore((state) => state.submittingSuccess) as (value: boolean) => void;
+  const close = useAuthUIStore((state) => state.close) as () => void;
+
   const onLoginSubmit = async (data: LoginFormData) => {
     try {
       await login(data.email, data.password);
       const token = await useAuthStore.getState().getToken(true);
       console.log(token);
       loginForm.reset();
+      close(); // Close the login modal
+      router.push("/hotelreception"); // Redirect to dashboard
     } finally {
       submittingSuccess(true);
     }
@@ -68,14 +76,16 @@ const LoginSignupPage = () => {
       if (registerSuccess) {
         registerForm.reset();
         switchToLogin();
+        toast.success(t("signup_success_toast"));
       }
     } catch (error: Error | unknown) {
-      console.log("Registration error:", error instanceof Error ? error.message : error);
+      const message = error instanceof Error ? error.message : t("signup_error_toast");
+      toast.error(message);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center !py-2">
+    <div className="flex flex-col items-center justify-center py-2!">
       <AnimatePresence mode="wait">
         {isLogin ? (
           // LOGIN FORM
@@ -88,18 +98,43 @@ const LoginSignupPage = () => {
             exit="exit"
           >
             <motion.div variants={itemVariants} className="flex justify-center">
-              <SiApachepulsar className="text-4xl text-orange-400" />
+              <svg width={40} height={40} viewBox="0 0 48 48" fill="none">
+                <defs>
+                  <linearGradient id="apacheGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#DA7523" />
+                    <stop offset="100%" stopColor="#D1AE3C" />
+                  </linearGradient>
+                </defs>
+                {/* Feather shape */}
+                <path
+                  d="M24 4C24 4 18 8 16 14C14 20 14 28 14 32C14 36 16 42 24 44C32 42 34 36 34 32C34 28 34 20 32 14C30 8 24 4 24 4Z"
+                  fill="url(#apacheGradient1)"
+                />
+                {/* Feather details */}
+                <path
+                  d="M24 8L20 16M24 8L28 16M24 12L22 20M24 12L26 20M24 16L23 24M24 16L25 24"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  opacity="0.6"
+                />
+                {/* Building outline at bottom */}
+                <rect x="18" y="32" width="12" height="10" fill="white" opacity="0.3" rx="1" />
+                <rect x="20" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="23" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="26" y="34" width="2" height="3" fill="#DC2626" />
+              </svg>
             </motion.div>
 
             <motion.div
               variants={itemVariants}
               className="text-gray-600 text-3xl flex justify-center items-center gap-2 font-semibold py-3"
             >
-              <span>Đăng Nhập</span>
+              <span>{t("login_form_thumbnail")}</span>
             </motion.div>
 
             <motion.span variants={itemVariants} className="py-3 text-sm block text-center">
-              Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.
+              {t("login_form_subthumbnail")}
             </motion.span>
 
             <motion.div variants={itemVariants}>
@@ -120,7 +155,7 @@ const LoginSignupPage = () => {
                     )}
                   />
                   {loginForm.formState.errors.email && (
-                    <p className="text-orange-500 text-xs mt-1">{loginForm.formState.errors.email.message}</p>
+                    <p className="text-orange-500 text-xs mt-1">{t("login_form_email_error")}</p>
                   )}
                 </Form.Item>
 
@@ -132,7 +167,7 @@ const LoginSignupPage = () => {
                       <Input.Password
                         {...field}
                         prefix={<LockOutlined />}
-                        placeholder="Mật khẩu"
+                        placeholder={t("login_form_password_placeholder")}
                         className="rounded-lg"
                         size="small"
                         variant="filled"
@@ -140,17 +175,17 @@ const LoginSignupPage = () => {
                     )}
                   />
                   {loginForm.formState.errors.password && (
-                    <p className="text-orange-500 text-xs mt-1">{loginForm.formState.errors.password.message}</p>
+                    <p className="text-orange-500 text-xs mt-1">{t("login_form_password_error")}</p>
                   )}
                 </Form.Item>
 
                 <Form.Item>
                   <Flex justify="space-between" align="center">
                     <Checkbox>
-                      <span className="text-sm">Ghi nhớ đăng nhập</span>
+                      <span className="text-sm">{t("login_form_remember_signin")}</span>
                     </Checkbox>
-                    <a className="text-sm !text-orange-500 hover:!underline" href="#forgot">
-                      Quên mật khẩu?
+                    <a className="text-sm text-orange-500! hover:underline!" href="#forgot">
+                      {t("login_form_forgot_password")}
                     </a>
                   </Flex>
                 </Form.Item>
@@ -165,13 +200,13 @@ const LoginSignupPage = () => {
                       block
                     >
                       <span className={`text-orange-500 ${loginForm.formState.isSubmitting ? "hidden" : "block"}`}>
-                        Đăng Nhập
+                        {t("login_form_signin_button")}
                       </span>
                     </Button>
                   </motion.div>
                 </Form.Item>
 
-                <Divider>Phương thức đăng nhập khác</Divider>
+                <Divider>{t("login_form_signin_solution")}</Divider>
 
                 <div className="flex gap-2 flex-col">
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
@@ -191,19 +226,21 @@ const LoginSignupPage = () => {
                   </motion.div>
                 </div>
 
-                <Form.Item className="!mt-6 text-center">
+                <Form.Item className="mt-6! text-center">
                   <span className="text-sm">
-                    Chưa có tài khoản?{" "}
-                    <a onClick={() => switchToSignup()} className="!text-orange-500 hover:!underline cursor-pointer">
-                      Đăng ký
+                    {t("login_form_no_account")}{" "}
+                    <a onClick={() => switchToSignup()} className="text-orange-500! hover:underline! cursor-pointer">
+                      {t("login_form_signup_now")}
                     </a>
                   </span>
                 </Form.Item>
 
                 <Form.Item className="mt-4 text-center text-sm text-gray-500">
-                  Bằng việc tiếp tục, bạn đồng ý với
-                  <span className="text-orange-500 cursor-pointer"> điều khoản dịch vụ</span> và{" "}
-                  <span className="text-orange-500 cursor-pointer"> chính sách bảo mật </span>của chúng tôi.
+                  {t("login_form_policy1")}
+                  <span className="text-orange-500 cursor-pointer">{t("login_form_policy2")}</span>
+                  {t("login_form_policy3")}{" "}
+                  <span className="text-orange-500 cursor-pointer">{t("login_form_policy4")}</span>
+                  {t("login_form_policy5")}
                 </Form.Item>
               </Form>
             </motion.div>
@@ -219,18 +256,43 @@ const LoginSignupPage = () => {
             exit="exit"
           >
             <motion.div variants={itemVariants} className="flex justify-center">
-              <SiApachepulsar className="text-4xl text-orange-400" />
+              <svg width={40} height={40} viewBox="0 0 48 48" fill="none">
+                <defs>
+                  <linearGradient id="apacheGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#DA7523" />
+                    <stop offset="100%" stopColor="#D1AE3C" />
+                  </linearGradient>
+                </defs>
+                {/* Feather shape */}
+                <path
+                  d="M24 4C24 4 18 8 16 14C14 20 14 28 14 32C14 36 16 42 24 44C32 42 34 36 34 32C34 28 34 20 32 14C30 8 24 4 24 4Z"
+                  fill="url(#apacheGradient1)"
+                />
+                {/* Feather details */}
+                <path
+                  d="M24 8L20 16M24 8L28 16M24 12L22 20M24 12L26 20M24 16L23 24M24 16L25 24"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  opacity="0.6"
+                />
+                {/* Building outline at bottom */}
+                <rect x="18" y="32" width="12" height="10" fill="white" opacity="0.3" rx="1" />
+                <rect x="20" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="23" y="34" width="2" height="3" fill="#DC2626" />
+                <rect x="26" y="34" width="2" height="3" fill="#DC2626" />
+              </svg>
             </motion.div>
 
             <motion.div
               variants={itemVariants}
               className="text-gray-600 text-3xl flex justify-center items-center gap-2 font-semibold py-3"
             >
-              <span>Đăng Ký</span>
+              <span>{t("signup_form_thumbnail")}</span>
             </motion.div>
 
             <motion.span variants={itemVariants} className="py-3 text-sm block text-center">
-              Dễ dàng quản lý đặt chỗ và tận hưởng quyền lợi dành riêng cho hội viên.
+              {t("login_form_subthumbnail")}
             </motion.span>
 
             <motion.div variants={itemVariants}>
@@ -251,7 +313,7 @@ const LoginSignupPage = () => {
                     )}
                   />
                   {registerForm.formState.errors.email && (
-                    <p className="text-orange-500 text-xs mt-1">{registerForm.formState.errors.email.message}</p>
+                    <p className="text-orange-500 text-xs mt-1">{t("signup_form_email_error")}</p>
                   )}
                 </Form.Item>
 
@@ -262,13 +324,17 @@ const LoginSignupPage = () => {
                         name="firstname"
                         control={registerForm.control}
                         render={({ field }) => (
-                          <Input {...field} placeholder="Tên" className="rounded-lg" size="small" variant="filled" />
+                          <Input
+                            {...field}
+                            placeholder={t("signup_form_name_placeholder")}
+                            className="rounded-lg"
+                            size="small"
+                            variant="filled"
+                          />
                         )}
                       />
                       {registerForm.formState.errors.firstname && (
-                        <p className="text-orange-500 text-xs mt-1">
-                          {registerForm.formState.errors.firstname.message}
-                        </p>
+                        <p className="text-orange-500 text-xs mt-1">{t("signup_form_name_error")}</p>
                       )}
                     </Form.Item>
                   </Col>
@@ -278,11 +344,17 @@ const LoginSignupPage = () => {
                         name="lastname"
                         control={registerForm.control}
                         render={({ field }) => (
-                          <Input {...field} placeholder="Họ" className="rounded-lg" size="small" variant="filled" />
+                          <Input
+                            {...field}
+                            placeholder={t("signup_form_lastname_placeholder")}
+                            className="rounded-lg"
+                            size="small"
+                            variant="filled"
+                          />
                         )}
                       />
                       {registerForm.formState.errors.lastname && (
-                        <p className="text-orange-500 text-xs mt-1">{registerForm.formState.errors.lastname.message}</p>
+                        <p className="text-orange-500 text-xs mt-1">{t("signup_form_lastname_error")}</p>
                       )}
                     </Form.Item>
                   </Col>
@@ -296,7 +368,7 @@ const LoginSignupPage = () => {
                       <Input.Password
                         {...field}
                         prefix={<LockOutlined />}
-                        placeholder="Mật khẩu"
+                        placeholder={t("signup_form_confirm_password_placeholder")}
                         className="rounded-lg"
                         size="small"
                         variant="filled"
@@ -304,7 +376,7 @@ const LoginSignupPage = () => {
                     )}
                   />
                   {registerForm.formState.errors.password && (
-                    <p className="text-orange-500 text-xs mt-1">{registerForm.formState.errors.password.message}</p>
+                    <p className="text-orange-500 text-xs mt-1">{t("signup_form_password_error")}</p>
                   )}
                 </Form.Item>
 
@@ -316,7 +388,7 @@ const LoginSignupPage = () => {
                       <Input.Password
                         {...field}
                         prefix={<LockOutlined />}
-                        placeholder="Xác nhận mật khẩu"
+                        placeholder={t("signup_form_confirm_password_placeholder")}
                         className="rounded-lg"
                         size="small"
                         variant="filled"
@@ -324,9 +396,7 @@ const LoginSignupPage = () => {
                     )}
                   />
                   {registerForm.formState.errors.confirmedPassword && (
-                    <p className="text-orange-500 text-xs mt-1">
-                      {registerForm.formState.errors.confirmedPassword.message}
-                    </p>
+                    <p className="text-orange-500 text-xs mt-1">{t("signup_form_confirm_password_error")}</p>
                   )}
                 </Form.Item>
 
@@ -340,7 +410,7 @@ const LoginSignupPage = () => {
                       block
                     >
                       <span className={`text-orange-500 ${registerForm.formState.isSubmitting ? "hidden" : "block"}`}>
-                        Đăng ký
+                        {t("signup_form_signup_button")}
                       </span>
                     </Button>
                   </motion.div>
@@ -348,17 +418,19 @@ const LoginSignupPage = () => {
 
                 <Form.Item className="text-center">
                   <span className="text-sm">
-                    Đã có tài khoản?{" "}
-                    <a onClick={() => switchToLogin()} className="cursor-pointer !text-orange-500 hover:!underline">
-                      Đăng nhập tại đây
+                    {t("signup_form_have_account")}{" "}
+                    <a onClick={() => switchToLogin()} className="cursor-pointer text-orange-500! hover:underline!">
+                      {t("signup_form_signin_now")}
                     </a>
                   </span>
                 </Form.Item>
 
                 <Form.Item className="text-center text-sm text-gray-500">
-                  Bằng việc tiếp tục, bạn đồng ý với{" "}
-                  <span className="text-orange-500 cursor-pointer">điều khoản dịch vụ</span> và{" "}
-                  <span className="text-orange-500 cursor-pointer">chính sách bảo mật</span> của chúng tôi.
+                  {t("login_form_policy1")}{" "}
+                  <span className="text-orange-500 cursor-pointer">{t("login_form_policy2")}</span>{" "}
+                  {t("login_form_policy3")}{" "}
+                  <span className="text-orange-500 cursor-pointer">{t("login_form_policy4")}</span>{" "}
+                  {t("login_form_policy5")}
                 </Form.Item>
               </Form>
             </motion.div>

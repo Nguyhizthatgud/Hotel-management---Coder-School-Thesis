@@ -55,11 +55,9 @@ const Headingpad = () => {
               <span className="mr-2 text-3xl">
                 <IoCheckmarkDone />
               </span>{" "}
-              Các đối tác OTA
+              {t("posterText_partners")}
             </p>
-            <p className="text-sm text-gray-500 mt-2">
-              Chúng tôi tự hào hợp tác với các đối tác hàng đầu trong ngành công nghiệp du lịch.
-            </p>
+            <p className="text-sm text-gray-500 mt-2">{t("posterText_partnersDesc")}</p>
             <div className="flex items-center gap-4 mt-4">
               <div className="w-14 h-14 flex items-center justify-center rounded-full border border-gray-300 bg-white">
                 <Image
