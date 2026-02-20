@@ -4,7 +4,7 @@ import { useAuthStore } from "../../stores/useAuthStore.ts";
 
 const rawBaseURL = process.env.NODE_ENV === "development"
     ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:4001/api"
-    : process.env.NEXT_PUBLIC_API_URL || "https://your-production-api-url.com/api";
+    : process.env.NEXT_PUBLIC_API_URL || "http://103.129.127.221/api";
 
 // Ensure the base URL always includes the '/api' prefix
 const baseURL = rawBaseURL.endsWith('/api')
