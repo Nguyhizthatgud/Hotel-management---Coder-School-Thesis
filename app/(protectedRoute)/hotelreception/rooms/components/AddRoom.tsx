@@ -21,7 +21,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useRoomStore } from "@/stores/useRoomService";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
 interface AddRoomProps {
@@ -147,21 +147,21 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
         setIsCreateRoom(false);
         onClearEditingRoom?.();
         formCreateRoomData.reset();
-      } catch (error: any) {
+      } catch (_error: any) {
         toast.error(t("rooms_update_room_error_toast"));
       }
       // Update existing room logic here
     } else {
       // add new room
       const newRoom = formCreateRoomData.getValues();
-      const { _id, createAt, updatedAt, __v, ...roomData } = newRoom;
+      const { _id, createAt: _createAt, updatedAt: _updatedAt, __v, ...roomData } = newRoom;
       try {
         await addRoom(roomData);
         toast.success(t("rooms_add_room_success_toast"));
         setIsCreateRoom(false);
         onClearEditingRoom?.();
         formCreateRoomData.reset();
-      } catch (error: any) {
+      } catch (_error: any) {
         toast.error(t("rooms_add_room_error_toast"));
       }
     }
@@ -444,9 +444,11 @@ const AddRoom = ({ editRoom, onClearEditingRoom }: AddRoomProps) => {
                   formCreateRoomData.reset();
                 }}
               >
-                Hủy
+                {t("rooms_add_room_cancel_button")}
               </Button>
-              <Button type="submit">{editRoom ? "Cập nhật" : "Thêm phòng"}</Button>
+              <Button type="submit">
+                {editRoom ? t("rooms_add_room_update_button") : t("rooms_add_room_add_button")}
+              </Button>
             </DialogFooter>
           </motion.div>
         </form>

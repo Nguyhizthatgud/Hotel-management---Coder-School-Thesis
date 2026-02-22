@@ -95,7 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className="data-[slot=sidebar-menu-button]:p-1.5! gap-0!">
               <Link href="/" className="flex items-center">
-                <svg width={48} height={48} viewBox="0 0 48 48" fill="none">
+                <svg width={40} height={40} viewBox="0 0 48 48" fill="none">
                   <defs>
                     <linearGradient id="apacheGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
                       <stop offset="0%" stopColor="#DA7523" />
@@ -121,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <rect x="23" y="34" width="2" height="3" fill="#DC2626" />
                   <rect x="26" y="34" width="2" height="3" fill="#DC2626" />
                 </svg>
-                <div className=" flex flex-col text-xl md:text-2xl cursor-pointer mr-7">
+                <div className=" flex text-xl md:text-xl cursor-pointer mr-7">
                   {" "}
                   <div className="page-content leading-none">
                     <span className="text-orange-400">A</span>pache

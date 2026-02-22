@@ -3,7 +3,7 @@ import React from "react";
 import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Divider, Checkbox, Flex, Row, Col } from "antd";
 import { GoogleOutlined, FacebookFilled, GithubOutlined, LockOutlined } from "@ant-design/icons";
-import { SiApachepulsar } from "react-icons/si";
+
 import { useForm, Controller } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -4,16 +4,25 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
-
+import { useUISlice } from "@/stores/UI/useUIStore";
 import { Plus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 const CustomerManagement = () => {
   const { t } = useTranslation();
+  const hotelTheme = useUISlice((state) => state.hotelTheme);
   return (
     <div className="p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">{t("maintenance_title")}</h1>
+          <h1
+            className={
+              hotelTheme === "dark"
+                ? `text-white text-xl font-bold block md:hidden`
+                : `text-xl font-bold block md:hidden`
+            }
+          >
+            {t("maintenance_title")}
+          </h1>
           <p className="text-sm text-muted-foreground italic">{t("maintenance_description")}</p>
         </div>
         <Button>

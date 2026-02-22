@@ -26,7 +26,7 @@ import { Bookings, BookingSchema } from "@/types/booking";
 import { useUISlice } from "@/stores/UI/useUIStore";
 import { useBookingStore } from "@/stores/useBookingService";
 import { useRoomStore } from "@/stores/useRoomService";
-
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
@@ -59,7 +59,7 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
   const [selectedRoomType, setSelectedRoomType] = useState<string | null>(null);
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [selectedAdults, setSelectedAdults] = useState<number>(1);
-
+  const { t } = useTranslation();
   const uniqueRoomTypes = useMemo(() => Array.from(new Set(rooms.map((room) => room.roomType))), [rooms]);
 
   const selectedRoomData = useMemo(() => rooms.find((room) => room._id === selectedRoom), [rooms, selectedRoom]);
@@ -77,7 +77,7 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
 
   // Get disabled dates based on room bookings
   const getDisabledDates = (roomId?: string) => {
-    if (!roomId) return (date: Date) => false;
+    if (!roomId) return (_date: Date) => false;
 
     const disabledDates: Date[] = [];
 
@@ -167,12 +167,12 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
 
     if (!selectedRoom) {
       formCreateBookingData.setError("roomId", { type: "manual", message: "Vui lòng chọn phòng" });
-      toast.error("Vui lòng chọn phòng trước khi tạo đặt phòng");
+      toast.error(t("booking_toast_form_room_required"));
       return;
     }
 
     if (!selectedRoomData) {
-      toast.error("Không tìm thấy thông tin phòng đã chọn");
+      toast.error(t("booking_toast_room_not_found"));
       return;
     }
 
@@ -198,7 +198,7 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
         .map(([_key, error]: any) => error?.message)
         .filter(Boolean)
         .join(", ");
-      toast.error(errorMessages || "Vui lòng điền đúng thông tin đặt phòng");
+      toast.error(errorMessages || t("booking_toast_form_error"));
       return;
     }
     if (editingBooking) {
@@ -208,7 +208,7 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
         checkInDate: checkInDate?.toISOString() || editingBooking.checkInDate,
         checkOutDate: checkOutDate?.toISOString() || editingBooking.checkOutDate
       });
-      toast.success("Cập nhật đặt phòng thành công");
+      toast.success(t("booking_toast_update_success"));
       setIsEditingBooking(false);
       setIsCreateBooking(false);
       onClearEditingBooking?.();
@@ -238,7 +238,7 @@ const AddBooking = ({ editingBooking, onClearEditingBooking }: AddBookingProps) 
         paymentStatus: formCreateBookingData.getValues("paymentStatus") || "Chưa thanh toán",
         description: formCreateBookingData.getValues("description") || ""
       } as any);
-      toast.success("Tạo đặt phòng thành công, đến trang đặt và nhận phòng để quản lý đặt phòng.");
+      toast.success(t("booking_toast_create_success"));
       setIsCreateBooking(false);
       formCreateBookingData.reset();
     }

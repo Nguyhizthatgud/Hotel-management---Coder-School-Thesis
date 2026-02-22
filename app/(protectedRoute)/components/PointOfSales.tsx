@@ -18,6 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import transactionService from "@/services/transactionService";
 import { useBookingStore } from "@/stores/useBookingService";
+import { useTranslation } from "react-i18next";
 type PointOfSalesProps = {
   reservation: Bookings;
   onClose: () => void;
@@ -30,6 +31,7 @@ const PointOfSales = ({ reservation, onClose }: PointOfSalesProps) => {
   const [discountType, setDiscountType] = React.useState<"percentage" | "fixed">("percentage");
   const [discount, setDiscount] = React.useState(0);
   const [paymentMethod, setPaymentMethod] = React.useState<"cash" | "card" | "mobile">("cash");
+
   React.useEffect(() => {
     fetchRooms();
   }, [fetchRooms]);
@@ -52,7 +54,7 @@ const PointOfSales = ({ reservation, onClose }: PointOfSalesProps) => {
       };
     }
   }, [reservation, rooms]);
-
+  const { t } = useTranslation();
   const receiptFormSchema = z.object({
     items: z.array(
       z.object({
@@ -180,7 +182,7 @@ const PointOfSales = ({ reservation, onClose }: PointOfSalesProps) => {
     };
 
     try {
-      const response = await transactionService.createTransaction(transaction);
+      await transactionService.createTransaction(transaction);
 
       // Update booking payment status using store method
       await updateBooking({
@@ -188,11 +190,11 @@ const PointOfSales = ({ reservation, onClose }: PointOfSalesProps) => {
         paymentStatus: "Đã thanh toán"
       });
 
-      toast.success("Thanh toán thành công!");
+      toast.success(t("booking_pos_toast_success"));
       onClose();
     } catch (error: any) {
       console.error("Transaction error:", error);
-      toast.error(error?.response?.data?.message || "Thanh toán thất bại! Vui lòng thử lại.");
+      toast.error(error?.response?.data?.message || t("booking_pos_toast_error"));
     }
   };
 

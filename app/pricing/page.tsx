@@ -82,7 +82,7 @@ const PricingPage = () => {
       color: "amber"
     },
     {
-      name: "Enterprise",
+      name: t("pricing_plan3_title"),
       icon: Crown,
       description: t("pricing_plan3_desc"),
       monthlyPrice: 299000,
@@ -138,7 +138,7 @@ const PricingPage = () => {
                 >
                   {plan.popular && (
                     <div className="absolute top-0 right-0 bg-linear-to-r from-amber-500 to-orange-500 text-white px-4 py-1 text-xs tracking-wide">
-                      MOST POPULAR
+                      {t("pricing_plane2_tag")}
                     </div>
                   )}
 

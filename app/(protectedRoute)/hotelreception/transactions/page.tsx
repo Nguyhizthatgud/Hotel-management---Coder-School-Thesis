@@ -42,7 +42,7 @@ import { useTransactionStore } from "@/stores/useTransaction";
 import { useBookingStore } from "@/stores/useBookingService";
 import { useTranslation } from "react-i18next";
 import SkeletonHoldingContent from "./components/SkeletonHoldingContent";
-
+import { useUISlice } from "@/stores/UI/useUIStore";
 const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6"];
 
 const Transactions = () => {
@@ -53,6 +53,7 @@ const Transactions = () => {
   const { loading, transactions, fetchTransactions } = useTransactionStore();
   const { i18n } = useTranslation();
   const { t } = useTranslation();
+  const hotelTheme = useUISlice((state) => state.hotelTheme);
   React.useEffect(() => {
     setIsMounted(true);
     fetchTransactions();
@@ -274,7 +275,15 @@ const Transactions = () => {
       {/* Header */}
       <motion.div className="flex items-center justify-between" variants={headerVariants}>
         <div>
-          <h2 className="text-2xl font-bold">{t("transactions_title")}</h2>
+          <h2
+            className={
+              hotelTheme === "dark"
+                ? "text-white text-xl font-bold block md:hidden"
+                : "text-xl font-bold block md:hidden"
+            }
+          >
+            {t("transactions_title")}
+          </h2>
           <p className="text-muted-foreground">{t("transactions_subheading")}</p>
         </div>
         <div className="flex gap-2">

@@ -1,11 +1,10 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { useUISlice } from "@/stores/UI/useUIStore";
 import { Button } from "./ui/button";
-
+import { usePathname } from "next/navigation";
 import { Moon, Sun } from "lucide-react";
-
+import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/app/components/LanguageSwitcher";
 
 type SiteHeaderProps = {
@@ -15,8 +14,28 @@ type SiteHeaderProps = {
 };
 
 export function SiteHeader({ showThemeToggle = false, theme = "light", onToggleTheme }: SiteHeaderProps) {
-  const propSelection = useUISlice((state) => state.propSelection);
+  const pathname = usePathname();
+  const { t } = useTranslation();
   const isDark = theme === "dark";
+  const selectedPage = () => {
+    switch (pathname) {
+      case "/hotelreception":
+        return t("hotelreception_heading");
+      case "/hotelreception/rooms":
+        return t("rooms_page_title");
+      case "/hotelreception/bookings":
+        return t("bookings_management_heading");
+      case "/hotelreception/maintenance":
+        return t("maintenance_title");
+      case "/hotelreception/staff":
+        return t("staff_title");
+      case "/hotelreception/transactions":
+        return t("transactions_title");
+      default:
+        return "";
+    }
+  };
+
   return (
     <header className="group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -24,10 +43,12 @@ export function SiteHeader({ showThemeToggle = false, theme = "light", onToggleT
         <Separator orientation="vertical" className="mx-2 data-[orientation=vertical]:h-4" />
         <div
           className={
-            isDark ? "text-white hidden md:font-medium italic md:block" : "hidden md:font-medium italic md:block"
+            isDark
+              ? "text-white hidden md:font-bold italic md:block text-2xl"
+              : "hidden md:font-bold italic md:block text-2xl"
           }
         >
-          Mô hình quản lý cho {propSelection}{" "}
+          {selectedPage()}
         </div>
         <div className="ml-auto flex items-center gap-2">
           <LanguageSwitcher />

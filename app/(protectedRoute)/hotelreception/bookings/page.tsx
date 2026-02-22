@@ -364,7 +364,7 @@ const BookingManagement = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1, type: "spring", damping: 20, stiffness: 300 }}
           >
-            <h2 className={hotelTheme === "dark" ? "text-2xl font-bold text-white" : "text-2xl font-bold"}>
+            <h2 className={hotelTheme === "dark" ? "text-2xl font-bold text-white  block md:hidden" : "text-2xl font-bold block md:hidden"}>
               {t("bookings_management_heading")}
             </h2>
             <p className="text-sm text-muted-foreground italic">{t("bookings_management_subheading")}</p>

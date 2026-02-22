@@ -84,18 +84,6 @@ const filterVariants = {
   }
 };
 
-const buttonVariants = {
-  hover: {
-    scale: 1.05,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 10
-    } as Transition
-  },
-  tap: { scale: 0.95 }
-};
-
 const RoomsView = () => {
   const rooms = useRoomStore((state) => state.rooms);
   const loading = useRoomStore((state) => state.loading);
@@ -150,7 +138,13 @@ const RoomsView = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1, type: "spring", damping: 20, stiffness: 300 }}
         >
-          <h2 className={hotelTheme === "dark" ? "text-3xl font-bold text-white" : "text-3xl font-bold"}>
+          <h2
+            className={
+              hotelTheme === "dark"
+                ? "text-xl font-bold text-white block md:hidden"
+                : "text-xl font-bold block md:hidden"
+            }
+          >
             {t("rooms_page_title")}
           </h2>
           <p className="text-sm text-muted-foreground italic">{t("rooms_page_subheading")}</p>

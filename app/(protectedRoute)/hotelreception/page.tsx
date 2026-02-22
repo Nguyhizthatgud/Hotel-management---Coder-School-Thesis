@@ -127,7 +127,11 @@ function Dashboard() {
   return (
     <div className="space-y-6 p-3">
       <div>
-        <h2 className={hotelTheme === "dark" ? "text-2xl font-bold text-white" : "text-2xl font-bold"}>
+        <h2
+          className={
+            hotelTheme === "dark" ? "text-xl font-bold text-white block md:hidden" : "text-xl font-bold md:hidden block"
+          }
+        >
           {t("hotelreception_heading")}
         </h2>
         <span className="text-gray-600">

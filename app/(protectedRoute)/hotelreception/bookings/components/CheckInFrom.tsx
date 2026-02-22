@@ -5,11 +5,11 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { CheckCircle, Key, MapPinHouse, NotebookPen, Plus, Users } from "lucide-react";
+import { CheckCircle, Key, MapPinHouse, NotebookPen } from "lucide-react";
 import React from "react";
 import { useUISlice } from "@/stores/UI/useUIStore";
-import { motion, Variants } from "framer-motion";
-import { Bookings, BookingSchema, residenceRegistrationSchema } from "@/types/booking";
+
+import { Bookings, residenceRegistrationSchema } from "@/types/booking";
 import { useBookingStore } from "@/stores/useBookingService";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
@@ -18,7 +18,7 @@ import { vi } from "date-fns/locale";
 import { z } from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-
+import { useTranslation } from "react-i18next";
 type Checkinform = {
   selectedBooking?: Bookings | null;
 };
@@ -28,6 +28,7 @@ type ResidenceRegistration = z.infer<typeof residenceRegistrationSchema>;
 const CheckInFrom = ({ selectedBooking }: Checkinform) => {
   const isCheckInDialogOpen = useUISlice((state) => state.isCheckInDialogOpen);
   const setIsCheckInDialogOpen = useUISlice((state) => state.setCheckInDialogOpen);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -60,13 +61,13 @@ const CheckInFrom = ({ selectedBooking }: Checkinform) => {
         residenceRegistrationInfo: { ...data, registrationStatus: "registered" },
         status: "Check-In"
       } as Bookings);
-      toast.success("Đăng ký tạm trú và nhận phòng thành công!");
+      toast.success(t("booking_toast_checkin_success"));
       reset();
       setIsCheckInDialogOpen(false);
       // Refresh bookings list to show updated status
       await fetchBookings();
     } catch (error: any) {
-      toast.error("Lỗi đăng ký tạm trú và nhận phòng. Vui lòng thử lại.");
+      toast.error(t("booking_toast_checkin_error"));
     }
   };
   return (

@@ -345,7 +345,7 @@ const Header = () => {
                   <div className="page-content leading-none">
                     <span className="text-orange-400">A</span>pache
                   </div>
-                  <span className="text-xs text-gray-500 tracking-wider font-mono">handyPMS4U</span>
+                  <span className="text-xs text-gray-500 tracking-widest font-mono">handyPMS4U</span>
                 </div>
               </Link>
             </div>

@@ -671,6 +671,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
 
                 pricing_plan2_title: "Pro Plan",
                 pricing_plan2_desc: "Designed for medium-sized hotels and motels seeking to optimize operations.",
+                pricing_plane2_tag: "Most Popular",
                 pricing_plan2_feature1: "Up to 100 rooms",
                 pricing_plan2_feature2: "Advanced booking management",
                 pricing_plan2_feature3: "24/7 priority support",
@@ -1394,6 +1395,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
 
                 pricing_plan2_title: "Gói Nâng Cao",
                 pricing_plan2_desc: "Được thiết kế cho các khách sạn và nhà nghỉ vừa muốn tối ưu hóa hoạt động.",
+                pricing_plane2_tag: "Được ưa chuộng nhất",
                 pricing_plan2_feature1: "Tối đa 100 phòng",
                 pricing_plan2_feature2: "Quản lý đặt phòng nâng cao",
                 pricing_plan2_feature3: "Hỗ trợ ưu tiên 24/7",
@@ -2114,6 +2116,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
 
                 pricing_plan2_title: "专业计划",
                 pricing_plan2_desc: "为中型酒店和汽车旅馆设计，旨在优化运营。",
+                pricing_plane2_tag: "最受欢迎",
                 pricing_plan2_feature1: "最多100间客房",
                 pricing_plan2_feature2: "高级预订管理",
                 pricing_plan2_feature3: "24/7优先支持",
