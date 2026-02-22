@@ -4,6 +4,8 @@ import Image from "next/image";
 import Typed from "typed.js";
 import { IoCheckmarkDone } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
+import { Separator } from "@/components/ui/separator";
+import { Award, Star } from "lucide-react";
 const Headingpad = () => {
   const { t, i18n } = useTranslation();
   const el = React.useRef(null);
@@ -28,27 +30,35 @@ const Headingpad = () => {
     <section className="hero-section flex items-center w-screen" style={{ backgroundColor: "#fff5ee" }}>
       <div className="container mx-auto py-20 mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* describe of poster */}
-        <div className="">
-          <div className="flex flex-row items-center gap-4">
-            <Image
-              src="https://resources.littlehotelier.com/images/website/en-header-review.svg"
-              alt="4.5 stars | 921 Reviews"
-              width={192}
-              height={36}
-              priority
-              unoptimized
-            />
+        <div className="flex flex-col">
+          <div className="flex items-center mb-6">
+            <div className="flex items-center justify-center gap-2 bg-white rounded-lg my-6 mr-2 px-4 py-1 shadow-sm shrink-0 flex-nowrap">
+              <div className="flex items-center gap-1 text-sm text-gray-500 shrink-0">
+                <div className="flex items-center whitespace-nowrap shrink-0">
+                  <Award className="text-amber-500" /> {""}
+                  <span className="text-xs font-bold hidden md:block md:text-sm whitespace-nowrap">4.5 stars</span>
+                  <span className="text-xs font-bold inline-flex items-center gap-1 md:hidden md:text-sm whitespace-nowrap">
+                    4.5 <Star className="text-amber-500" />
+                  </span>
+                </div>
+              </div>
+              <Separator orientation="vertical" className="h-4 w-px shrink-0 bg-gray-400" />
+              <span className="text-sm text-gray-500 whitespace-nowrap shrink-0">921 {t("headingPad_reviews")}</span>
+            </div>
             <p className="text-sm text-gray-500">{t("headingPad_line1")}</p>
           </div>
-          <h1 className="poster-text text-3xl font-bold my-25">
-            {t("posterText_line1")} <br /> {t("posterText_line2")} <span className="text-amber-600" ref={el}></span>{" "}
-            {t("posterText_line3")}
-          </h1>
-          <p className="text-xs text-gray-500 mt-10">
-            {t("posterText_disclaimer1")}
-            <br />
-            {t("posterText_disclaimer2")}
-          </p>
+          <div>
+            {" "}
+            <h1 className="poster-text text-3xl font-bold my-25">
+              {t("posterText_line1")} <br /> {t("posterText_line2")} <span className="text-amber-600" ref={el}></span>{" "}
+              {t("posterText_line3")}
+            </h1>
+            <p className="text-xs text-gray-500 mt-10">
+              {t("posterText_disclaimer1")}
+              <br />
+              {t("posterText_disclaimer2")}
+            </p>
+          </div>
           {/* Logos of partners */}
           <div>
             <p className="flex items-center text-lg font-semibold mt-8 text-green-400 ">

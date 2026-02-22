@@ -1,13 +1,16 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaHeart } from "react-icons/fa";
 import { SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "react-icons/si";
 import { FaCode, FaGraduationCap } from "react-icons/fa6";
-import { SiApachepulsar } from "react-icons/si";
+import { FiFigma } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 import Image from "next/image";
-
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer className="bg-linear-to-b from-gray-700 to-gray-500 text-white py-12">
       <div className="container mx-auto px-4">
@@ -49,24 +52,22 @@ const Footer = () => {
                   <div className="page-content leading-none">
                     <span className="text-orange-400">A</span>pache
                   </div>
-                  <div className="text-xs text-gray-500 tracking-widest! font-mono">handyPMS4U</div>
+                  <div className="text-xs text-gray-300 tracking-widest! font-mono">handyPMS4U</div>
                 </div>
               </Link>
             </div>
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-amber-400 flex items-center gap-2">
                 <FaCode className="text-lg" />
-                Portfolio Project
+                {t("footer_portfolio")}
               </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Apache is a clone hotel booking application is a full-stack demonstration project showcasing modern web
-                development technologies and best practices.
-              </p>
+              <p className="text-gray-300 leading-relaxed">{t("footer_portfolio_describe")}</p>
               <div className="flex gap-4 text-2xl">
                 <SiNextdotjs className="text-white hover:text-amber-400 transition-colors" />
                 <SiReact className="text-blue-400 hover:text-amber-400 transition-colors" />
                 <SiTypescript className="text-blue-600 hover:text-amber-400 transition-colors" />
                 <SiTailwindcss className="text-teal-400 hover:text-amber-400 transition-colors" />
+                <FiFigma className="text-amber-400 hover:text-amber-400 transition-colors" />
               </div>
             </div>
           </div>
@@ -77,7 +78,7 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-300">
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
-                Next.js 14 with App Router
+                Next.js 15 with App Router
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
@@ -89,11 +90,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
-                Ant Design components
+                Shadcn UI and Ant Design components
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-amber-400 rounded-full"></span>
-                Responsive design
+                Figma Make responsive design
               </li>
             </ul>
           </div>
@@ -103,16 +104,19 @@ const Footer = () => {
             <h3 className="text-xl font-bold text-amber-400">Connect</h3>
             <p className="text-gray-300">Interested in collaborating or have questions about this project?</p>
             <div className="flex gap-4">
-              <Link href="https://github.com" className="text-gray-400 hover:text-amber-400 transition-colors">
+              <Link
+                href="https://github.com/Nguyhizthatgud"
+                className="text-gray-400 hover:text-amber-400 transition-colors"
+              >
                 <FaGithub className="text-2xl" />
               </Link>
-              <Link href="https://linkedin.com" className="text-gray-400 hover:text-amber-400 transition-colors">
+              <Link
+                href="https://www.linkedin.com/in/nguygudman/"
+                className="text-gray-400 hover:text-amber-400 transition-colors"
+              >
                 <FaLinkedin className="text-2xl" />
               </Link>
-              <Link href="https://twitter.com" className="text-gray-400 hover:text-amber-400 transition-colors">
-                <FaTwitter className="text-2xl" />
-              </Link>
-              <Link href="mailto:contact@example.com" className="text-gray-400 hover:text-amber-400 transition-colors">
+              <Link href="mailto:nguyh432@gmail.com" className="text-gray-400 hover:text-amber-400 transition-colors">
                 <FaEnvelope className="text-2xl" />
               </Link>
             </div>
@@ -168,23 +172,16 @@ const Footer = () => {
         <div className="border-t border-gray-700 pt-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
-              <p className="text-gray-400 text-sm">© 2024 Hotel Booking App - Portfolio Project</p>
+              <p className="text-gray-400 text-sm">© 2026 Hotel Booking App - Portfolio Project</p>
               <p className="text-gray-500 text-xs">
                 Built with <FaHeart className="inline text-red-500 mx-1" /> for learning and demonstration purposes
               </p>
             </div>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-400 text-sm">Powered by</span>
+            <div className="flex items-center gap-2">
+              <span className="text-gray-400 text-sm">Powered by me.</span>
               <div className="flex items-center gap-2">
-                <Image
-                  className="inline-block object-contain"
-                  src="/assets/Logo/coderschool_logo.png"
-                  alt="CoderSchool"
-                  width={50}
-                  height={40}
-                />
-                <span className="text-amber-400 font-bold">CoderSchool</span>
-                <span className="text-gray-400 text-sm">Education Initiative</span>
+                <span className="text-amber-400 font-bold">Nguyhizthatgud</span>
+                <span className="text-gray-400 text-sm">Apprentice Developer</span>
               </div>
             </div>
           </div>

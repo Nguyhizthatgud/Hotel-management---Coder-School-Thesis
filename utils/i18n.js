@@ -24,6 +24,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 settings: "Settings",
                 headingPad_line1: "#1 the best support tool for hotel and motel owners ",
                 posterText_line1: "Create a free property management interface and",
+                headingPad_reviews: "over 1000 5-star reviews",
                 posterText_line2: "support",
                 posterText_line3: "direct",
                 typedStrings_1: "control",
@@ -341,6 +342,11 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 login_signup_welcome_back: "Welcome back!",
                 login_timeout: "Session timed out, please log in again.",
                 login_required_message: "Please log in to continue",
+
+
+                //Footer 
+                footer_portfolio: "Portfolio Project",
+                footer_portfolio_describe: "Apache hotel PMS platform is a production ready project. Its designed to be easily deployed and used by small size hotel, providing a comprehensive solution for property management, guest services, and revenue optimization.",
 
                 // + nav-user.tsx translations
                 userAccount: "User Account",
@@ -742,6 +748,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 profile: "Hồ Sơ",
                 settings: "Cài Đặt",
                 headingPad_line1: "#1 công cụ hỗ trợ tốt nhất cho chủ khách sạn và nhà nghỉ ",
+                headingPad_reviews: "trên hơn 1000 đánh giá 5 sao",
                 posterText_line1: "Tạo giao diện quản lý tài sản miễn phí và",
                 posterText_line2: "hỗ trợ",
                 posterText_line3: "trực tiếp",
@@ -1054,6 +1061,10 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 login_signup_welcome_back: "Chào mừng bạn trở lại!",
                 login_timeout: "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại.",
                 login_required_message: "Vui lòng đăng nhập để tiếp tục",
+
+                // Footer 
+                footer_portfolio: "Portfolio project Apache hotel PMS",
+                footer_portfolio_describe: "Nền tảng Apache Hotel PMS là một dự án đã sẵn sàng cho thương mại hóa. Hệ thống được thiết kế để dễ dàng triển khai và sử dụng tại các khách sạn quy mô nhỏ, cung cấp một giải pháp toàn diện cho quản lý tài sản (Property Management), dịch vụ khách hàng (Guest Services), và tối ưu hóa doanh thu (Revenue Optimization).",
 
                 // + nav-user.tsx translations
                 userAccount: "Tài khoản người dùng",
@@ -1470,6 +1481,7 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 profile: "个人资料",
                 settings: "设置",
                 headingPad_line1: "＃1 最适合酒店和汽车旅馆业主的支持工具",
+                headingPad_reviews: "超过1000条五星好评",
                 posterText_line1: "创建免费的物业管理界面并",
                 posterText_line2: "支持",
                 posterText_line3: "直接",
@@ -1801,6 +1813,9 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 login_timeout: "登录状态已过期，请重新登录。",
                 login_required_message: "请登录以继续",
 
+                // Footer 
+                footer_portfolio: "作品集 Project",
+                footer_portfolio_describe: "Apache Hotel PMS 平台是一个已准备好用于生产环境的项目。该系统设计为能够轻松部署并应用于小型酒店，提供涵盖物业管理 (Property Management)、客户服务 (Guest Services) 和收入优化 (Revenue Optimization) 的综合解决方案。",
                 // + nav-user.tsx translations
                 userAccount: "用户账户",
                 billing: "账单",
