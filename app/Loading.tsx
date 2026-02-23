@@ -1,10 +1,11 @@
 import React from "react";
-import { Spinner } from "@/components/ui/spinner";
 const Loading = () => {
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
-        <Spinner className="w-12 h-12 text-gray-500 animate-spin" />
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400 mx-auto mb-4"></div>
+        </div>
       </div>
     </>
   );

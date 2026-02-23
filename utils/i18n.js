@@ -1597,6 +1597,10 @@ i18n.use(LanguageDetector).use(initReactI18next).init({
                 User_trial_form_property_placeholder: "输入您的酒店名称",
                 User_trial_form_property_placeholder_maxlength: "酒店名称不能超过30个字符！",
                 User_trial_form_property_placeholder_pattern: "酒店名称只能包含字母和空格！",
+
+                User_trial_form_rooms_placeholder: "输入您的房间数量",
+                User_trial_form_rooms_placeholder_maxlength: "房间数量不能超过5位数字！",
+                User_trial_form_rooms_placeholder_pattern: "房间数量只能包含数字！",
                 User_trial_accept_terms1: "同意",
                 User_trial_accept_terms2: "Apache的条款和隐私政策",
                 User_trial_form_accept_term_alert: "您必须接受Apache内容条款才能继续！",

@@ -139,7 +139,8 @@ const Footer = () => {
                 src="/assets/Logo/coderschool_logo.png"
                 alt="CoderSchool"
                 width={50}
-                height={40}
+                height={50}
+                style={{ width: "auto", height: "auto" }}
               />
               <span className="text-2xl font-bold text-amber-400">CoderSchool</span>
               <FaHeart className="text-red-500" />

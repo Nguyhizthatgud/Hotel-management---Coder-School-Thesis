@@ -43,6 +43,14 @@ type UIState = {
 
   hotelTheme: "light" | "dark"; // ----> hotel reception theme mode
   setHotelTheme: (theme: "light" | "dark") => void; // ----> set hotel reception theme mode
+
+  // Image loading state for pages
+  isPageLoading: boolean; // ----> whether page images are loading
+  initImageLoading: (totalImages: number) => void; // ----> initialize image loading counter
+  onImageLoaded: () => void; // ----> call when each image loads
+  resetImageLoading: () => void; // ----> reset loading state for next page
+  imageLoadCount: number; // ----> current count of loaded images
+  totalImageCount: number; // ----> total images to load on page
 };
 
 export const useUISlice = create<UIState>((set) => ({
@@ -87,5 +95,34 @@ export const useUISlice = create<UIState>((set) => ({
   setIsBillOpen: (open: boolean) => set({ isBillOpen: open }), // ----> set Bill dialog state
 
   hotelTheme: "light", // ----> hotel reception theme mode
-  setHotelTheme: (theme: "light" | "dark") => set({ hotelTheme: theme }) // ----> set hotel reception theme mode
+  setHotelTheme: (theme: "light" | "dark") => set({ hotelTheme: theme }), // ----> set hotel reception theme mode
+
+  // Image loading state
+  isPageLoading: false,
+  imageLoadCount: 0,
+  totalImageCount: 0,
+
+  initImageLoading: (totalImages: number) =>
+    set({
+      isPageLoading: true,
+      imageLoadCount: 0,
+      totalImageCount: totalImages
+    }),
+
+  onImageLoaded: () =>
+    set((state) => {
+      const newCount = state.imageLoadCount + 1;
+      const isLoaded = newCount >= state.totalImageCount;
+      return {
+        imageLoadCount: newCount,
+        isPageLoading: !isLoaded // Stop loading when all images are done
+      };
+    }),
+
+  resetImageLoading: () =>
+    set({
+      isPageLoading: false,
+      imageLoadCount: 0,
+      totalImageCount: 0
+    })
 }));
