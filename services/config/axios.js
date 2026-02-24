@@ -2,9 +2,12 @@ import axios from "axios";
 import authService from "../authServices.ts";
 import { useAuthStore } from "../../stores/useAuthStore.ts";
 
-const rawBaseURL = process.env.NODE_ENV === "development"
-    ? process.env.NEXT_PUBLIC_API_URL || "http://localhost:4001/api"
-    : process.env.NEXT_PUBLIC_API_URL || "http://103.129.127.221/api";
+
+const envApiUrl = process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_API_GATEWAY_URL;
+const isBrowser = typeof window !== "undefined";
+const isProduction = process.env.NODE_ENV === "production";
+
+const rawBaseURL = envApiUrl || (isProduction && isBrowser ? "/api" : "http://localhost:4001/api");
 
 // Ensure the base URL always includes the '/api' prefix
 const baseURL = rawBaseURL.endsWith('/api')

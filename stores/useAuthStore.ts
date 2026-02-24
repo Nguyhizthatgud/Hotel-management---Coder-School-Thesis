@@ -54,7 +54,6 @@ export const useAuthStore = create<AuthState>()(
         try {
           const userCredential = await signInWithEmailAndPassword(auth, email, password);
           const token = await userCredential.user.getIdToken();
-          console.log("Access Token (Login):", token);
           set({ user: userCredential.user, loading: false });
           toast.success(i18n.t("login_form_success_toast"));
           return userCredential.user;
@@ -126,7 +125,6 @@ export const useAuthStore = create<AuthState>()(
         if (!user) return null;
         try {
           const token = await user.getIdToken(forceRefresh);
-          console.log("Access Token (getToken):", token);
           return token;
         } catch (error: any) {
           // Auto-logout on token refresh failure
