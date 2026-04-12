@@ -64,7 +64,7 @@ const HotelSite = () => {
           <div className="flex p-15">
             <Image
               className="relative  object-cover h-100 md:h-120 lg:h-[600px]"
-              src="/assets/img/heroSlider/hotel-unsplash.jpg"
+              src="/assets/img/heroSlider/hotel-unsplash.webp"
               alt="Hotel Management Dashboard"
               width={800}
               height={600}

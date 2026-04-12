@@ -162,7 +162,7 @@ const Headingpad = () => {
             {/* Large featured image */}
             <div className="col-span-1 row-span-3 rounded-xl overflow-hidden group">
               <Image
-                src="/assets/img/heroSlider/1.jpg"
+                src="/assets/img/heroSlider/1.webp"
                 alt="Featured Hotel"
                 width={600}
                 height={500}
@@ -176,7 +176,7 @@ const Headingpad = () => {
             {/* Small images column */}
             <div className="col-span-1 row-span-2 rounded-xl overflow-hidden group">
               <Image
-                src="/assets/img/heroSlider/2.jpg"
+                src="/assets/img/heroSlider/2.webp"
                 alt="Hotel View"
                 width={250}
                 height={250}
@@ -188,7 +188,7 @@ const Headingpad = () => {
             </div>
             <div className="col-span-1 row-span-1 rounded-xl overflow-hidden group">
               <Image
-                src="/assets/img/heroSlider/3.jpg"
+                src="/assets/img/heroSlider/3.webp"
                 alt="Hotel Room"
                 width={250}
                 height={250}

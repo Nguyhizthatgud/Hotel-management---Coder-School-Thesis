@@ -32,7 +32,7 @@ export function SiteHeader({ showThemeToggle = false, theme = "light", onToggleT
       case "/hotelreception/transactions":
         return t("transactions_title");
       default:
-        return "";
+        return "";  
     }
   };
 

@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   typescript: {
     tsconfigPath: "./tsconfig.json"
   },
+  images: {
+    formats: ["image/avif", "image/webp"]
+  },
   // Skip static prerendering for protected routes that require runtime auth
   staticPageGenerationTimeout: 120
 };

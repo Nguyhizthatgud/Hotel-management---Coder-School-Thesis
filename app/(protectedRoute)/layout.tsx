@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUISlice } from "@/stores/UI/useUIStore";
 import { toast } from "sonner";
-import { Spinner } from "@/components/ui/spinner";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
@@ -56,8 +55,10 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
   // show loading or block render until auth resolves
   if (loading)
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Spinner />
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-400 mx-auto mb-4"></div>
+        </div>
       </div>
     );
   if (!user) return null; // Prevent flash before redirect

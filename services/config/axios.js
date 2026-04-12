@@ -27,6 +27,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     async (config) => {
         try {
+            const currentBaseURL = config.baseURL || "";
+            const currentUrl = config.url || "";
+            if (currentBaseURL.endsWith("/api") && currentUrl.startsWith("/api/")) {
+                config.url = currentUrl.replace(/^\/api/, "");
+            }
+
             // get token from Zustand store (persisted across page refreshes)
             const token = await useAuthStore.getState().getToken();
 
