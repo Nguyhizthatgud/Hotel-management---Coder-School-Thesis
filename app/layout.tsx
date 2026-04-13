@@ -15,38 +15,48 @@ const cherryBombOne = Cherry_Bomb_One({
   display: "swap",
   preload: false
 });
-const baseURL = process.env.NEXT_PUBLIC_APP_URL;
+const baseURL = process.env.NEXT_PUBLIC_APP_URL || "https://apachepms.io.vn";
+const ogImageUrl = `${baseURL}/full-shot-man-carrying-baggage.jpg`;
 
 export const metadata: Metadata = {
   title: {
-    default: "ApachePMS | Nền tảng hỗ trợ quản lý và quảng bá khách sạn và dịch vụ cho thuê",
+    default: "ApachePMS | Quản lý khách sạn và đặt phòng hiệu quả",
     template: "%s | ApachePMS"
   },
   description:
-    "ApachePMS là nền tảng hỗ trợ quản lý và quảng bá khách sạn và dịch vụ cho thuê, giúp chủ khách sạn tối ưu hóa hoạt động kinh doanh và tăng cường trải nghiệm khách hàng.",
+    "ApachePMS giúp chủ khách sạn quản lý phòng, đặt chỗ, khách lưu trú và thanh toán trên một nền tảng tập trung, tăng hiệu suất vận hành mỗi ngày.",
   icons: {
     icon: "/favicon.svg"
   },
   openGraph: {
-    title: "ApachePMS | Nền tảng hỗ trợ quản lý và quảng bá khách sạn và dịch vụ cho thuê",
+    title: "ApachePMS | Quản lý khách sạn và đặt phòng hiệu quả",
     description:
-      "ApachePMS là nền tảng hỗ trợ quản lý và quảng bá khách sạn và dịch vụ cho thuê, giúp chủ khách sạn tối ưu hóa hoạt động akinh doanh và tăng cường trải nghiệm khách hàng.",
-    url: `${baseURL}`,
+      "ApachePMS giúp chủ khách sạn quản lý phòng, đặt chỗ, khách lưu trú và thanh toán trên một nền tảng tập trung, tăng hiệu suất vận hành mỗi ngày.",
+    url: baseURL,
     siteName: "ApachePMS",
-    images: {
-      url: "/full-shot-man-carrying-baggage.jpg",
-      width: 1200,
-      height: 630,
-      alt: "ApachePMS"
-    },
+    images: [
+      {
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: "ApachePMS"
+      }
+    ],
     locale: "vi_VN",
     type: "website",
     countryName: "Vietnam"
   },
-  alternates: {
-    canonical: `${baseURL}`
+  twitter: {
+    card: "summary_large_image",
+    title: "ApachePMS | Quản lý khách sạn và đặt phòng hiệu quả",
+    description:
+      "ApachePMS giúp chủ khách sạn quản lý phòng, đặt chỗ, khách lưu trú và thanh toán trên một nền tảng tập trung, tăng hiệu suất vận hành mỗi ngày.",
+    images: [ogImageUrl]
   },
-  metadataBase: new URL(`${baseURL}`)
+  alternates: {
+    canonical: baseURL
+  },
+  metadataBase: new URL(baseURL)
 };
 
 export const viewport: Viewport = {
