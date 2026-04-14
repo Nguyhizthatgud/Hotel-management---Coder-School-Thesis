@@ -16,7 +16,7 @@ const cherryBombOne = Cherry_Bomb_One({
   preload: false
 });
 const baseURL = process.env.NEXT_PUBLIC_APP_URL || "https://apachepms.io.vn";
-const ogImageUrl = `${baseURL}/full-shot-man-carrying-baggage.jpg`;
+const ogImageUrl = `${baseURL}/full-shot-man-carrying-baggage2.jpg`;
 
 export const metadata: Metadata = {
   title: {
