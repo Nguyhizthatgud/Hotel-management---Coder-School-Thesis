@@ -8,7 +8,6 @@ const nextConfig = {
   },
 
   // Code splitting & optimization
-  swcMinify: true,
   experimental: {
     optimizePackageImports: [
       "@radix-ui/react-dialog",
