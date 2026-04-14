@@ -2,13 +2,11 @@ module.exports = {
   darkMode: "class", // Enable dark mode support
   content: [
     "./app/**/*.{js,jsx,ts,tsx}",
-    "./pages/**/*.{js,jsx,ts,tsx}",
-    "./components/**/*.{js,jsx,ts,tsx}",
+    "./app/components/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-
         "react-dark": "#23272f",
         primary: "#1DA1F2",
         secondary: "#14171A",
