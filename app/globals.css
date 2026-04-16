@@ -214,6 +214,8 @@ body {
 
 :root {
   --radius: 0.625rem;
+  --bg-color: hsl(0, 0%, 100%); /* Light mode: white background */
+  --text-color: hsl(0, 0%, 13%); /* Light mode: dark text */
   --background: oklch(1 0 0);
   --foreground: oklch(0.13 0.028 261.692);
   --card: oklch(1 0 0);
