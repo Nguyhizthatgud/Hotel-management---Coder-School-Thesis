@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useUISlice } from "@/stores/UI/useUIStore";
@@ -10,9 +10,6 @@ import { SiteHeader } from "@/components/site-header";
 import AddBooking from "./components/AddBooking";
 import { useTranslation } from "react-i18next";
 
-// skip static prerendering for protected routes; render only on demand
-export const dynamic = "force-dynamic";
-
 const STORAGE_KEY = "hotelreception-theme";
 
 export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
@@ -22,6 +19,7 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
   const isHotelReception = pathname.startsWith("/hotelreception");
   const { hotelTheme, setHotelTheme } = useUISlice();
   const { user, loading, init } = useAuthStore();
+  const hasShownToastRef = useRef(false); // prevent multiple toasts/redirects
 
   // initialize Firebase listener (first render only)
   useEffect(() => {
@@ -30,9 +28,16 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
 
   // redirect if not authenticated (runs after loading finishes)
   useEffect(() => {
-    if (!loading && !user) {
-      toast.info(t("login_required_message"));
-      router.push("/");
+    if (!loading && !user && !hasShownToastRef.current) {
+      hasShownToastRef.current = true; // prevent multiple toasts
+
+      toast.error(t("login_required_message")); //Use error for better visibility
+
+      const timer = setTimeout(() => {
+        router.push("/");
+      }, 1500); // 1.5s to read the message
+
+      return () => clearTimeout(timer);
     }
   }, [user, loading, router, t]);
 
@@ -64,19 +69,21 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
   if (!user) return null; // Prevent flash before redirect
 
   return (
-    <div className={isHotelReception && hotelTheme === "dark" ? "dark" : ""}>
-      <SidebarProvider className="p-6 rounded-2xl bg-gray-50/10 dark:bg-gray-800 min-h-screen">
-        <AppSidebar />
-        <SidebarInset className="w-full">
-          <SiteHeader showThemeToggle={isHotelReception} theme={hotelTheme} onToggleTheme={toggleHotelTheme} />
-          <AddBooking hideTrigger />
-          <div className="flex flex-1 flex-col">
-            <div className="@container/main flex flex-1 flex-col gap-2">
-              <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">{children}</div>
+    isHotelReception && (
+      <div className={hotelTheme === "dark" ? "dark" : ""}>
+        <SidebarProvider className={`min-h-screen ${hotelTheme === "dark" ? "bg-gray-800" : "bg-gray-50/10"}`}>
+          <AppSidebar variant="inset" />
+          <SidebarInset>
+            <SiteHeader showThemeToggle={isHotelReception} theme={hotelTheme} onToggleTheme={toggleHotelTheme} />
+            <AddBooking hideTrigger />
+            <div className="flex flex-1 flex-col">
+              <div className="@container/main flex flex-1 flex-col gap-2">
+                <div className="flex flex-col gap-4 px-3 lg:px-6 py-4 md:gap-6 md:py-6">{children}</div>
+              </div>
             </div>
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </div>
+          </SidebarInset>
+        </SidebarProvider>
+      </div>
+    )
   );
 }
